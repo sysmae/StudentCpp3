@@ -104,7 +104,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
 
     cout << "================================================================================\n";
     cout << "학점을 입력하세요: ";
-    while (!(cin >> credit) || credit == 2 || credit == 3) {
+    while (!(cin >> credit) || (credit != 2 && credit != 3)) {
         cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -232,7 +232,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
 
         cout << "================================================================================\n";
         cout << "새 학점을 입력하세요 (현재: " << it->getCredit() << "): ";
-        while (!(cin >> newCredit) || newCredit == 2 || newCredit == 3) {
+        while (!(cin >> newCredit) || (newCredit != 2 && newCredit != 3)) {
             cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
