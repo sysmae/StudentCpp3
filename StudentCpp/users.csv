@@ -1,0 +1,25 @@
+id,password,name,phoneNumber,email,userType,studentID
+student1,pass123,Kim MinSeo,010-3142-7733,student1@student.com,Student,20240001
+student2,pass246,Lee JiEun,010-3691-8807,student2@student.com,Student,20240002
+student3,pass369,Park SooHyun,010-8448-1459,student3@student.com,Student,20240003
+student4,pass492,Choi JaeHyun,010-4129-5342,student4@student.com,Student,20240004
+student5,pass615,Jung MiYoung,010-9653-1788,student5@student.com,Student,20240005
+student6,pass738,Han YeJin,010-8751-6628,student6@student.com,Student,20240006
+student7,pass861,Oh MinJoon,010-3276-9946,student7@student.com,Student,20240007
+student8,pass984,Yoon HaNa,010-5270-3582,student8@student.com,Student,20240008
+student9,pass1107,Song JiWoo,010-2056-7680,student9@student.com,Student,20240009
+student10,pass1230,Kang DongHyun,010-2369-5061,student10@student.com,Student,20240010
+student11,pass1353,Lim SooJin,010-7534-1647,student11@student.com,Student,20240011
+student12,pass1476,Seo JiHo,010-8196-9568,student12@student.com,Student,20240012
+student13,pass1599,Kwon HyeJin,010-9442-8540,student13@student.com,Student,20240013
+student14,pass1722,Shin YoungJae,010-2938-6052,student14@student.com,Student,20240014
+student15,pass1845,Kim DaBin,010-8390-6172,student15@student.com,Student,20240015
+student16,pass1968,Lee SunMi,010-5226-2161,student16@student.com,Student,20240016
+student17,pass2091,Jang WooJin,010-8910-7903,student17@student.com,Student,20240017
+student18,pass2214,Yoo SeoYeon,010-5801-5919,student18@student.com,Student,20240018
+student19,pass2337,Bae MinWoo,010-2196-4003,student19@student.com,Student,20240019
+student20,pass2460,Ha JiMin,010-4120-5171,student20@student.com,Student,20240020
+prof1,prof123,Dr. Jung,010-7777-8888,jung@prof.com,Professor,
+prof2,prof456,Dr. Choi,010-8888-9999,choi@prof.com,Professor,
+admin1,admin123,Admin Lee,010-9999-0000,lee@admin.com,Administrator,
+admin2,admin456,Admin Kim,010-0000-1111,kim@admin.com,Administrator,
