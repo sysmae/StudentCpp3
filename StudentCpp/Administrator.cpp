@@ -61,7 +61,6 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
     int year;
 
     cout << "== 현재 등록된 과목 목록 ==\n";
-
     for (const auto& subject : subjects) {
         cout << "과목 ID: " << subject.getID()
             << ", 이름: " << subject.getName()
@@ -69,13 +68,22 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
     }
 
     cout << "=== 과목 추가 ===\n";
-    cout << "과목 ID를 입력하세요: ";
-    while (!(cin >> id)) {
-        cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    // 과목 ID 입력
+    while (true) {
+        cout << "과목 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
+        string input;
+        cin >> input;
+        if (input == "back") return;
+        try {
+            id = stoi(input);
+            break;
+        }
+        catch (...) {
+            cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
+        }
     }
-    cin.ignore();  // 버퍼 비우기
+    cin.ignore();
 
     // 중복 ID 확인
     auto it = find_if(subjects.begin(), subjects.end(),
@@ -85,67 +93,74 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
         return;
     }
 
-    cout << "================================================================================\n";
-    cout << "과목 이름을 입력하세요: ";
-    cin.ignore(); // 이전 입력 버퍼 비우기
+    cout << "==========================================================\n";
     while (true) {
+        cout << "과목 이름을 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, name);
+        if (name == "back") return;
         if (!name.empty()) break;
         cout << "과목 이름은 비워둘 수 없습니다. 다시 입력하세요: ";
     }
 
-    cout << "================================================================================\n";
-    cout << "과목 유형을 입력하세요 (Required/Elective): ";
+    cout << "==========================================================\n";
     while (true) {
+        cout << "과목 유형을 입력하세요 (Required/Elective) ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, type);
+        if (type == "back") return;
         if (type == "Required" || type == "Elective") break;
-        cout << "잘못된 유형입니다. 다시 입력하세요 (Required/Elective): ";
+        cout << "잘못된 유형입니다. 다시 입력하세요: ";
     }
 
-    cout << "================================================================================\n";
-    cout << "학점을 입력하세요: ";
-    while (!(cin >> credit) || (credit != 2 && credit != 3)) {
-        cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-    cin.ignore();
-
-    cout << "================================================================================\n";
-    cout << "년도를 입력하세요: ";
-    while (!(cin >> year) || year < 0) {
-        cout << "유효하지 않은 연도입니다. 다시 입력하세요: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-    cin.ignore();
-
-    cout << "================================================================================\n";
-    cout << "학기를 입력하세요 (FIRST_TERM/SECOND_TERM): ";
+    cout << "==========================================================\n";
     while (true) {
+        cout << "학점을 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
+        string input;
+        cin >> input;
+        if (input == "back") return;
+        try {
+            credit = stod(input);
+            if (credit == 2 || credit == 3) break;
+            cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
+        }
+        catch (...) {
+            cout << "유효하지 않은 입력입니다. 숫자를 입력하세요: ";
+        }
+    }
+    cin.ignore();
+
+    cout << "==========================================================\n";
+    while (true) {
+        cout << "년도를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
+        string input;
+        cin >> input;
+        if (input == "back") return;
+        try {
+            year = stoi(input);
+            if (year > 0) break;
+            cout << "유효하지 않은 연도입니다. 양의 정수를 입력하세요: ";
+        }
+        catch (...) {
+            cout << "유효하지 않은 입력입니다. 정수를 입력하세요: ";
+        }
+    }
+    cin.ignore();
+
+    cout << "==========================================================\n";
+    while (true) {
+        cout << "학기를 입력하세요 (FIRST_TERM/SECOND_TERM) ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, termStr);
+        if (termStr == "back") return;
         if (termStr == "FIRST_TERM" || termStr == "SECOND_TERM") break;
-        cout << "다시 입력하세요 (FIRST_TERM, SECOND_TERM 중 하나를 입력하세요): ";
+        cout << "잘못된 학기입니다. 다시 입력하세요: ";
     }
 
-    cout << "================================================================================\n";
-    viewProfessors(users);
-    cout << "담당 교수 ID를 입력하세요 (없으면 공백): ";
+    cout << "==========================================================\n";
+    cout << "담당 교수 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
     getline(cin, professorID);
+    if (professorID == "back") return;
 
-    Term term;
-    if (termStr == "FIRST_TERM") {
-        term = Term::FIRST_TERM;
-    }
-    else if (termStr == "SECOND_TERM") {
-        term = Term::SECOND_TERM;
-    }
-    else {
-        cout << "잘못된 학기 입력입니다.\n";
-        return;
-    }
+    Term term = (termStr == "FIRST_TERM") ? Term::FIRST_TERM : Term::SECOND_TERM;
 
-    cout << "================================================================================\n";
     subjects.emplace_back(Subject(id, name, credit, type, year, term, professorID));
     cout << "\"" << name << "\" 과목이 생성되었습니다.\n";
 }
@@ -159,14 +174,21 @@ void Administrator::deleteSubject(vector<Subject>& subjects) {
             << ", 이름: " << subject.getName() << endl;
     }
 
-    cout << "================================================================================\n";
-    cout << "삭제할 과목 ID를 입력하세요: ";
-    while (!(cin >> id)) {
-        cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "==========================================================\n";
+    while (true) {
+        cout << "삭제할 과목 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
+        string input;
+        cin >> input;
+        if (input == "back") return;
+        try {
+            id = stoi(input);
+            break;
+        }
+        catch (...) {
+            cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
+        }
     }
-    cin.ignore();  // 버퍼 비우기
+    cin.ignore();
 
     auto it = find_if(subjects.begin(), subjects.end(),
         [id](const Subject& s) { return s.getID() == id; });
@@ -188,15 +210,23 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
             << ", 이름: " << subject.getName() << endl;
     }
 
-    cout << "================================================================================\n";
-    cout << "수정할 과목 ID를 입력하세요: ";
-    while (!(cin >> id)) {
-        cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "==========================================================\n";
+    while (true) {
+        cout << "수정할 과목 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
+        string input;
+        cin >> input;
+        if (input == "back") return;
+        try {
+            id = stoi(input);
+            break;
+        }
+        catch (...) {
+            cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
+        }
     }
-    cin.ignore();  // 버퍼 비우기
-    cout << "================================================================================\n";
+    cin.ignore();
+
+    cout << "==========================================================\n";
     auto it = find_if(subjects.begin(), subjects.end(),
         [id](Subject& s) { return s.getID() == id; });
     if (it != subjects.end()) {
@@ -213,56 +243,72 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
         cout << "학기: " << (it->getTerm() == Term::FIRST_TERM ? "FIRST_TERM" : "SECOND_TERM") << "\n";
         cout << "담당 교수 ID: " << it->getProfessorID() << "\n\n";
 
-        cout << "================================================================================\n";
-        cout << "새 과목 이름을 입력하세요 (현재: " << it->getName() << "): ";
-        cin.ignore(); // 이전 입력 버퍼 비우기
+        cout << "==========================================================\n";
         while (true) {
+            cout << "새 과목 이름을 입력하세요 (현재: " << it->getName() << ")('back'을 입력해 이전메뉴 돌아가기): ";
             getline(cin, newName);
+            if (newName == "back") return;
             if (!newName.empty()) break;
             cout << "과목 이름은 비워둘 수 없습니다. 다시 입력하세요: ";
         }
 
-        cout << "================================================================================\n";
-        cout << "새 과목 유형을 입력하세요 (Required/Elective) (현재: " << it->getType() << "): ";
+        cout << "==========================================================\n";
         while (true) {
+            cout << "새 과목 유형을 입력하세요 (Required/Elective)('back'을 입력해 이전메뉴 돌아가기): ";
             getline(cin, newType);
+            if (newType == "back") return;
             if (newType == "Required" || newType == "Elective") break;
             cout << "잘못된 유형입니다. 다시 입력하세요 (Required/Elective): ";
         }
 
-        cout << "================================================================================\n";
-        cout << "새 학점을 입력하세요 (현재: " << it->getCredit() << "): ";
-        while (!(cin >> newCredit) || (newCredit != 2 && newCredit != 3)) {
-            cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-
-        cout << "================================================================================\n";
-        cout << "새 년도를 입력하세요 (현재: " << it->getYear() << "): ";
-        while (!(cin >> newYear) || newYear < 0) {
-            cout << "유효하지 않은 연도입니다. 다시 입력하세요: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-
-        cout << "================================================================================\n";
-        cout << "새 학기를 입력하세요 (FIRST_TERM/SECOND_TERM) (현재: "
-            << (it->getTerm() == Term::FIRST_TERM ? "FIRST_TERM" : "SECOND_TERM") << "): ";
+        cout << "==========================================================\n";
         while (true) {
-            cin >> newTermStr;
+            cout << "새 학점을 입력하세요 (현재: " << it->getCredit() << ")('back'을 입력해 이전메뉴 돌아가기): ";
+            string input;
+            cin >> input;
+            if (input == "back") return;
+            try {
+                newCredit = stod(input);
+                if (newCredit == 2 || newCredit == 3) break;
+                cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
+            }
+            catch (...) {
+                cout << "유효하지 않은 입력입니다. 2학점 혹은 3학점 중 하나를 입력하세요: ";
+            }
+        }
+        cin.ignore();
+
+        cout << "==========================================================\n";
+        while (true) {
+            cout << "새 년도를 입력하세요 (현재: " << it->getYear() << ")('back'을 입력해 이전메뉴 돌아가기): ";
+            string input;
+            cin >> input;
+            if (input == "back") return;
+            try {
+                newYear = stoi(input);
+                if (newYear > 0) break;
+                cout << "유효하지 않은 연도입니다. 양의 정수를 입력하세요: ";
+            }
+            catch (...) {
+                cout << "유효하지 않은 입력입니다. 정수를 입력하세요: ";
+            }
+        }
+        cin.ignore();
+
+        cout << "==========================================================\n";
+        while (true) {
+            cout << "학기를 입력하세요 (FIRST_TERM/SECOND_TERM) ('back'을 입력해 이전메뉴 돌아가기): ";
+            getline(cin, newTermStr);
+            if (newTermStr == "back") return;
             if (newTermStr == "FIRST_TERM" || newTermStr == "SECOND_TERM") break;
-            cout << "다시 입력하세요 (FIRST_TERM, SECOND_TERM 중 하나를 입력하세요): ";
+            cout << "잘못된 학기입니다. 다시 입력하세요 (FIRST_TERM, SECOND_TERM 중 하나를 입력하세요): ";
         }
 
-        cout << "================================================================================\n";
+        cout << "==========================================================\n";
         viewProfessors(users);
-        cout << "새 담당 교수 ID를 입력하세요 (현재: " << it->getProfessorID() << "): ";
-        while (!(cin >> newProfessorID)) {
-            cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
+        cout << "담당 교수 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
+        getline(cin, newProfessorID);
+        if (newProfessorID == "back") return;
 
         Term newTerm;
         if (newTermStr == "FIRST_TERM") {
@@ -289,7 +335,6 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
         cout << "과목을 찾을 수 없습니다.\n";
     }
 }
-
 
 void Administrator::viewSubjects(const vector<Subject>& subjects) const {
     cout << "=== 과목 목록 ===\n";
@@ -346,33 +391,42 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
     viewProfessors(users);
     cout << "=== 교수 추가 ===\n";
     string id, name, phone, email;
-    cout << "ID를 입력하세요: ";
-    while (!(cin >> id)) {
+
+    cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        cin >> id;
+        if (id == "back") return; // 이전 메뉴로 돌아가기
+        if (cin) break;
         cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "================================================================================\n";
-    cout << "이름을 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "이름을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     cin.ignore(); // 이전 입력 버퍼 비우기
     while (true) {
         getline(cin, name);
+        if (name == "back") return; // 이전 메뉴로 돌아가기
         if (!name.empty()) break;
         cout << "이름은 비워둘 수 없습니다. 다시 입력하세요: ";
     }
 
-    cout << "================================================================================\n";
-    cout << "전화번호를 입력하세요: ";
-    while (!(getline(cin, phone))) {
-        cout << "유효하지 않은 입력입니다. 숫자를 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "전화번호를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        getline(cin, phone);
+        if (phone == "back") return; // 이전 메뉴로 돌아가기
+        if (!phone.empty()) break;
+        cout << "유효하지 않은 입력입니다. 전화번호를 다시 입력하세요: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "================================================================================\n";
-    cout << "이메일을 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "이메일을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     getline(cin, email);
+    if (email == "back") return; // 이전 메뉴로 돌아가기
 
     // 최초 비밀번호는 "0000"으로 설정
     string password = "0000";
@@ -384,11 +438,18 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
 }
 
 void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
+    string profID;
     viewProfessors(users);
     cout << "=== 교수 삭제 ===\n";
-    string profID;
-    cout << "삭제할 교수 ID를 입력하세요: ";
-    cin >> profID;
+    cout << "삭제할 교수 ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        cin >> profID;
+        if (profID == "back") return; // 이전 메뉴로 돌아가기
+        if (cin) break;
+        cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 
     // 교수 정보 표시
     bool found = false;
@@ -465,38 +526,49 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
     string name, id, phone, email;
     int studentID;
 
-    cout << "ID를 입력하세요: ";
-    while (!(cin >> id)) {
+    cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        cin >> id;
+        if (id == "back") return; // 이전 메뉴로 돌아가기
+        if (cin) break;
         cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "================================================================================\n";
-    cout << "이름을 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "이름을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     cin.ignore(); // 이전 입력 버퍼 비우기
     while (true) {
         getline(cin, name);
+        if (name == "back") return; // 이전 메뉴로 돌아가기
         if (!name.empty()) break;
         cout << "이름은 비워둘 수 없습니다. 다시 입력하세요: ";
     }
 
-    cout << "================================================================================\n";
-    cout << "전화번호를 입력하세요: ";
-    while (!(getline(cin, phone))) {
-        cout << "유효하지 않은 입력입니다. 숫자를 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "전화번호를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        getline(cin, phone);
+        if (phone == "back") return; // 이전 메뉴로 돌아가기
+        if (!phone.empty()) break;
+        cout << "유효하지 않은 입력입니다. 전화번호를 다시 입력하세요: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "================================================================================\n";
-    cout << "이메일을 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "이메일을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     getline(cin, email);
+    if (email == "back") return; // 이전 메뉴로 돌아가기
 
-    cout << "================================================================================\n";
-    cout << "학번을 입력하세요: ";
-    while (!(cin >> studentID)) {
-        cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
+    cout << "==========================================================\n";
+    cout << "학번을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        cin >> studentID;
+        if (cin) break;
+        if (studentID == 0) return; // 이전 메뉴로 돌아가기
+        cout << "유효하지 않은 입력입니다. 정수 학번을 입력하세요: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
@@ -514,8 +586,15 @@ void Administrator::deleteStudent(vector<unique_ptr<User>>& users) {
     viewStudents(users);
     cout << "=== 학생 삭제 ===\n";
     string studentID;
-    cout << "삭제할 학생 ID를 입력하세요: ";
-    cin >> studentID;
+    cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    while (true) {
+        cin >> studentID;
+        if (studentID == "back") return; // 이전 메뉴로 돌아가기
+        if (cin) break;
+        cout << "유효하지 않은 입력입니다. 정수 ID를 입력하세요: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
 
     // 학생 정보 표시
     bool found = false;

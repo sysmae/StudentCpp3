@@ -1,4 +1,4 @@
-id,password,name,phoneNumber,email,userType,studentID
+ID,Password,Name,PhoneNumber,Email,UserType,StudentID
 student1,pass123,Kim MinSeo,010-3142-7733,student1@student.com,Student,20240001
 student2,pass246,Lee JiEun,010-3691-8807,student2@student.com,Student,20240002
 student3,pass369,Park SooHyun,010-8448-1459,student3@student.com,Student,20240003
