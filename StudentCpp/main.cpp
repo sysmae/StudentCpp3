@@ -175,36 +175,74 @@ int main() {
                 Student* student = dynamic_cast<Student*>(loggedInUser);
                 switch (choice) {
                 case 1:
+                    student-> printSubjectsCount();
+                    student-> someFunction();
                     student->viewSubjects();
                     break;
                 case 2:
-                    student->viewGrades();
+                    student->viewPreviousSubjects(2024, 1);
                     break;
                 case 3:
-                    student->viewLetterGrades();
+                    student->displayGraduationRequirements();
                     break;
-                case 4:
-                    cout << "등록할 과목 ID를 입력하세요: " << endl;
-                    {
-                        int subjectId;
-                        cin >> subjectId;
-                        Subject* subject = findSubject(subjects, subjectId);
-                        if (subject) {
-                            // 이미 등록되어 있는지 확인
-                            const auto& enrolledSubjects = student->getSubjects();
-                            if (find_if(enrolledSubjects.begin(), enrolledSubjects.end(),
-                                [subjectId](const Subject& s) { return s.getID() == subjectId; }) != enrolledSubjects.end()) {
-                                cout << "이미 등록된 과목입니다.\n";
-                            }
-                            else {
-                                student->enrollSubject(*subject);
-                            }
-                        }
-                        else {
-                            cout << "과목을 찾을 수 없습니다.\n";
-                        }
+                case 4: {
+                    cout << "==========================================================\n";
+                    cout << " 내 정보 수정" << endl;
+                    cout << "----------------------------------------------------------\n";
+                    cout << "1. 이름 변경" << endl;
+                    cout << "2. 전화번호 변경" << endl;
+                    cout << "3. 이메일 변경" << endl;
+                    cout << "4. 비밀번호 변경" << endl;
+                    cout << "0. 이전 메뉴로 돌아가기" << endl;
+                    cout << "==========================================================\n";
+                    cout << "선택을 입력하세요: ";
+                    int subChoice;
+                    cin >> subChoice;
+                    cin.ignore();  // Clear the input buffer after subChoice
+                    cout << endl;
+
+                    switch (subChoice) {
+                    case 1: {
+                        cout << "새 이름을 입력하세요: ";
+                        string newName;
+                        cin >> newName;
+                        student->setName(newName);
+                        cout << "성공적으로 이름이 변경되었습니다.\n";
+                        break;
+                    }
+                    case 2: {
+                        cout << "새 전화번호를 입력하세요: ";
+                        string newPhone;
+                        cin >> newPhone;
+                        student->setPhoneNumber(newPhone);
+                        cout << "성공적으로 전화번호가 변경되었습니다.\n";
+                        break;
+                    }
+                    case 3: {
+                        cout << "새 이메일을 입력하세요: ";
+                        string newEmail;
+                        cin >> newEmail;
+                        student->setEmail(newEmail);
+                        cout << "성공적으로 이메일이 변경되었습니다.\n";
+                        break;
+                    }
+                    case 4: {
+                        cout << "새 비밀번호를 입력하세요: ";
+                        string newPassword;
+                        cin >> newPassword;
+                        student->setPassword(newPassword);
+                        cout << "성공적으로 비밀번호가 변경되었습니다.\n";
+                        break;
+                    }
+                    case 0:
+                        break;
+                    default:
+                        cout << "잘못된 선택입니다.\n";
+                        break;
                     }
                     break;
+                }
+                    
                 default:
                     cout << "잘못된 선택입니다.\n";
                 }

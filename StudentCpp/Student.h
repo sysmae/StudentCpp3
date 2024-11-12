@@ -45,6 +45,8 @@ public:
 
     void viewSubjects() const;
 
+    void viewPreviousSubjects(int year, int term) const;
+
     void viewGrades() const;
 
     void viewLetterGrades() const;
@@ -52,8 +54,18 @@ public:
     // 특정 과목의 문자 성적 조회
     string getLetterGrade(int subjectID) const;
 
+    //졸업요건 조회
+    void displayGraduationRequirements();
+
     // 전체 성적 평균 계산
     double calculateAverageScore() const;
+
+    //test
+    void printSubjectsCount() const;
+
+    void someFunction();
+
+    
 };
 
 #endif // STUDENT_H

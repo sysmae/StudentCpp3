@@ -331,10 +331,10 @@ User* login(vector<unique_ptr<User>>& users) {
 void displayMenu(const string& userType) {
     cout << "\n=== 메뉴 ===\n";
     if (userType == "Student") {
-        cout << "1. 등록된 과목 보기\n";
-        cout << "2. 수치 성적 보기\n";
-        cout << "3. 문자 성적 보기\n";
-        cout << "4. 과목 등록하기\n";
+        cout << "1. 금학기 수강목록 조회\n";
+        cout << "2. 지난학기 수강목록 조회\n";
+        cout << "3. 졸업요건 조회\n";
+        cout << "4. 내 정보 수정\n";
     }
     else if (userType == "Professor") {
         cout << "1. 금학기 담당 과목 조회 \n";
