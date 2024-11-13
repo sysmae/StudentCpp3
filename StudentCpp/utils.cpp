@@ -349,28 +349,41 @@ void displayMenu(const string& userType) {
     cout << "0. 로그아웃\n";
 }
 
-// 히스토그램을 표시하는 함수
-void displayHistogram(const vector<StudentRecord>& records) {
+vector<StudentRecord> filterRecordsBySubject(const vector<StudentRecord>& records, int subjectID) {
+    vector<StudentRecord> filteredRecords;
+    for (const auto& record : records) {
+        if (record.getSubjectID() == subjectID) {
+            filteredRecords.push_back(record);
+        }
+    }
+    return filteredRecords;
+}
+
+
+void displayHistogramForSubject(const vector<StudentRecord>& records, int subjectID) {
+    vector<StudentRecord> filteredRecords = filterRecordsBySubject(records, subjectID);
+
+    if (filteredRecords.empty()) {
+        cout << "선택한 과목에 대한 학생 기록이 없습니다.\n";
+        return;
+    }
+
     const int maxScore = 100; // 점수 범위 0-100 가정
-    const int numBins = 11; // 0-9, 10-19, ..., 100
+    const int numBins = 11;   // 0-9, 10-19, ..., 100
     vector<int> scoreBins(numBins, 0); // 각 점수 구간별 학생 수 저장
 
     // 점수를 각 구간에 분류
-    for (const auto& record : records) {
-        int score = record.getScore();
+    for (const auto& record : filteredRecords) {
+        int score = static_cast<int>(record.getScore());
         int index = score / 10;
         if (index >= numBins) index = numBins - 1; // 100점 처리
         scoreBins[index]++;
     }
 
-
-    // 1. 총 학생 수 출력
+    // 히스토그램 출력
     cout << "\n================= 히스토그램 =================\n";
-    cout << "총 학생 수: " << records.size() << "명\n";
-
-
-
-    // 2. 히스토그램 출력 (학생 수 먼저, 그 다음에 +)
+    cout << "과목 ID: " << subjectID << "\n";
+    cout << "총 학생 수: " << filteredRecords.size() << "명\n";
     cout << "\n성적 분포 히스토그램\n";
     for (int i = 0; i < numBins; ++i) {
         int lowerBound = i * 10;
@@ -385,6 +398,7 @@ void displayHistogram(const vector<StudentRecord>& records) {
     }
     cout << "=============================================\n";
 }
+
 
 // Function to save users to CSV
 void saveUsers(const std::string& filename, const std::vector<std::unique_ptr<User>>& users) {

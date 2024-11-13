@@ -20,6 +20,7 @@ void updateStudentRecordsCSV(const std::vector<Student*>& students);
 void saveUsers(const std::string& filename, const std::vector<std::unique_ptr<User>>& users);
 void saveSubjects(const std::string& filename, const std::vector<Subject>& subjects);
 
+
 // Helper function
 Subject* findSubject(std::vector<Subject>& subjects, int subjectId);
 
@@ -30,12 +31,12 @@ User* login(std::vector<std::unique_ptr<User>>& users);
 void displayMenu(const std::string& userType);
 
 // Declaration of displayHistogram
-void displayHistogram(const std::vector<StudentRecord>& records);
-
+void displayHistogramForSubject(const vector<StudentRecord>& records, int subjectID);
 // Function to mask password input
 std::string getMaskedInput();
 
 // Function to update Users.csv file
 void updateUsersCSV(const vector<User*>& users);
 
+vector<StudentRecord> filterRecordsBySubject(const vector<StudentRecord>& records, int subjectID);
 #endif // UTILS_H

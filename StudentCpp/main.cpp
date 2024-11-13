@@ -384,7 +384,7 @@ int main() {
                             cout << "==========================================================\n";
                             cout << "성적(분포) 확인하기" << endl;
                             cout << "----------------------------------------------------------\n";
-                            displayHistogram(studentRecords);
+                            displayHistogramForSubject(studentRecords, subjectId);
                             break;
 
                         case 0:
@@ -440,7 +440,7 @@ int main() {
                             cout << "==========================================================\n";
                             cout << "성적(분포) 확인하기" << endl;
                             cout << "----------------------------------------------------------\n";
-                            displayHistogram(studentRecords);
+                            displayHistogramForSubject(studentRecords, subjectId);
                             break;
 
                         case 0:
