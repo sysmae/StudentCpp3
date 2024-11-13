@@ -104,10 +104,10 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
 
     cout << "==========================================================\n";
     while (true) {
-        cout << "과목 유형을 입력하세요 (Required/Elective) ('back'을 입력해 이전메뉴 돌아가기): ";
+        cout << "과목 유형을 입력하세요 (Required/Elective/Basic) ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, type);
         if (type == "back") return;
-        if (type == "Required" || type == "Elective") break;
+        if (type == "Required" || type == "Elective" || type=="Basic") break;
         cout << "잘못된 유형입니다. 다시 입력하세요: ";
     }
 
@@ -254,10 +254,10 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
 
         cout << "==========================================================\n";
         while (true) {
-            cout << "새 과목 유형을 입력하세요 (Required/Elective)('back'을 입력해 이전메뉴 돌아가기): ";
+            cout << "새 과목 유형을 입력하세요 (Required/Elective/Basic)('back'을 입력해 이전메뉴 돌아가기): ";
             getline(cin, newType);
             if (newType == "back") return;
-            if (newType == "Required" || newType == "Elective") break;
+            if (newType == "Required" || newType == "Elective" || newType == "Basic") break;
             cout << "잘못된 유형입니다. 다시 입력하세요 (Required/Elective): ";
         }
 

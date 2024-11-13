@@ -282,7 +282,7 @@ int main() {
                     }
                 break;
                 case 3:
-                    student->displayGraduationRequirements();
+                    student->checkGraduationRequirements(subjects, studentRecords,CUR_YEAR,CUR_TERM);
                     break;
                 case 4: {
                     string enteredPassword;

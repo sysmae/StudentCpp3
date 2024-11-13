@@ -1,15 +1,17 @@
 ID,Name,Credit,Type,Year,Term,ProfessorID
 1001,Introduction to Programming,3,Required,2024,FIRST_TERM,prof1
-1002,Data Structures,3,Required,2024,FIRST_TERM,prof1
-1003,Database Systems,3,Required,2024,FIRST_TERM,prof1
+1002,Data Structures,3,Basic,2024,FIRST_TERM,prof1
+1003,Database Systems,3,Basic,2024,FIRST_TERM,prof1
 1004,Computer Networks,3,Elective,2024,SECOND_TERM,prof1
 1005,Operating Systems,3,Required,2024,SECOND_TERM,prof2
 1006,Software Engineering,3,Required,2024,SECOND_TERM,prof2
 1007,Artificial Intelligence,3,Elective,2024,SECOND_TERM,prof2
 1008,Web Programming,3,Elective,2024,SECOND_TERM,prof2
-1009,hysics experiment,3,Required,2024,FIRST_TERM,prof2
-1010,Principles of Physics,2,Required,2024,FIRST_TERM,prof1
+1009,hysics experiment,3,Basic,2024,FIRST_TERM,prof2
+1010,Principles of Physics,2,Basic,2024,FIRST_TERM,prof1
 1011,test1,3,Required,2023,FIRST_TERM,prof1
 1012,test2,2,Required,2023,SECOND_TERM,prof1
 1013,test3,3,Required,2023,SECOND_TERM,prof1
 1014,test4,2,Required,2022,FIRST_TERM,prof1
+1015,test5,3,Basic,2024,SECOND_TERM,prof1
+1016,test6,2,Basic,2023,FIRST_TERM,prof1

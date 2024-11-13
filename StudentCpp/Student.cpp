@@ -281,52 +281,81 @@ double Student::calculateAverageScore() const {
     return totalScore / count; // 평균 반환
 }
 
-//졸업요건 조회
-void Student::displayGraduationRequirements() {
-    int earnedRequiredMajorCredits = 0;
-    int earnedSelectionMajorCredits = 0;
-    int earnedMajorBasicsCredits = 0;
-    int earnedTotalCredits = 0;
 
-    // Loop through each course the student has taken
-    // Assuming the findSubject function is declared and defined properly elsewhere (in utils.cpp)
 
-    //for (const auto& record : STUDENTRECORD_H) {
-        // Find the subject using the subject ID in the student record
-       /* Subject* subject = findSubject(subjects, record.getSubjectID());  // Correct way to call findSubject
+// 졸업요건 조회
+void Student::checkGraduationRequirements(const std::vector<Subject>& allSubjects, const std::vector<StudentRecord>& allStudentRecords, int currentYear, int currentTerm) {
+    double earnedRequiredMajorCredits = 0.0;
+    double earnedSelectionMajorCredits = 0.0;
+    double earnedMajorBasicsCredits = 0.0;
+    double earnedTotalCredits = 0.0;
 
-        if (!subject) continue; //과목이 찾아지지 않으면 넘어가기
+    // Loop through each course the student has taken in all previous terms
+    for (const auto& record : allStudentRecords) {
+        if (record.getStudentID() == this->getStudentID()) {
+            // Find the subject using the subject ID in the student record
+            const Subject* subject = nullptr;
+            for (const auto& sub : allSubjects) {
+                if (sub.getID() == record.getSubjectID()) {
+                    subject = &sub;
+                    break;
+                }
+            }
 
-        // F를 받은 학점은 더하지 않는다
-        if (record.getLetterGrade() == "F") {
-            continue;
-        } 
+            if (!subject) continue; // 과목이 찾아지지 않으면 넘어가기
 
-        // 수강과목의 타입에 따라
-        if (subject->getType() == "Required") {
-            earnedRequiredMajorCredits += subject->getCredit();
-        }
-        else if (subject->getType() == "Elective") {
-            earnedSelectionMajorCredits += subject->getCredit();
-        }
-        else if (subject->getType() == "Major Basics") {
-            earnedMajorBasicsCredits += subject->getCredit();
+            // Check if the subject is from the current semester, skip those subjects
+            if (subject->getYear() == currentYear && subject->getTerm() == currentTerm) {
+                continue;
+            }
+
+            // If the student has already earned enough credits, skip adding further credits for graduation
+            if (earnedTotalCredits >= 66) {
+                break;
+            }
+
+            // F를 받은 학점은 더하지 않는다
+            if (record.getLetterGrade() == "F") {
+                continue;
+            }
+
+            // 수강과목의 타입에 따라
+            if (subject->getType() == "Required") {
+                earnedRequiredMajorCredits += subject->getCredit();
+            }
+            else if (subject->getType() == "Elective") {
+                earnedSelectionMajorCredits += subject->getCredit();
+            }
+            else if (subject->getType() == "Basic") {
+                earnedMajorBasicsCredits += subject->getCredit();
+            }
         }
     }
-     */
+
+    // 각 항목별 최대 학점을 넘지 않도록 조정
+    earnedRequiredMajorCredits = std::min(earnedRequiredMajorCredits, 45.0);
+    earnedSelectionMajorCredits = std::min(earnedSelectionMajorCredits, 9.0);
+    earnedMajorBasicsCredits = std::min(earnedMajorBasicsCredits, 12.0);
 
     // Calculate total earned credits
     earnedTotalCredits = earnedRequiredMajorCredits + earnedSelectionMajorCredits + earnedMajorBasicsCredits;
 
     // Display the graduation requirement summary
-    cout << "================================\n";
-    cout << "       졸업관련정보 조회하기:\n";
-    cout << "================================\n";
+    std::cout << "================================\n";
+    std::cout << "       졸업관련정보 조회하기:\n";
+    std::cout << "================================\n";
 
-    cout << left << setw(25) << "전공필수 (45): " << earnedRequiredMajorCredits << "\n";
-    cout << left << setw(25) << "전공선택 (9): " << earnedSelectionMajorCredits << "\n";
-    cout << left << setw(25) << "전공기초 (12): " << earnedMajorBasicsCredits << "\n";
-    cout << left << setw(25) << "전공최소이수학점 (66): " << earnedTotalCredits << "\n";
+    // Display the summary of the graduation requirements
+    std::cout << std::left << std::setw(25) << "전공필수 (45): " << earnedRequiredMajorCredits << "\n";
+    std::cout << std::left << std::setw(25) << "전공선택 (9): " << earnedSelectionMajorCredits << "\n";
+    std::cout << std::left << std::setw(25) << "전공기초 (12): " << earnedMajorBasicsCredits << "\n";
+    std::cout << std::left << std::setw(25) << "전공최소이수학점 (66): " << earnedTotalCredits << "\n";
+
+    if (earnedTotalCredits >= 66) {
+        std::cout << "졸업 요건을 충족했습니다.\n";
+    }
+    else {
+        std::cout << "졸업 요건을 충족하지 않았습니다.\n";
+    }
 }
-
 
