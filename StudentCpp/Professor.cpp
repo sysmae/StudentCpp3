@@ -32,7 +32,7 @@ void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, co
     // 출력할 표 헤더 설정
     cout << left;
     cout << setw(10) << "ID"
-        << setw(20) << "과목이름"  // 과목 이름의 최대 길이에 맞춤
+        << setw(30) << "과목이름"  // 과목 이름의 최대 길이에 맞춤
         << setw(10) << "학번"
         << setw(15) << "학생이름"
         << setw(12) << "점수"
@@ -44,7 +44,7 @@ void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, co
     // 각 학생의 성적 출력
     for (const auto& student : enrolledStudents) {
         cout << setw(10) << student->getStudentID()
-            << setw(20) << subject->getName()
+            << setw(30) << subject->getName()
             << setw(10) << student->getStudentID()
             << setw(15) << student->getName()
             << setw(12) << student->getScores().at(subjectId)
@@ -55,116 +55,90 @@ void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, co
 }
 
 
+// 표 헤더 출력 함수
+void printSubjectHeader(size_t nameWidth) {
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(nameWidth) << "이름"
+        << setw(10) << "구분"
+        << setw(8) << "학점"
+        << setw(10) << "연도"
+        << setw(8) << "학기"
+        << '\n';
+    cout << string(10 + nameWidth + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
+}
+
+// 특정 연도와 학기에 해당하는 과목 출력 함수
+bool Professor::printSubjectsByTerm(int year, int term, bool showHeader = true) const {
+    // 과목 이름의 최대 길이를 계산하여 열 너비 결정
+    size_t maxNameLength = 30; // 기본 이름 열 너비를 20으로 설정
+    for (const auto& subject : subjects) {
+        maxNameLength = max(maxNameLength, subject.getName().length() + 2);
+    }
+
+    // 헤더 출력
+    if (showHeader) {
+        printSubjectHeader(maxNameLength);
+    }
+
+    // 입력한 연도와 학기에 해당하는 과목들만 출력
+    bool hasSubjects = false;
+    for (const auto& subject : subjects) {
+        if (subject.getYear() == year && subject.getTerm() == term) {
+            cout << setw(10) << subject.getID()
+                << setw(maxNameLength) << subject.getName()
+                << setw(10) << subject.getType()
+                << setw(8) << subject.getCredit()
+                << setw(10) << subject.getYear()
+                << setw(8) << subject.getTerm()
+                << '\n';
+            hasSubjects = true;
+        }
+    }
+
+    // 출력할 과목이 없는 경우 메시지 출력
+    if (!hasSubjects && showHeader) {
+        cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
+    }
+
+    return hasSubjects;
+}
+
 // Professor 클래스의 개선된 viewSubjects 함수
 void Professor::viewSubjects(int year, int term) const {
     cout << "수업 중인 과목들 (" << year << "년 " << term << "학기):\n";
-
-    // 표 헤더 출력 (열 너비 설정)
-    cout << left;
-    cout << setw(10) << "ID"
-        << setw(20) << "이름"
-        << setw(10) << "구분"
-        << setw(8) << "학점"
-        << setw(10) << "연도"
-        << setw(8) << "학기"
-        << '\n';
-    cout << "---------------------------------------------------------------\n";
-
-    // 입력한 연도와 학기에 해당하는 과목들만 출력
-    bool hasSubjects = false;
-    for (const auto& subject : subjects) {
-        if (subject.getYear() == year && subject.getTerm() == term) {
-            cout << setw(10) << subject.getID()
-                << setw(20) << subject.getName()
-                << setw(10) << subject.getType()
-                << setw(8) << subject.getCredit()
-                << setw(10) << subject.getYear()
-                << setw(8) << subject.getTerm()
-                << '\n';
-            hasSubjects = true;
-        }
-    }
-
-    // 출력할 과목이 없는 경우 메시지 출력
-    if (!hasSubjects) {
-        cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
-    }
+    printSubjectsByTerm(year, term);
 }
 
-
-
-// Professor 클래스의 과목 조회 함수
-void Professor::viewPreviousSubjects(int year, int term) const {
-    // 현재 학기 기준으로 이전 학기를 계산
-    int previousYear = year;
-    int previousTerm = term - 1;
-
-    if (previousTerm == 0) {  // 1학기에서 이전 학기는 2학기이므로
-        previousTerm = 2;
-        previousYear--;
-    }
+// 모든 이전 학기 과목 출력 함수
+void Professor::viewAllPreviousSubjects(int year, int term) const {
+    cout << "\n이전 학기 수업했던 모든 과목들:\n";
 
     // 과목 이름의 최대 길이를 계산하여 열 너비 결정
-    size_t maxNameLength = 0;
+    size_t maxNameLength = 30; // 기본 이름 열 너비를 20으로 설정
     for (const auto& subject : subjects) {
-        maxNameLength = max(maxNameLength, subject.getName().length());
+        maxNameLength = max(maxNameLength, subject.getName().length() + 2);
     }
 
+    // 표 헤더 출력
+    printSubjectHeader(maxNameLength);
 
-    // 입력한 연도와 학기에 해당하는 과목들만 출력
+    // 모든 이전 학기 과목 출력 (연도 및 학기 역순으로 반복)
     bool hasSubjects = false;
-    for (const auto& subject : subjects) {
-        if (subject.getYear() == year && subject.getTerm() == term) {
-            cout << setw(10) << subject.getID()
-                << setw(maxNameLength + 2) << subject.getName()
-                << setw(10) << subject.getType()
-                << setw(8) << subject.getCredit()
-                << setw(10) << subject.getYear()
-                << setw(8) << subject.getTerm()
-                << '\n';
-            hasSubjects = true;
+    for (int y = year; y >= 0; --y) {
+        for (int t = (y == year ? term - 1 : 2); t > 0; --t) {
+            if (printSubjectsByTerm(y, t, false)) {
+                hasSubjects = true;
+            }
         }
     }
 
     // 출력할 과목이 없는 경우 메시지 출력
     if (!hasSubjects) {
-        cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
-    }
-
-    // 이전 학기 과목 출력
-    cout << "\n수업했던 과목들 (" << previousYear << "년 " << previousTerm << "학기):\n";
-
-    // 표 헤더 출력 (열 너비 설정)
-    cout << left;
-    cout << setw(10) << "ID"
-        << setw(maxNameLength + 2) << "이름"  // 과목 이름의 최대 길이에 맞춤
-        << setw(10) << "구분"
-        << setw(8) << "학점"
-        << setw(10) << "연도"
-        << setw(8) << "학기"
-        << '\n';
-    cout << string(10 + maxNameLength + 2 + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
-
-    // 이전 학기에 해당하는 과목들만 출력
-    hasSubjects = false;
-    for (const auto& subject : subjects) {
-        if (subject.getYear() == previousYear && subject.getTerm() == previousTerm) {
-            cout << setw(10) << subject.getID()
-                << setw(maxNameLength + 2) << subject.getName()
-                << setw(10) << subject.getType()
-                << setw(8) << subject.getCredit()
-                << setw(10) << subject.getYear()
-                << setw(8) << subject.getTerm()
-                << '\n';
-            hasSubjects = true;
-        }
-    }
-
-    // 출력할 과목이 없는 경우 메시지 출력
-    if (!hasSubjects) {
-        cout << previousYear << "년 " << previousTerm << "학기에 해당하는 과목이 없습니다.\n";
+        cout << "이전 학기에 해당하는 과목이 없습니다.\n";
     }
 }
+
 
 void Professor::loadTeachingSubjects(const vector<Subject>& allSubjects) {
     for (const auto& subject : allSubjects) {

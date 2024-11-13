@@ -181,11 +181,106 @@ int main() {
                 switch (choice) {
                 case 1:
                     //studen<t->printSubjectsCount();
-					student->viewSubjectsByTerm(CUR_YEAR, CUR_TERM, true);
-                    break;
+					student->viewCurSubjects(CUR_YEAR, CUR_TERM);
+
+                    int subjectId;
+                    cout << "과목 ID를 입력하세요:";
+					cin >> subjectId;
+
+					if (subjectId == 0) {
+						break;
+					}
+
+					subject = findSubject(subjects, subjectId);
+					if (subject && subject->getYear() == CUR_YEAR && subject->getTerm() == CUR_TERM) {
+
+
+						int subChoice;
+						cout << "==========================================================\n";
+						cout << "1. 성적 확인하기\n";
+						cout << "2. 성적 분포 확인하기\n";
+						cout << "0. 이전 메뉴로 돌아가기\n";
+						cout << "==========================================================\n";
+						cout << "선택을 입력하세요: ";
+						cin >> subChoice;
+						cout << endl;
+
+						switch (subChoice) {
+						case 1:
+							cout << "==========================================================\n";
+							cout << "성적 확인하기" << endl;
+							cout << "----------------------------------------------------------\n";
+							student->viewGradeBySubjectID(subjectId);
+							break;
+                        
+						case 2:
+							cout << "==========================================================\n";
+							cout << "성적 분포 확인하기" << endl;
+							cout << "----------------------------------------------------------\n";
+							displayHistogramForSubject(studentRecords, subjectId);
+							break;
+						case 0:
+							break;
+
+						default:
+							cout << "잘못된 선택입니다.\n";
+							break;
+						}
+					}
+					else {
+						cout << "해당 ID의 과목을 찾을 수 없습니다.\n";
+					}
+					break;
+
                 case 2:
-                    student->viewPreviousSubjects(CUR_YEAR, CUR_TERM);
-                    break;
+                    student->viewAllPreviousSubjects(CUR_YEAR, CUR_TERM);
+                    cout << "과목 ID를 입력하세요:";
+                    cin >> subjectId;
+
+                    if (subjectId == 0) {
+                        break;
+                    }
+
+                    subject = findSubject(subjects, subjectId);
+                    if (subject && subject->getYear() < CUR_YEAR || (subject->getYear() == CUR_YEAR && subject->getTerm() < CUR_TERM)) {
+
+
+                        int subChoice;
+                        cout << "==========================================================\n";
+                        cout << "1. 성적 확인하기\n";
+                        cout << "2. 성적 분포 확인하기\n";
+                        cout << "0. 이전 메뉴로 돌아가기\n";
+                        cout << "==========================================================\n";
+                        cout << "선택을 입력하세요: ";
+                        cin >> subChoice;
+                        cout << endl;
+
+                        switch (subChoice) {
+                        case 1:
+                            cout << "==========================================================\n";
+                            cout << "성적 확인하기" << endl;
+                            cout << "----------------------------------------------------------\n";
+                            student->viewGradeBySubjectID(subjectId);
+                            break;
+
+                        case 2:
+                            cout << "==========================================================\n";
+                            cout << "성적 분포 확인하기" << endl;
+                            cout << "----------------------------------------------------------\n";
+                            displayHistogramForSubject(studentRecords, subjectId);
+                            break;
+                        case 0:
+                            break;
+
+                        default:
+                            cout << "잘못된 선택입니다.\n";
+                            break;
+                        }
+                    }
+                    else {
+                        cout << "해당 ID의 과목을 찾을 수 없습니다.\n";
+                    }
+                break;
                 case 3:
                     student->displayGraduationRequirements();
                     break;
@@ -406,7 +501,7 @@ int main() {
                 }
 
                 case 2: {
-                    professor->viewPreviousSubjects(CUR_YEAR, CUR_TERM);
+                    professor->viewAllPreviousSubjects(CUR_YEAR, CUR_TERM);
 
                     int subjectId;
                     cout << "과목 ID를 입력하세요:";

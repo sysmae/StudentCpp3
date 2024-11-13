@@ -8,4 +8,8 @@ ID,Name,Credit,Type,Year,Term,ProfessorID
 1007,Artificial Intelligence,3,Elective,2024,SECOND_TERM,prof2
 1008,Web Programming,3,Elective,2024,SECOND_TERM,prof2
 1009,hysics experiment,3,Required,2024,FIRST_TERM,prof2
-1010,Principles of Physics,0,Required,2024,FIRST_TERM,prof1
+1010,Principles of Physics,2,Required,2024,FIRST_TERM,prof1
+1011,test1,3,Required,2023,FIRST_TERM,prof1
+1012,test2,2,Required,2023,SECOND_TERM,prof1
+1013,test3,3,Required,2023,SECOND_TERM,prof1
+1014,test4,2,Required,2022,FIRST_TERM,prof1

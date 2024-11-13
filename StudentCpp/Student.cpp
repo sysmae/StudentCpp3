@@ -1,10 +1,15 @@
 // Student.cpp
-#include "Student.h"
 #include <iostream>
 #include <algorithm>
 #include <limits>
 #include <iomanip>
 #include <stdexcept>
+#include <map>
+#include <vector>
+#include <string>
+
+#include "User.h"
+#include "Student.h"
 #include "StudentRecord.h"
 #include "Subject.h"
 #include "utils.h"
@@ -101,7 +106,6 @@ void Student::loadTaughtSubjects(const vector<StudentRecord>& studentRecords, co
 }
 
 
-//professor.cpp 참고한 viewSubject
 // 공통 표 헤더 출력 함수
 void printTableHeader(size_t nameWidth) {
     cout << left;
@@ -116,7 +120,7 @@ void printTableHeader(size_t nameWidth) {
 }
 
 // 특정 연도와 학기에 해당하는 과목 출력 함수
-void Student::viewSubjectsByTerm(int year, int term, bool showHeader = true) const {
+bool Student::viewSubjectsByTerm(int year, int term, bool showHeader = true) const {
     // 과목 이름의 최대 길이를 계산하여 열 너비 결정
     size_t maxNameLength = 30; // 기본 이름 열 너비를 30으로 설정
     for (const auto& subject : subjects) {
@@ -144,9 +148,11 @@ void Student::viewSubjectsByTerm(int year, int term, bool showHeader = true) con
     }
 
     // 출력할 과목이 없는 경우 메시지 출력
-    if (!hasSubjects) {
+    if (!hasSubjects && showHeader) {
         cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
     }
+
+    return hasSubjects;
 }
 
 // 현재 학기 과목 출력 함수
@@ -156,32 +162,34 @@ void Student::viewCurSubjects(int year, int term) const {
     viewSubjectsByTerm(year, term, false);
 }
 
-// 이전 학기 과목 출력 함수
-void Student::viewPreviousSubjects(int year, int term) const {
-    // 현재 학기 기준으로 이전 학기를 계산
-    int previousYear = year;
-    int previousTerm = term - 1;
+// 모든 이전 학기 과목 출력 함수
+void Student::viewAllPreviousSubjects(int year, int term) const {
+    cout << "\n이전 학기 수강한 모든 과목들:\n";
 
-    if (previousTerm == 0) {  // 1학기에서 이전 학기는 2학기이므로
-        previousTerm = 2;
-        previousYear--;
-    }
-
-    cout << "\n이전 학기 수강한 과목들 (" << previousYear << "년 " << previousTerm << "학기):\n";
-    printTableHeader(30);  // 기본 이름 열 너비를 30으로 설정
-    viewSubjectsByTerm(previousYear, previousTerm, false);
-}
-
-//아래는 원래 있던 코드
-/*void Student::viewSubjects() const {
-    cout << "\n등록된 과목들:\n";
-
+    // 과목 이름의 최대 길이를 계산하여 열 너비 결정
+    size_t maxNameLength = 30; // 기본 이름 열 너비를 30으로 설정
     for (const auto& subject : subjects) {
-        cout << "- " << subject.getName() << " (" << subject.getCredit()
-            << " 학점, 학기: " << subject.getTerm() << " " << subject.getYear() << ")\n";
+        maxNameLength = max(maxNameLength, subject.getName().length() + 2);
+    }
+
+    // 표 헤더 출력
+    printTableHeader(maxNameLength);
+
+    // 모든 이전 학기 과목 출력 (연도 및 학기 역순으로 반복)
+    bool hasSubjects = false;
+    for (int y = year; y >= 0; --y) {
+        for (int t = (y == year ? term - 1 : 2); t > 0; --t) {
+            if (viewSubjectsByTerm(y, t, false)) {
+                hasSubjects = true;
+            }
+        }
+    }
+
+    // 출력할 과목이 없는 경우 메시지 출력
+    if (!hasSubjects) {
+        cout << "이전 학기에 해당하는 과목이 없습니다.\n";
     }
 }
-*/
 
 
 void Student::viewGrades() const {
@@ -210,6 +218,56 @@ string Student::getLetterGrade(int subjectID) const {
         return "N/A"; // 기본 값 반환
     }
 }
+
+void Student::viewGradeBySubjectID(int subjectID) const {
+    // 과목 ID가 존재하는지 확인
+    bool subjectFound = false;
+    bool studentHasScore = false;
+
+    for (const auto& subject : subjects) {
+        if (subject.getID() == subjectID) {
+            subjectFound = true;
+
+            // 과목 정보 출력
+            string subjectName = subject.getName();
+            double score = 0.0;
+            string letterGrade = "N/A";
+            double grade = 0.0;
+
+            // 학생의 점수와 성적을 확인
+            if (scores.find(subjectID) != scores.end()) {
+                score = scores.at(subjectID);
+                studentHasScore = true;
+            }
+            if (letterGrades.find(subjectID) != letterGrades.end()) {
+                letterGrade = letterGrades.at(subjectID);
+            }
+            if (grades.find(subjectID) != grades.end()) {
+                grade = grades.at(subjectID);
+            }
+
+            // 학생의 점수가 존재하는 경우만 출력
+            if (studentHasScore) {
+                cout << "\n" << subjectName << " (과목 ID: " << subjectID << ")의 성적:\n";
+                cout << left
+                    << setw(12) << "점수: " << score << "\n"
+                    << setw(12) << "문자 성적: " << letterGrade << "\n"
+                    << setw(12) << "평점: " << grade << "\n";
+            }
+            else {
+                cout << "오류: 해당 학생의 성적 정보가 존재하지 않습니다.\n";
+            }
+
+            break;
+        }
+    }
+
+    // 과목이 존재하지 않으면 메시지 출력
+    if (!subjectFound) {
+        cout << "오류: 과목 ID " << subjectID << "에 해당하는 과목을 찾을 수 없습니다.\n";
+    }
+}
+
 
 // 전체 성적 평균 계산
 double Student::calculateAverageScore() const {

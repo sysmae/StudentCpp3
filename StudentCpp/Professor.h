@@ -27,13 +27,15 @@ public:
     void setGradingMethod(GradingMethod method);
     GradingMethod getGradingMethod() const;
 
+    bool printSubjectsByTerm(int year, int term, bool showHeader) const;
+
     void viewSubjects(int year, int term) const;
+
+    void viewAllPreviousSubjects(int year, int term) const;
 
     void printStudentGrades(const vector<Student*>& enrolledStudents, const Subject* subject, int subjectId);
 
-    //void viewSubjects() const;
 
-    void viewPreviousSubjects(int year, int term) const;
 
     // 교수의 수업 과목을 로드하는 함수
     void loadTeachingSubjects(const vector<Subject>& allSubjects);
