@@ -43,7 +43,7 @@ public:
 
     void enrollSubject(const Subject& subject);
 
-    void viewSubjects() const;
+    void viewSubjects(int year, int term) const;
 
     void viewPreviousSubjects(int year, int term) const;
 
@@ -63,7 +63,9 @@ public:
     //test
     void printSubjectsCount() const;
 
-    void someFunction();
+    void loadTaughtSubjects(const vector<Subject>& allSubjects);
+
+    
 
     
 };

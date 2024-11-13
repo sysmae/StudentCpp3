@@ -56,6 +56,7 @@ int main() {
             Student* studentPtr = dynamic_cast<Student*>(user.get());
             if (studentPtr) {
                 studentMap[studentPtr->getStudentID()] = studentPtr;
+                //studentPtr->loadTaughtSubjects(studentRecords, subjects);
             }
         }
     }
@@ -173,11 +174,12 @@ int main() {
             // 사용자 유형과 선택에 따른 메뉴 동작 구현
             if (userType == "Student") {
                 Student* student = dynamic_cast<Student*>(loggedInUser);
+                Subject* subject = nullptr;
+
                 switch (choice) {
                 case 1:
-                    student-> printSubjectsCount();
-                    student-> someFunction();
-                    student->viewSubjects();
+                    //student->printSubjectsCount();
+                    student->viewSubjects(CUR_YEAR, CUR_TERM);
                     break;
                 case 2:
                     student->viewPreviousSubjects(2024, 1);

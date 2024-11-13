@@ -89,14 +89,20 @@ void Student::enrollSubject(const Subject& subject) {
 void Student::printSubjectsCount() const {
     cout << "현재 등록된 과목 수: " << subjects.size() << endl;
 }
-void Student::someFunction() {
-    // 과목을 추가하는 코드 또는 초기화 코드가 여기 있을 수 있음
-    printSubjectsCount();  // viewSubjects 호출 전 확인용 출력
-    viewSubjects();        // 과목 목록을 출력하는 함수 호출
-}
+
+//void Student::loadTaughtSubjects(const vector<studentRecords> studentRecords, const vector<Subject>& allSubjects) {
+//    for (const auto& subject : allSubjects) {
+//
+//        // Check if the subject's studentID matches this professor's ID
+//        if (subject.getID() == getID()) {
+//            subjects.push_back(subject);
+//            //cout << "과목 추가됨: " << subject.getName() << endl; // 디버깅 출력
+//        }
+//    }
+//}
 
 //professor.cpp 참고한 viewSubject
-void Student::viewSubjects() const {
+void Student::viewSubjects(int year, int term) const {
    
     cout << "수강 중인 과목 :\n";
 
