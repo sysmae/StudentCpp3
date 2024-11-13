@@ -44,7 +44,11 @@ public:
 
     void enrollSubject(const Subject& subject);
 
-    void viewSubjects(int year, int term) const;
+    //void viewSubjects(int year, int term) const;
+
+    void viewSubjectsByTerm(int year, int term, bool showHeader) const;
+
+    void viewCurSubjects(int year, int term) const;
 
     void viewPreviousSubjects(int year, int term) const;
 

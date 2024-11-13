@@ -1,12 +1,12 @@
 // Student.cpp
-#include "student.h"
+#include "Student.h"
 #include <iostream>
 #include <algorithm>
 #include <limits>
 #include <iomanip>
 #include <stdexcept>
-#include "studentRecord.h"
-#include "subject.h"
+#include "StudentRecord.h"
+#include "Subject.h"
 #include "utils.h"
 
 using namespace std;
@@ -30,41 +30,28 @@ string Student::getUserType() const { return "Student"; }
 
 // 성적 설정 함수
 void Student::setGrades(int subjectID, double gradeVal) {
-    if (grades.find(subjectID) != grades.end()) {
-        grades[subjectID] = gradeVal;
-    }
-    else {
-        cerr << "오류setGrades: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
-    }
-
+    // Instead of checking if it exists, directly set or insert the value
+    grades[subjectID] = gradeVal;
+    //cout << "학생 " << studentID << " 과목 ID " << subjectID << "의 평점이 " << gradeVal << "(으)로 설정되었습니다.\n";
 }
+
+// 점수 설정 함수
 void Student::setScores(int subjectID, double scoreVal) {
-	if (scores.find(subjectID) != scores.end()) {
-		scores[subjectID] = scoreVal;
-	}
-	else {
-		cerr << "오류setScores: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
-	}
+    // Instead of checking if it exists, directly set or insert the value
+    scores[subjectID] = scoreVal;
+	//cout << "학생 " << studentID << "과목 ID " << subjectID << "의 점수가 " << scoreVal << "(으)로 설정되었습니다.\n";
 }
 
 // 문자 성적 설정 함수
 void Student::setLetterGrade(int subjectID, const string& letterGradeVal) {
-    if (letterGrades.find(subjectID) != letterGrades.end()) {
-        letterGrades[subjectID] = letterGradeVal;
-        cout << "과목 ID " << subjectID << "의 문자 성적이 " << letterGradeVal << "(으)로 설정되었습니다.\n"; 
-    }
-    else {
-        cerr << "오류setLetterGrade: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
-    }
+    // Instead of checking if it exists, directly set or insert the value
+    letterGrades[subjectID] = letterGradeVal;
+    //cout << "학생 " << studentID << "과목 ID " << subjectID << "의 문자 성적이 " << letterGradeVal << "(으)로 설정되었습니다.\n";
 }
 
 void Student::updateLetterGrade(int subjectID, const string& gradeVal) {
-    if (letterGrades.find(subjectID) != letterGrades.end()) {
         letterGrades[subjectID] = gradeVal;
-    }
-    else {
-        cerr << "오류updateLetterGrade: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
-    }
+		//cout << "학생 " << studentID << "과목 ID " << subjectID << "의 문자 성적이 " << gradeVal << "(으)로 업데이트되었습니다.\n";
 }
 
 void Student::enrollSubject(const Subject& subject) {
@@ -91,68 +78,85 @@ void Student::printSubjectsCount() const {
 }
 
 void Student::loadTaughtSubjects(const vector<StudentRecord>& studentRecords, const vector<Subject>& allSubjects) {
+    //cout << "Loading subjects for student ID: " << this->studentID << endl; // Debug output
+
     for (const auto& subject : allSubjects) {
+        //cout << "Checking subject ID: " << subject.getID() << ", Name: " << subject.getName() << endl; // Debug output
 
         // Loop through student records to find matching student ID
         for (const auto& record : studentRecords) {
-            if (record.getStudentID() == this->studentID && record.getSubjectID() == subject.getID()) {
+            //cout << "Checking student record: Student ID = " << record.getStudentID()
+            //    << ", Subject ID = " << record.getSubjectID() << endl; // Debug output
 
+            if (record.getStudentID() == this->studentID && record.getSubjectID() == subject.getID()) {
                 // If the subject matches the ID, add it to the student's subjects
                 subjects.push_back(subject);
-                // cout << "Subject added: " << subject.getName() << endl; // Debug output
+                //cout << "Subject added: " << subject.getName() << " (ID: " << subject.getID() << ")" << endl; // Debug output
                 break; // Stop once we've added the subject to avoid duplicates
             }
         }
     }
+
+    //cout << "Total subjects loaded for student ID " << this->studentID << ": " << subjects.size() << endl; // Debug output
 }
 
+
 //professor.cpp 참고한 viewSubject
-void Student::viewSubjects(int year, int term) const {
-   
-    cout << "수강 중인 과목 :\n";
-
-    // 표 헤더 출력 (열 너비 설정)
-    cout << std::left;
-    cout << std::setw(10) << "ID"
-        << std::setw(20) << "이름"
-        << std::setw(10) << "구분"
-        << std::setw(8) << "학점"
-        << std::setw(10) << "연도"
-        << std::setw(8) << "학기"
+// 공통 표 헤더 출력 함수
+void printTableHeader(size_t nameWidth) {
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(nameWidth) << "이름"
+        << setw(10) << "구분"
+        << setw(8) << "학점"
+        << setw(10) << "연도"
+        << setw(8) << "학기"
         << '\n';
-    cout << "---------------------------------------------------------------\n";
+    cout << string(10 + nameWidth + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
+}
 
+// 특정 연도와 학기에 해당하는 과목 출력 함수
+void Student::viewSubjectsByTerm(int year, int term, bool showHeader = true) const {
+    // 과목 이름의 최대 길이를 계산하여 열 너비 결정
+    size_t maxNameLength = 30; // 기본 이름 열 너비를 30으로 설정
+    for (const auto& subject : subjects) {
+        maxNameLength = max(maxNameLength, subject.getName().length() + 2);
+    }
 
+    // 헤더 출력
+    if (showHeader) {
+        printTableHeader(maxNameLength);
+    }
+
+    // 입력한 연도와 학기에 해당하는 과목들만 출력
     bool hasSubjects = false;
     for (const auto& subject : subjects) {
-
-        cout << std::setw(10) << subject.getID()
-            << std::setw(20) << subject.getName()
-            << std::setw(10) << subject.getType()
-            << std::setw(8) << subject.getCredit()
-
-            << '\n';
-        hasSubjects = true;
+        if (subject.getYear() == year && subject.getTerm() == term) {
+            cout << setw(10) << subject.getID()
+                << setw(maxNameLength) << subject.getName()
+                << setw(10) << subject.getType()
+                << setw(8) << subject.getCredit()
+                << setw(10) << subject.getYear()
+                << setw(8) << subject.getTerm()
+                << '\n';
+            hasSubjects = true;
+        }
     }
-   
 
     // 출력할 과목이 없는 경우 메시지 출력
     if (!hasSubjects) {
-        cout << "해당하는 과목이 없습니다.\n";
+        cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
     }
 }
 
-//아래는 원래 있던 코드
-/*void Student::viewSubjects() const {
-    cout << "\n등록된 과목들:\n";
-   
-    for (const auto& subject : subjects) {
-        cout << "- " << subject.getName() << " (" << subject.getCredit()
-            << " 학점, 학기: " << subject.getTerm() << " " << subject.getYear() << ")\n";
-    }
+// 현재 학기 과목 출력 함수
+void Student::viewCurSubjects(int year, int term) const {
+    cout << "현재 수강 중인 과목 :\n";
+    printTableHeader(30);  // 기본 이름 열 너비를 30으로 설정
+    viewSubjectsByTerm(year, term, false);
 }
-*/
 
+// 이전 학기 과목 출력 함수
 void Student::viewPreviousSubjects(int year, int term) const {
     // 현재 학기 기준으로 이전 학기를 계산
     int previousYear = year;
@@ -163,67 +167,22 @@ void Student::viewPreviousSubjects(int year, int term) const {
         previousYear--;
     }
 
-    // 과목 이름의 최대 길이를 계산하여 열 너비 결정
-    size_t maxNameLength = 0;
+    cout << "\n이전 학기 수강한 과목들 (" << previousYear << "년 " << previousTerm << "학기):\n";
+    printTableHeader(30);  // 기본 이름 열 너비를 30으로 설정
+    viewSubjectsByTerm(previousYear, previousTerm, false);
+}
+
+//아래는 원래 있던 코드
+/*void Student::viewSubjects() const {
+    cout << "\n등록된 과목들:\n";
+
     for (const auto& subject : subjects) {
-        maxNameLength = max(maxNameLength, subject.getName().length());
-    }
-
-
-    // 입력한 연도와 학기에 해당하는 과목들만 출력
-    bool hasSubjects = false;
-    for (const auto& subject : subjects) {
-        if (subject.getYear() == year && subject.getTerm() == term) {
-            cout << std::setw(10) << subject.getID()
-                << std::setw(maxNameLength + 2) << subject.getName()
-                << std::setw(10) << subject.getType()
-                << std::setw(8) << subject.getCredit()
-                << std::setw(10) << subject.getYear()
-                << std::setw(8) << subject.getTerm()
-                << '\n';
-            hasSubjects = true;
-        }
-    }
-
-    // 출력할 과목이 없는 경우 메시지 출력
-    if (!hasSubjects) {
-        cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
-    }
-
-    // 이전 학기 과목 출력
-    cout << "\n수강한 과목들 (" << previousYear << "년 " << previousTerm << "학기):\n";
-
-    // 표 헤더 출력 (열 너비 설정)
-    cout << std::left;
-    cout << "ID"
-        << std::setw(maxNameLength + 2) << "이름"  // 과목 이름의 최대 길이에 맞춤
-        << std::setw(10) << "구분"
-        << std::setw(8) << "학점"
-        << std::setw(10) << "연도"
-        << std::setw(8) << "학기"
-        << '\n';
-    cout << string(10 + maxNameLength + 2 + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
-
-    // 이전 학기에 해당하는 과목들만 출력
-    hasSubjects = false;
-    for (const auto& subject : subjects) {
-        if (subject.getYear() == previousYear && subject.getTerm() == previousTerm) {
-            cout << std::setw(10) << subject.getID()
-                << std::setw(maxNameLength + 2) << subject.getName()
-                << std::setw(10) << subject.getType()
-                << std::setw(8) << subject.getCredit()
-                << std::setw(10) << subject.getYear()
-                << std::setw(8) << subject.getTerm()
-                << '\n';
-            hasSubjects = true;
-        }
-    }
-
-    // 출력할 과목이 없는 경우 메시지 출력
-    if (!hasSubjects) {
-        cout << previousYear << "년 " << previousTerm << "학기에 해당하는 과목이 없습니다.\n";
+        cout << "- " << subject.getName() << " (" << subject.getCredit()
+            << " 학점, 학기: " << subject.getTerm() << " " << subject.getYear() << ")\n";
     }
 }
+*/
+
 
 void Student::viewGrades() const {
     cout << "\n수치 성적:\n";
@@ -302,14 +261,14 @@ void Student::displayGraduationRequirements() {
     earnedTotalCredits = earnedRequiredMajorCredits + earnedSelectionMajorCredits + earnedMajorBasicsCredits;
 
     // Display the graduation requirement summary
-    std::cout << "================================\n";
-    std::cout << "       졸업관련정보 조회하기:\n";
-    std::cout << "================================\n";
+    cout << "================================\n";
+    cout << "       졸업관련정보 조회하기:\n";
+    cout << "================================\n";
 
-    std::cout << std::left << std::setw(25) << "전공필수 (45): " << earnedRequiredMajorCredits << "\n";
-    std::cout << std::left << std::setw(25) << "전공선택 (9): " << earnedSelectionMajorCredits << "\n";
-    std::cout << std::left << std::setw(25) << "전공기초 (12): " << earnedMajorBasicsCredits << "\n";
-    std::cout << std::left << std::setw(25) << "전공최소이수학점 (66): " << earnedTotalCredits << "\n";
+    cout << left << setw(25) << "전공필수 (45): " << earnedRequiredMajorCredits << "\n";
+    cout << left << setw(25) << "전공선택 (9): " << earnedSelectionMajorCredits << "\n";
+    cout << left << setw(25) << "전공기초 (12): " << earnedMajorBasicsCredits << "\n";
+    cout << left << setw(25) << "전공최소이수학점 (66): " << earnedTotalCredits << "\n";
 }
 
 

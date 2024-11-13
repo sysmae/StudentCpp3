@@ -56,7 +56,9 @@ int main() {
             Student* studentPtr = dynamic_cast<Student*>(user.get());
             if (studentPtr) {
                 studentMap[studentPtr->getStudentID()] = studentPtr;
-                //studentPtr->loadTaughtSubjects(studentRecords, subjects);
+                studentPtr->loadTaughtSubjects(studentRecords, subjects);
+                //studentPtr->printSubjectsCount(); // Check how many subjects are loaded for each student
+
             }
         }
     }
@@ -87,6 +89,7 @@ int main() {
         if (subjectPtr && studentMap.find(studentID) != studentMap.end()) {
             Student* studentPtr = studentMap[studentID];
 
+
             // 과목에 등록되어 있지 않으면 등록
             auto& studentSubjects = studentPtr->getSubjects();
             if (find_if(studentSubjects.begin(), studentSubjects.end(),
@@ -96,7 +99,6 @@ int main() {
 
             // score 설정
             studentPtr->setScores(subjectID, score);
-
 
             // 점수 및 문자 성적 설정
             studentPtr->setGrades(subjectID, grade);
@@ -178,11 +180,11 @@ int main() {
 
                 switch (choice) {
                 case 1:
-                    //student->printSubjectsCount();
-                    student->viewSubjects(CUR_YEAR, CUR_TERM);
+                    //studen<t->printSubjectsCount();
+					student->viewSubjectsByTerm(CUR_YEAR, CUR_TERM, true);
                     break;
                 case 2:
-                    student->viewPreviousSubjects(2024, 1);
+                    student->viewPreviousSubjects(CUR_YEAR, CUR_TERM);
                     break;
                 case 3:
                     student->displayGraduationRequirements();
@@ -404,7 +406,7 @@ int main() {
                 }
 
                 case 2: {
-                    professor->viewPreviousSubjects(2024, 2);
+                    professor->viewPreviousSubjects(CUR_YEAR, CUR_TERM);
 
                     int subjectId;
                     cout << "과목 ID를 입력하세요:";

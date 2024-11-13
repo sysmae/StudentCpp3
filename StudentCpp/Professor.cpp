@@ -30,26 +30,26 @@ GradingMethod Professor::getGradingMethod() const {
 
 void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, const Subject* subject, int subjectId) {
     // 출력할 표 헤더 설정
-    cout << std::left;
-    cout << std::setw(10) << "ID"
-        << std::setw(20) << "과목이름"  // 과목 이름의 최대 길이에 맞춤
-        << std::setw(10) << "학번"
-        << std::setw(15) << "학생이름"
-        << std::setw(12) << "점수"
-        << std::setw(12) << "문자성적"
-        << std::setw(10) << "평점"
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(20) << "과목이름"  // 과목 이름의 최대 길이에 맞춤
+        << setw(10) << "학번"
+        << setw(15) << "학생이름"
+        << setw(12) << "점수"
+        << setw(12) << "문자성적"
+        << setw(10) << "평점"
         << endl;
     cout << string(10 + 20 + 10 + 15 + 12 + 10, '-') << endl;  // 구분선 길이 조정
 
     // 각 학생의 성적 출력
     for (const auto& student : enrolledStudents) {
-        cout << std::setw(10) << student->getStudentID()
-            << std::setw(20) << subject->getName()
-            << std::setw(10) << student->getStudentID()
-            << std::setw(15) << student->getName()
-            << std::setw(12) << student->getScores().at(subjectId)
-            << std::setw(10) << student->getLetterGrade(subjectId)
-            << std::setw(10) << student->getGrades().at(subjectId)
+        cout << setw(10) << student->getStudentID()
+            << setw(20) << subject->getName()
+            << setw(10) << student->getStudentID()
+            << setw(15) << student->getName()
+            << setw(12) << student->getScores().at(subjectId)
+            << setw(10) << student->getLetterGrade(subjectId)
+            << setw(10) << student->getGrades().at(subjectId)
             << endl;
     }
 }
@@ -60,13 +60,13 @@ void Professor::viewSubjects(int year, int term) const {
     cout << "수업 중인 과목들 (" << year << "년 " << term << "학기):\n";
 
     // 표 헤더 출력 (열 너비 설정)
-    cout << std::left;
-    cout << std::setw(10) << "ID"
-        << std::setw(20) << "이름"
-        << std::setw(10) << "구분"
-        << std::setw(8) << "학점"
-        << std::setw(10) << "연도"
-        << std::setw(8) << "학기"
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(20) << "이름"
+        << setw(10) << "구분"
+        << setw(8) << "학점"
+        << setw(10) << "연도"
+        << setw(8) << "학기"
         << '\n';
     cout << "---------------------------------------------------------------\n";
 
@@ -74,12 +74,12 @@ void Professor::viewSubjects(int year, int term) const {
     bool hasSubjects = false;
     for (const auto& subject : subjects) {
         if (subject.getYear() == year && subject.getTerm() == term) {
-            cout << std::setw(10) << subject.getID()
-                << std::setw(20) << subject.getName()
-                << std::setw(10) << subject.getType()
-                << std::setw(8) << subject.getCredit()
-                << std::setw(10) << subject.getYear()
-                << std::setw(8) << subject.getTerm()
+            cout << setw(10) << subject.getID()
+                << setw(20) << subject.getName()
+                << setw(10) << subject.getType()
+                << setw(8) << subject.getCredit()
+                << setw(10) << subject.getYear()
+                << setw(8) << subject.getTerm()
                 << '\n';
             hasSubjects = true;
         }
@@ -115,12 +115,12 @@ void Professor::viewPreviousSubjects(int year, int term) const {
     bool hasSubjects = false;
     for (const auto& subject : subjects) {
         if (subject.getYear() == year && subject.getTerm() == term) {
-            cout << std::setw(10) << subject.getID()
-                << std::setw(maxNameLength + 2) << subject.getName()
-                << std::setw(10) << subject.getType()
-                << std::setw(8) << subject.getCredit()
-                << std::setw(10) << subject.getYear()
-                << std::setw(8) << subject.getTerm()
+            cout << setw(10) << subject.getID()
+                << setw(maxNameLength + 2) << subject.getName()
+                << setw(10) << subject.getType()
+                << setw(8) << subject.getCredit()
+                << setw(10) << subject.getYear()
+                << setw(8) << subject.getTerm()
                 << '\n';
             hasSubjects = true;
         }
@@ -135,13 +135,13 @@ void Professor::viewPreviousSubjects(int year, int term) const {
     cout << "\n수업했던 과목들 (" << previousYear << "년 " << previousTerm << "학기):\n";
 
     // 표 헤더 출력 (열 너비 설정)
-    cout << std::left;
-    cout << std::setw(10) << "ID"
-        << std::setw(maxNameLength + 2) << "이름"  // 과목 이름의 최대 길이에 맞춤
-        << std::setw(10) << "구분"
-        << std::setw(8) << "학점"
-        << std::setw(10) << "연도"
-        << std::setw(8) << "학기"
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(maxNameLength + 2) << "이름"  // 과목 이름의 최대 길이에 맞춤
+        << setw(10) << "구분"
+        << setw(8) << "학점"
+        << setw(10) << "연도"
+        << setw(8) << "학기"
         << '\n';
     cout << string(10 + maxNameLength + 2 + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
 
@@ -149,12 +149,12 @@ void Professor::viewPreviousSubjects(int year, int term) const {
     hasSubjects = false;
     for (const auto& subject : subjects) {
         if (subject.getYear() == previousYear && subject.getTerm() == previousTerm) {
-            cout << std::setw(10) << subject.getID()
-                << std::setw(maxNameLength + 2) << subject.getName()
-                << std::setw(10) << subject.getType()
-                << std::setw(8) << subject.getCredit()
-                << std::setw(10) << subject.getYear()
-                << std::setw(8) << subject.getTerm()
+            cout << setw(10) << subject.getID()
+                << setw(maxNameLength + 2) << subject.getName()
+                << setw(10) << subject.getType()
+                << setw(8) << subject.getCredit()
+                << setw(10) << subject.getYear()
+                << setw(8) << subject.getTerm()
                 << '\n';
             hasSubjects = true;
         }

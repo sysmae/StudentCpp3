@@ -27,21 +27,21 @@
 using namespace std;
 
 // Function to mask password input
-std::string getMaskedInput() {
-    std::string password;
+string getMaskedInput() {
+    string password;
     char ch;
 
 #ifdef _WIN32
     while ((ch = _getch()) != '\r') { // 엔터키를 누를 때까지 반복
         if (ch == '\b') { // 백스페이스 처리
             if (!password.empty()) {
-                std::cout << "\b \b";
+                cout << "\b \b";
                 password.pop_back();
             }
         }
         else {
             password += ch;
-            std::cout << '*';
+            cout << '*';
         }
     }
 #else
@@ -52,16 +52,16 @@ std::string getMaskedInput() {
     tty_new.c_lflag &= ~(ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &tty_new);
 
-    while (std::cin.get(ch) && ch != '\n') {
+    while (cin.get(ch) && ch != '\n') {
         if (ch == '\b' || ch == 127) { // 백스페이스 처리
             if (!password.empty()) {
-                std::cout << "\b \b";
+                cout << "\b \b";
                 password.pop_back();
             }
         }
         else {
             password += ch;
-            std::cout << '*';
+            cout << '*';
         }
     }
 
@@ -69,7 +69,7 @@ std::string getMaskedInput() {
     tcsetattr(STDIN_FILENO, TCSANOW, &tty_old);
 #endif
 
-    std::cout << std::endl;
+    cout << endl;
     return password;
 }
 
@@ -179,7 +179,7 @@ vector<Subject> loadSubjects(const string& filename) {
     file.close();
     return subjects;
 }
-std::string mapGradeToLetter(double grade) {
+string mapGradeToLetter(double grade) {
     if (grade >= 4.5) {
         return "A+";
     }
@@ -240,7 +240,7 @@ void updateStudentRecordsCSV(const vector<Student*>& students) {
             }
 
             // 등급 매핑 함수 호출
-            std::string letterGrade = mapGradeToLetter(grade);
+            string letterGrade = mapGradeToLetter(grade);
 
             // 파일에 기록
             file << studentID << "," << subjectID << ","
@@ -401,10 +401,10 @@ void displayHistogramForSubject(const vector<StudentRecord>& records, int subjec
 
 
 // Function to save users to CSV
-void saveUsers(const std::string& filename, const std::vector<std::unique_ptr<User>>& users) {
-    std::ofstream file(filename);
+void saveUsers(const string& filename, const vector<unique_ptr<User>>& users) {
+    ofstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "파일을 열 수 없습니다: " << filename << std::endl;
+        cerr << "파일을 열 수 없습니다: " << filename << endl;
         return;
     }
         
@@ -455,11 +455,11 @@ void updateUsersCSV(const vector<User*>& users) {
 
     for (const auto& user : users) {
         string userID = user->getID();
-        std::string password = user->getPassword();
-        std::string name = user->getName();
-        std::string phoneNumber = user->getPhoneNumber();
-        std::string email = user->getEmail();
-        std::string userType = user->getUserType();
+        string password = user->getPassword();
+        string name = user->getName();
+        string phoneNumber = user->getPhoneNumber();
+        string email = user->getEmail();
+        string userType = user->getUserType();
 
         // 기본 정보 기록
         file << userID << "," << password << "," << name << "," << phoneNumber << ","
@@ -483,15 +483,15 @@ void updateUsersCSV(const vector<User*>& users) {
         file << "\n";
     }
     file.close();
-    std::cout << "users.csv" << " 파일이 성공적으로 업데이트되었습니다." << std::endl;
+    cout << "users.csv" << " 파일이 성공적으로 업데이트되었습니다." << endl;
 }
 
 
 // Function to save subjects to CSV
-void saveSubjects(const std::string& filename, const std::vector<Subject>& subjects) {
-    std::ofstream file(filename);
+void saveSubjects(const string& filename, const vector<Subject>& subjects) {
+    ofstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "파일을 열 수 없습니다: " << filename << std::endl;
+        cerr << "파일을 열 수 없습니다: " << filename << endl;
         return;
     }
 
