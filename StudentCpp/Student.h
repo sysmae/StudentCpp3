@@ -2,8 +2,9 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include "User.h"
-#include "Subject.h"
+#include "user.h"
+#include "subject.h"
+#include "studentRecord.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -63,7 +64,7 @@ public:
     //test
     void printSubjectsCount() const;
 
-    void loadTaughtSubjects(const vector<Subject>& allSubjects);
+    void loadTaughtSubjects(const vector<StudentRecord>& studentRecords, const vector<Subject>& allSubjects);
 
     
 

@@ -1,12 +1,12 @@
 // Student.cpp
-#include "Student.h"
+#include "student.h"
 #include <iostream>
 #include <algorithm>
 #include <limits>
 #include <iomanip>
 #include <stdexcept>
-#include "StudentRecord.h"
-#include "Subject.h"
+#include "studentRecord.h"
+#include "subject.h"
 #include "utils.h"
 
 using namespace std;
@@ -34,7 +34,7 @@ void Student::setGrades(int subjectID, double gradeVal) {
         grades[subjectID] = gradeVal;
     }
     else {
-        cerr << "오류: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
+        cerr << "오류setGrades: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
     }
 
 }
@@ -43,7 +43,7 @@ void Student::setScores(int subjectID, double scoreVal) {
 		scores[subjectID] = scoreVal;
 	}
 	else {
-		cerr << "오류: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
+		cerr << "오류setScores: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
 	}
 }
 
@@ -54,7 +54,7 @@ void Student::setLetterGrade(int subjectID, const string& letterGradeVal) {
         cout << "과목 ID " << subjectID << "의 문자 성적이 " << letterGradeVal << "(으)로 설정되었습니다.\n"; 
     }
     else {
-        cerr << "오류: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
+        cerr << "오류setLetterGrade: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
     }
 }
 
@@ -63,7 +63,7 @@ void Student::updateLetterGrade(int subjectID, const string& gradeVal) {
         letterGrades[subjectID] = gradeVal;
     }
     else {
-        cerr << "오류: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
+        cerr << "오류updateLetterGrade: 과목 ID " << subjectID << "가 존재하지 않습니다.\n";
     }
 }
 
@@ -90,16 +90,21 @@ void Student::printSubjectsCount() const {
     cout << "현재 등록된 과목 수: " << subjects.size() << endl;
 }
 
-//void Student::loadTaughtSubjects(const vector<studentRecords> studentRecords, const vector<Subject>& allSubjects) {
-//    for (const auto& subject : allSubjects) {
-//
-//        // Check if the subject's studentID matches this professor's ID
-//        if (subject.getID() == getID()) {
-//            subjects.push_back(subject);
-//            //cout << "과목 추가됨: " << subject.getName() << endl; // 디버깅 출력
-//        }
-//    }
-//}
+void Student::loadTaughtSubjects(const vector<StudentRecord>& studentRecords, const vector<Subject>& allSubjects) {
+    for (const auto& subject : allSubjects) {
+
+        // Loop through student records to find matching student ID
+        for (const auto& record : studentRecords) {
+            if (record.getStudentID() == this->studentID && record.getSubjectID() == subject.getID()) {
+
+                // If the subject matches the ID, add it to the student's subjects
+                subjects.push_back(subject);
+                // cout << "Subject added: " << subject.getName() << endl; // Debug output
+                break; // Stop once we've added the subject to avoid duplicates
+            }
+        }
+    }
+}
 
 //professor.cpp 참고한 viewSubject
 void Student::viewSubjects(int year, int term) const {
