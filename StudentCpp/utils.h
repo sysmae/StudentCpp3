@@ -35,4 +35,7 @@ void displayHistogram(const std::vector<StudentRecord>& records);
 // Function to mask password input
 std::string getMaskedInput();
 
+// Function to update Users.csv file
+void updateUsersCSV(const vector<User*>& users);
+
 #endif // UTILS_H

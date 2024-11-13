@@ -442,7 +442,7 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
         double percentile = (static_cast<double>(i) / totalStudents) * 100.0;
 
         string letterGrade;
-        double grade;
+        double grade{};
 
         // F 등급 절대 평가 먼저 체크
         if (score < fThreshold) {
@@ -495,3 +495,5 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
     updateStudentRecordsCSV(students);
 
     }
+
+  

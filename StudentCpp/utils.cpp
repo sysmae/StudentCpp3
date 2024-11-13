@@ -426,6 +426,53 @@ void saveUsers(const std::string& filename, const std::vector<std::unique_ptr<Us
     file.close();
 }
 
+
+void updateUsersCSV(const vector<User*>& users) {
+    ofstream file("users.csv");
+
+    if (!file.is_open()) {
+        cerr << "users.csv 파일을 열 수 없습니다." << endl;
+        return;
+    }
+
+
+    // 헤더 작성
+    file << "ID,Password,Name,PhoneNumber,Email,UserType,StudentID\n";
+
+    for (const auto& user : users) {
+        string userID = user->getID();
+        std::string password = user->getPassword();
+        std::string name = user->getName();
+        std::string phoneNumber = user->getPhoneNumber();
+        std::string email = user->getEmail();
+        std::string userType = user->getUserType();
+
+        // 기본 정보 기록
+        file << userID << "," << password << "," << name << "," << phoneNumber << ","
+            << email << "," << userType;
+
+        // Student일 경우 studentID 추가
+        if (userType == "Student") {
+            const Student* student = dynamic_cast<const Student*>(user);
+            if (student) {
+                file << "," << student->getStudentID();
+            }
+            else {
+                file << ",";
+            }
+        }
+        else {
+            file << ",";
+        }
+
+        // 행 끝에 새 줄 추가
+        file << "\n";
+    }
+    file.close();
+    std::cout << "users.csv" << " 파일이 성공적으로 업데이트되었습니다." << std::endl;
+}
+
+
 // Function to save subjects to CSV
 void saveSubjects(const std::string& filename, const std::vector<Subject>& subjects) {
     std::ofstream file(filename);
