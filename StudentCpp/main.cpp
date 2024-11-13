@@ -186,63 +186,138 @@ int main() {
                     student->displayGraduationRequirements();
                     break;
                 case 4: {
-                    cout << "==========================================================\n";
-                    cout << " 내 정보 수정" << endl;
-                    cout << "----------------------------------------------------------\n";
-                    cout << "1. 이름 변경" << endl;
-                    cout << "2. 전화번호 변경" << endl;
-                    cout << "3. 이메일 변경" << endl;
-                    cout << "4. 비밀번호 변경" << endl;
-                    cout << "0. 이전 메뉴로 돌아가기" << endl;
-                    cout << "==========================================================\n";
-                    cout << "선택을 입력하세요: ";
-                    int subChoice;
-                    cin >> subChoice;
-                    cin.ignore();  // Clear the input buffer after subChoice
-                    cout << endl;
+                    string enteredPassword;
 
-                    switch (subChoice) {
-                    case 1: {
-                        cout << "새 이름을 입력하세요: ";
-                        string newName;
-                        cin >> newName;
-                        student->setName(newName);
-                        cout << "성공적으로 이름이 변경되었습니다.\n";
-                        break;
+                    // Prompt the user for the current password
+                    cout << "현재 비밀번호를 입력하세요: ";
+                    enteredPassword = getMaskedInput();  // Use the utility function to get masked input
+                    //cout << "입력된 비밀번호는: " << enteredPassword << endl;
+
+                    // Check if the entered password matches the stored password
+                    if (enteredPassword == student->getPassword()) {
+                        // If password matches, show current information
+                        cout << "==========================================================\n";
+                        cout << "현재 개인정보" << endl;
+                        cout << "----------------------------------------------------------\n";
+                        cout << "이름: " << student->getName() << endl;
+                        cout << "전화번호: " << student->getPhoneNumber() << endl;
+                        cout << "이메일: " << student->getEmail() << endl;
+                        cout << "----------------------------------------------------------\n";
+
+                        bool isValid = true; // Flag to track if all validations pass
+                        cout << "내 정보 수정" << endl;
+                        cout << "----------------------------------------------------------\n";
+                        cout << "1. 이름 변경" << endl;
+                        cout << "2. 전화번호 변경" << endl;
+                        cout << "3. 이메일 변경" << endl;
+                        cout << "4. 비밀번호 변경" << endl;
+                        cout << "0. 이전 메뉴로 돌아가기" << endl;
+                        cout << "==========================================================\n";
+                        cout << "선택을 입력하세요: ";
+                        int subChoice;
+                        cin >> subChoice;
+                        cin.ignore();  // Clear the input buffer after subChoice
+                        cout << endl;
+
+                        switch (subChoice) {
+                        case 1: {
+                            cout << "새 이름을 입력하세요: ";
+                            string newName;
+                            cin >> ws;  // 선행 공백 문자 제거
+                            getline(cin, newName);
+
+                            if (!newName.empty()) {  // 빈 문자열이 아닌 경우에만 저장
+                                student->setName(newName);
+                                cout << "성공적으로 이름이 변경되었습니다.\n";
+                            }
+                            else {
+                                cout << "유효하지 않은 이름입니다.\n";
+                                isValid = false; // Mark as invalid
+                            }
+                            break;
+                        }
+
+                        case 2: {
+                            cout << "새 전화번호를 입력하세요(000-0000-0000 형식으로 입력): ";
+                            string newPhone;
+                            cin >> newPhone;
+
+                            bool isValidFormat = true;
+                            if (newPhone.length() != 13 || newPhone[3] != '-' || newPhone[8] != '-') {
+                                isValidFormat = false;
+                            }
+                            for (int i = 0; i < newPhone.length(); i++) {
+                                if (i != 3 && i != 8 && !isdigit(newPhone[i])) {
+                                    isValidFormat = false;
+                                    break;
+                                }
+                            }
+
+                            if (isValidFormat) {
+                                student->setPhoneNumber(newPhone);
+                                cout << "성공적으로 전화번호가 변경되었습니다.\n";
+                            }
+                            else {
+                                cout << "올바르지 않은 전화번호 형식입니다. 000-0000-0000 형식으로 입력해주세요.\n";
+                                isValid = false; // Mark as invalid
+                            }
+                            break;
+                        }
+
+                        case 3: {
+                            cout << "새 이메일을 입력하세요: ";
+                            string newEmail;
+                            cin >> newEmail;
+
+                            // Email validation logic
+                            const regex emailRegex(R"((\w+)(\.\w+)*@(\w+\.)+[a-zA-Z]{2,})");
+                            if (regex_match(newEmail, emailRegex)) {
+                                student->setEmail(newEmail);
+                                cout << "성공적으로 이메일이 변경되었습니다.\n";
+                            }
+                            else {
+                                cout << "올바르지 않은 이메일 형식입니다.\n";
+                                isValid = false; // Mark as invalid
+                            }
+                            break;
+                        }
+
+                        case 4: {
+                            cout << "새 비밀번호를 입력하세요: ";
+                            string newPassword;
+                            cin >> newPassword;
+                            student->setPassword(newPassword);
+                            cout << "성공적으로 비밀번호가 변경되었습니다.\n";
+                            break;
+                        }
+
+                        case 0:
+                            break;
+
+                        default:
+                            cout << "잘못된 선택입니다.\n";
+                            isValid = false; // Mark as invalid
+                            break;
+                        }
+
+                        if (isValid) {
+                            // If all updates are valid, update the users CSV file
+                            vector<User*> userPtrs;
+                            for (const auto& user : users) {
+                                userPtrs.push_back(user.get());  // unique_ptr을 raw pointer로 변환하여 추가
+                            }
+                            updateUsersCSV(userPtrs);
+                            cout << "사용자 정보가 CSV 파일에 성공적으로 업데이트되었습니다.\n";
+                        }
+                        else {
+                            cout << "정보가 유효하지 않아 변경되지 않았습니다.\n";
+                        }
                     }
-                    case 2: {
-                        cout << "새 전화번호를 입력하세요: ";
-                        string newPhone;
-                        cin >> newPhone;
-                        student->setPhoneNumber(newPhone);
-                        cout << "성공적으로 전화번호가 변경되었습니다.\n";
-                        break;
-                    }
-                    case 3: {
-                        cout << "새 이메일을 입력하세요: ";
-                        string newEmail;
-                        cin >> newEmail;
-                        student->setEmail(newEmail);
-                        cout << "성공적으로 이메일이 변경되었습니다.\n";
-                        break;
-                    }
-                    case 4: {
-                        cout << "새 비밀번호를 입력하세요: ";
-                        string newPassword;
-                        cin >> newPassword;
-                        student->setPassword(newPassword);
-                        cout << "성공적으로 비밀번호가 변경되었습니다.\n";
-                        break;
-                    }
-                    case 0:
-                        break;
-                    default:
-                        cout << "잘못된 선택입니다.\n";
-                        break;
+                    else {
+                        cout << "비밀번호가 일치하지 않습니다.\n";
                     }
                     break;
                 }
-                    
                 default:
                     cout << "잘못된 선택입니다.\n";
                 }
@@ -384,12 +459,12 @@ int main() {
                 }
 
                 case 3: {
-                    std::string enteredPassword;
+                    string enteredPassword;
 
                     // Prompt the user for the current password
-                    std::cout << "현재 비밀번호를 입력하세요: ";
+                    cout << "현재 비밀번호를 입력하세요: ";
                     enteredPassword = getMaskedInput();  // Use the utility function to get masked input
-                    //std::cout << "입력된 비밀번호는: " << enteredPassword << std::endl;
+                    //cout << "입력된 비밀번호는: " << enteredPassword << endl;
 
                     // Check if the entered password matches the stored password
                     if (enteredPassword == professor->getPassword()) {
@@ -500,7 +575,7 @@ int main() {
 
                         if (isValid) {
                             // If all updates are valid, update the users CSV file
-                            std::vector<User*> userPtrs;
+                            vector<User*> userPtrs;
                             for (const auto& user : users) {
                                 userPtrs.push_back(user.get());  // unique_ptr을 raw pointer로 변환하여 추가
                             }
