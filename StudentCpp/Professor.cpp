@@ -153,12 +153,9 @@ void Professor::loadTeachingSubjects(const vector<Subject>& allSubjects) {
 
 // 성적 부여 함수
 void Professor::inputStudentScores(vector<Student*>& students, Subject& subject) {
-    cout << "==========================================================\n";
-    cout << "\n성적을 부여할 학생의 ID를 입력하세요 (종료하려면 0 입력):\n\n";
-    cout << "==========================================================\n";
 
     while (true) {
-        cout << "학생 ID: ";
+        cout << "\n성적을 부여할 학생의 ID를 입력하세요 (종료하려면 0 입력):";
         int studentIDInput;
         cin >> studentIDInput;
 
@@ -194,15 +191,14 @@ void Professor::inputStudentScores(vector<Student*>& students, Subject& subject)
         else {
             cout << "학생 ID를 찾을 수 없습니다. 다시 입력해주세요.\n";
         }
-        cout << "----------------------------------------------------------\n";
+        cout << "-------------------------------------------------------------------------------------\n";
     }
 }
 
 void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
     // 성적 평가 방식 선택
-    cout << "==========================================================\n";
     cout << "\n성적 평가 방식을 선택하세요:\n";
-    cout << "\n==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "1. A: 상위 35%, B: 상위 70%\n";
     cout << "2. A: 상위 50%, B: 상위 90%\n\n";
 
@@ -232,7 +228,7 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
             cout << "잘못된 선택입니다. 다시 입력해주세요.\n\n";
         }
     }
-    cout << "----------------------------------------------------------\n";
+    cout << "-------------------------------------------------------------------------------------\n";
 
     // 세부 등급 분배 입력
     vector<pair<string, double>> gradeThresholds;
@@ -361,7 +357,7 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
         }
         break;
     }
-    cout << "\n----------------------------------------------------------\n";
+    cout << "\n-----------------------------------------------------------------------------------\n";
 
     // 입력받은 등급 분포 출력
     cout << "\n[설정된 등급 분포]\n";
@@ -369,7 +365,7 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
         cout << grade.first << ": 상위 " << grade.second << "%\n";
     }
     cout << "F: " << fThreshold << "점 미만\n";
-    cout << "\n----------------------------------------------------------\n";
+    cout << "\n-----------------------------------------------------------------------------------\n";
 
     // 점수가 부여된 학생들만 추출
     vector<pair<Student*, double>> studentScores;

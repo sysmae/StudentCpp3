@@ -341,9 +341,9 @@ void Student::checkGraduationRequirements(const std::vector<Subject>& allSubject
     earnedTotalCredits = earnedRequiredMajorCredits + earnedSelectionMajorCredits + earnedMajorBasicsCredits;
 
     // Display the graduation requirement summary
-    std::cout << "================================\n";
-    std::cout << "       졸업관련정보 조회하기:\n";
-    std::cout << "================================\n";
+    cout << "=====================================================================================\n";
+    std::cout << "졸업요건 조회:\n";
+    cout << "-------------------------------------------------------------------------------------\n";
 
     // Display the summary of the graduation requirements
     std::cout << std::left << std::setw(25) << "전공필수 (45): " << earnedRequiredMajorCredits << "\n";

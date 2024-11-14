@@ -60,15 +60,15 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
     double credit;
     int year;
 
-    cout << "== 현재 등록된 과목 목록 ==\n";
+    cout << "\n현재 등록된 과목 목록: \n";
     for (const auto& subject : subjects) {
         cout << "과목 ID: " << subject.getID()
             << ", 이름: " << subject.getName()
             << ", 교수 ID: " << subject.getProfessorID() << endl;
     }
 
-    cout << "=== 과목 추가 ===\n";
-
+    
+    cout << "\n-------------------------------------------------------------------------------------\n";
     // 과목 ID 입력
     while (true) {
         cout << "과목 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
@@ -93,7 +93,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
         return;
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "과목 이름을 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, name);
@@ -102,7 +102,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
         cout << "과목 이름은 비워둘 수 없습니다. 다시 입력하세요: ";
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "과목 유형을 입력하세요 (Required/Elective/Basic) ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, type);
@@ -110,8 +110,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
         if (type == "Required" || type == "Elective" || type=="Basic") break;
         cout << "잘못된 유형입니다. 다시 입력하세요: ";
     }
-
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "학점을 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         string input;
@@ -128,7 +127,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
     }
     cin.ignore();
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "년도를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         string input;
@@ -145,7 +144,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
     }
     cin.ignore();
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "학기를 입력하세요 (FIRST_TERM/SECOND_TERM) ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, termStr);
@@ -154,7 +153,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
         cout << "잘못된 학기입니다. 다시 입력하세요: ";
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "담당 교수 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
     getline(cin, professorID);
     if (professorID == "back") return;
@@ -167,14 +166,13 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
 
 void Administrator::deleteSubject(vector<Subject>& subjects) {
     int id;
-    cout << "=== 과목 삭제 ===\n";
-    cout << "현재 등록된 과목 목록:\n";
+    cout << "\n현재 등록된 과목 목록:\n";
     for (const auto& subject : subjects) {
         cout << "ID: " << subject.getID()
             << ", 이름: " << subject.getName() << endl;
     }
 
-    cout << "==========================================================\n";
+    cout << "\n-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "삭제할 과목 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         string input;
@@ -203,14 +201,13 @@ void Administrator::deleteSubject(vector<Subject>& subjects) {
 
 void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique_ptr<User>>& users) {
     int id;
-    cout << "=== 과목 수정 ===\n";
-    cout << "현재 등록된 과목 목록:\n";
+    cout << "\n현재 등록된 과목 목록:\n";
     for (const auto& subject : subjects) {
         cout << "ID: " << subject.getID()
             << ", 이름: " << subject.getName() << endl;
     }
 
-    cout << "==========================================================\n";
+    cout << "\n-------------------------------------------------------------------------------------\n";
     while (true) {
         cout << "수정할 과목 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         string input;
@@ -226,7 +223,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
     }
     cin.ignore();
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     auto it = find_if(subjects.begin(), subjects.end(),
         [id](Subject& s) { return s.getID() == id; });
     if (it != subjects.end()) {
@@ -241,9 +238,9 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
         cout << "학점: " << it->getCredit() << "\n";
         cout << "년도: " << it->getYear() << "\n";
         cout << "학기: " << (it->getTerm() == Term::FIRST_TERM ? "FIRST_TERM" : "SECOND_TERM") << "\n";
-        cout << "담당 교수 ID: " << it->getProfessorID() << "\n\n";
+        cout << "담당 교수 ID: " << it->getProfessorID() << "\n";
 
-        cout << "==========================================================\n";
+        cout << "-------------------------------------------------------------------------------------\n";
         while (true) {
             cout << "새 과목 이름을 입력하세요 (현재: " << it->getName() << ")('back'을 입력해 이전메뉴 돌아가기): ";
             getline(cin, newName);
@@ -252,7 +249,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
             cout << "과목 이름은 비워둘 수 없습니다. 다시 입력하세요: ";
         }
 
-        cout << "==========================================================\n";
+        cout << "-------------------------------------------------------------------------------------\n";
         while (true) {
             cout << "새 과목 유형을 입력하세요 (Required/Elective/Basic)('back'을 입력해 이전메뉴 돌아가기): ";
             getline(cin, newType);
@@ -261,7 +258,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
             cout << "잘못된 유형입니다. 다시 입력하세요 (Required/Elective): ";
         }
 
-        cout << "==========================================================\n";
+        cout << "-------------------------------------------------------------------------------------\n";
         while (true) {
             cout << "새 학점을 입력하세요 (현재: " << it->getCredit() << ")('back'을 입력해 이전메뉴 돌아가기): ";
             string input;
@@ -278,7 +275,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
         }
         cin.ignore();
 
-        cout << "==========================================================\n";
+        cout << "-------------------------------------------------------------------------------------\n";
         while (true) {
             cout << "새 년도를 입력하세요 (현재: " << it->getYear() << ")('back'을 입력해 이전메뉴 돌아가기): ";
             string input;
@@ -295,7 +292,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
         }
         cin.ignore();
 
-        cout << "==========================================================\n";
+        cout << "-------------------------------------------------------------------------------------\n";
         while (true) {
             cout << "학기를 입력하세요 (FIRST_TERM/SECOND_TERM) ('back'을 입력해 이전메뉴 돌아가기): ";
             getline(cin, newTermStr);
@@ -304,7 +301,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
             cout << "잘못된 학기입니다. 다시 입력하세요 (FIRST_TERM, SECOND_TERM 중 하나를 입력하세요): ";
         }
 
-        cout << "==========================================================\n";
+        cout << "-------------------------------------------------------------------------------------\n";
         viewProfessors(users);
         cout << "담당 교수 ID를 입력하세요 ('back'을 입력해 이전메뉴 돌아가기): ";
         getline(cin, newProfessorID);
@@ -337,7 +334,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
 }
 
 void Administrator::viewSubjects(const vector<Subject>& subjects) const {
-    cout << "=== 과목 목록 ===\n";
+    cout << "\n현재 등록된 과목 목록: \n";
     for (const auto& subject : subjects) {
         cout << "ID: " << subject.getID()
             << ", 이름: " << subject.getName()
@@ -345,26 +342,26 @@ void Administrator::viewSubjects(const vector<Subject>& subjects) const {
             << ", 학점: " << subject.getCredit()
             << ", 년도: " << subject.getYear()
             << ", 학기: " << (subject.getTerm() == Term::FIRST_TERM ? "FIRST_TERM" : "SECOND_TERM")
-            << ", 교수 ID: " << subject.getProfessorID() << "\n";
+            << ", 교수 ID: " << subject.getProfessorID() << "\n\n";
     }
 }
 
 // Professor Management
 
 void Administrator::viewProfessors(const vector<unique_ptr<User>>& users) const {
-    cout << "=== 교수 목록 ===\n";
+    cout << "\n교수 목록: \n";
     for (const auto& user : users) {
         if (user->getUserType() == "Professor") {
             cout << "ID: " << user->getID()
                 << ", 이름: " << user->getName()
                 << ", 전화번호: " << user->getPhoneNumber()
-                << ", 이메일: " << user->getEmail() << "\n";
+                << ", 이메일: " << user->getEmail() << "\n\n";
         }
     }
 }
 
 void Administrator::viewProfessorInfo(const vector<unique_ptr<User>>& users) const {
-    cout << "=== 교수 정보 조회 ===\n";
+    viewProfessors(users);
     string profID;
     cout << "교수 ID을 입력하세요: ";
     cin >> profID;
@@ -376,7 +373,7 @@ void Administrator::viewProfessorInfo(const vector<unique_ptr<User>>& users) con
             cout << "ID: " << user->getID() << "\n";
             cout << "이름: " << user->getName() << "\n";
             cout << "전화번호: " << user->getPhoneNumber() << "\n";
-            cout << "이메일: " << user->getEmail() << "\n";
+            cout << "이메일: " << user->getEmail() << "\n\n";
             found = true;
             break;
         }
@@ -389,7 +386,6 @@ void Administrator::viewProfessorInfo(const vector<unique_ptr<User>>& users) con
 
 void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
     viewProfessors(users);
-    cout << "=== 교수 추가 ===\n";
     string id, name, phone, email;
 
     cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
@@ -402,7 +398,7 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "이름을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     cin.ignore(); // 이전 입력 버퍼 비우기
     while (true) {
@@ -412,7 +408,7 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
         cout << "이름은 비워둘 수 없습니다. 다시 입력하세요: ";
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "전화번호를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         getline(cin, phone);
@@ -423,7 +419,7 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "이메일을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     getline(cin, email);
     if (email == "back") return; // 이전 메뉴로 돌아가기
@@ -440,7 +436,6 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
 void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
     string profID;
     viewProfessors(users);
-    cout << "=== 교수 삭제 ===\n";
     cout << "삭제할 교수 ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         cin >> profID;
@@ -477,7 +472,7 @@ void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
 // Student Management
 
 void Administrator::viewStudents(const vector<unique_ptr<User>>& users) const {
-    cout << "=== 학생 목록 ===\n";
+    cout << "\n학생 목록: \n";
     for (const auto& user : users) {
         if (user->getUserType() == "Student") {
             const Student* student = dynamic_cast<const Student*>(user.get());
@@ -486,16 +481,16 @@ void Administrator::viewStudents(const vector<unique_ptr<User>>& users) const {
                     << ", 이름: " << student->getName()
                     << ", 전화번호: " << student->getPhoneNumber()
                     << ", 이메일: " << student->getEmail()
-                    << ", 학번: " << student->getStudentID() << "\n";
+                    << ", 학번: " << student->getStudentID() << "\n\n";
             }
         }
     }
 }
 
 void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) const {
-    cout << "=== 학생 정보 조회 ===\n";
     string studentID;
-    cout << "학생 ID를 입력하세요: ";
+    viewStudents(users);
+    cout << "학생 ID를 입력하세요: \n";
     cin >> studentID;
 
     bool found = false;
@@ -508,7 +503,7 @@ void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) const
                 cout << "이름: " << student->getName() << "\n";
                 cout << "전화번호: " << student->getPhoneNumber() << "\n";
                 cout << "이메일: " << student->getEmail() << "\n";
-                cout << "학번: " << student->getStudentID() << "\n";
+                cout << "학번: " << student->getStudentID() << "\n\n";
                 found = true;
                 break;
             }
@@ -522,11 +517,10 @@ void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) const
 
 void Administrator::addStudent(vector<unique_ptr<User>>& users) {
     viewStudents(users);
-    cout << "=== 학생 추가 ===\n";
     string name, id, phone, email;
     int studentID;
 
-    cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
+    cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): \n";
     while (true) {
         cin >> id;
         if (id == "back") return; // 이전 메뉴로 돌아가기
@@ -536,7 +530,7 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "이름을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     cin.ignore(); // 이전 입력 버퍼 비우기
     while (true) {
@@ -546,7 +540,7 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
         cout << "이름은 비워둘 수 없습니다. 다시 입력하세요: ";
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "전화번호를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         getline(cin, phone);
@@ -557,12 +551,12 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "이메일을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     getline(cin, email);
     if (email == "back") return; // 이전 메뉴로 돌아가기
 
-    cout << "==========================================================\n";
+    cout << "-------------------------------------------------------------------------------------\n";
     cout << "학번을 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         cin >> studentID;
@@ -579,12 +573,11 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
     unique_ptr<User> newStudent = make_unique<Student>(name, id, password, phone, email, studentID);
     addUser(users, move(newStudent));
 
-    cout << "\"" << name << "\" 학생이 추가되었습니다. (최초 비밀번호는 0000입니다.)\n";
+    cout << "\"" << name << "\" 학생이 추가되었습니다. (최초 비밀번호는 0000입니다.)\n\n";
 }
 
 void Administrator::deleteStudent(vector<unique_ptr<User>>& users) {
     viewStudents(users);
-    cout << "=== 학생 삭제 ===\n";
     string studentID;
     cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
@@ -605,7 +598,7 @@ void Administrator::deleteStudent(vector<unique_ptr<User>>& users) {
             cout << "이름: " << user->getName() << "\n";
             cout << "전화번호: " << user->getPhoneNumber() << "\n";
             cout << "이메일: " << user->getEmail() << "\n";
-            cout << "학번: " << dynamic_cast<Student*>(user.get())->getStudentID() << "\n";
+            cout << "학번: " << dynamic_cast<Student*>(user.get())->getStudentID() << "\n\n";
             found = true;
             break;
         }
