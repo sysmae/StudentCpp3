@@ -1,5 +1,5 @@
 ID,Password,Name,PhoneNumber,Email,UserType,StudentID
-student1,pass123,Yoo Jain,010-0000-0000,qwer@qwe.com,Student,20240001
+student1,pass123,Yoo Jain,010-9324-3207,student1@student.com,Student,20240001
 student2,pass246,Lee JiEun,010-3691-8807,student2@student.com,Student,20240002
 student3,pass369,Park SooHyun,010-8448-1459,student3@student.com,Student,20240003
 student4,pass492,Choi JaeHyun,010-4129-5342,student4@student.com,Student,20240004
