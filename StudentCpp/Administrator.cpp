@@ -157,6 +157,8 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
 
     subjects.emplace_back(Subject(id, name, credit, type, year, term, professorID));
     cout << "\"" << name << "\" 과목이 생성되었습니다.\n";
+    cout << "-------------------------------------------------------------------------------------\n";
+    viewSubjects(subjects);
 }
 
 void Administrator::deleteSubject(vector<Subject>& subjects) {
@@ -184,6 +186,8 @@ void Administrator::deleteSubject(vector<Subject>& subjects) {
     if (it != subjects.end()) {
         cout << "\"" << it->getName() << "\" 과목이 삭제되었습니다.\n";
         subjects.erase(it);
+        cout << "-------------------------------------------------------------------------------------\n";
+        viewSubjects(subjects);
     }
     else {
         cout << "과목을 찾을 수 없습니다.\n";
@@ -314,6 +318,8 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
         it->setProfessorID(newProfessorID);
 
         cout << "해당 과목이 수정되었습니다.\n";
+        cout << "-------------------------------------------------------------------------------------\n";
+        viewSubjects(subjects);
     }
     else {
         cout << "과목을 찾을 수 없습니다.\n";
@@ -434,6 +440,8 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
     addUser(users, move(newProf));
 
     cout << "\"" << name << "\" 교수가 추가되었습니다. (최초 비밀번호는 0000입니다.)\n";
+    cout << "-------------------------------------------------------------------------------------\n";
+    viewProfessors(users);
 }
 
 void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
@@ -467,6 +475,8 @@ void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
     if (found) {
         removeUser(users, profID);
         cout << "\"" << profID << "\" 교수가 삭제되었습니다.\n";
+        cout << "-------------------------------------------------------------------------------------\n";
+        viewProfessors(users);
     }
     else {
         cout << "해당 ID의 교수를 찾을 수 없습니다.\n";
@@ -583,6 +593,8 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
     addUser(users, move(newStudent));
 
     cout << "\"" << name << "\" 학생이 추가되었습니다. (최초 비밀번호는 0000입니다.)\n\n";
+    cout << "-------------------------------------------------------------------------------------\n";
+    viewStudents(users);
 }
 
 void Administrator::deleteStudent(vector<unique_ptr<User>>& users) {
@@ -618,6 +630,8 @@ void Administrator::deleteStudent(vector<unique_ptr<User>>& users) {
     if (found) {
         removeUser(users, studentID);
         cout << "\"" << studentID << "\" 학생이 삭제되었습니다.\n";
+        cout << "-------------------------------------------------------------------------------------\n";
+        viewStudents(users);
     }
     else {
         cout << "해당 ID의 학생을 찾을 수 없습니다.\n";
