@@ -4,6 +4,8 @@
 #include "Professor.h"    // Professor 클래스 포함
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
+#include "utils.h"
 
 using namespace std;
 
@@ -59,15 +61,8 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
     string name, type, termStr, professorID;
     double credit;
     int year;
+    viewSubjects(subjects);
 
-    cout << "\n현재 등록된 과목 목록: \n";
-    for (const auto& subject : subjects) {
-        cout << "과목 ID: " << subject.getID()
-            << ", 이름: " << subject.getName()
-            << ", 교수 ID: " << subject.getProfessorID() << endl;
-    }
-
-    
     cout << "\n-------------------------------------------------------------------------------------\n";
     // 과목 ID 입력
     while (true) {
@@ -166,11 +161,7 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
 
 void Administrator::deleteSubject(vector<Subject>& subjects) {
     int id;
-    cout << "\n현재 등록된 과목 목록:\n";
-    for (const auto& subject : subjects) {
-        cout << "ID: " << subject.getID()
-            << ", 이름: " << subject.getName() << endl;
-    }
+    viewSubjects(subjects);
 
     cout << "\n-------------------------------------------------------------------------------------\n";
     while (true) {
@@ -201,11 +192,7 @@ void Administrator::deleteSubject(vector<Subject>& subjects) {
 
 void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique_ptr<User>>& users) {
     int id;
-    cout << "\n현재 등록된 과목 목록:\n";
-    for (const auto& subject : subjects) {
-        cout << "ID: " << subject.getID()
-            << ", 이름: " << subject.getName() << endl;
-    }
+    viewSubjects(subjects);
 
     cout << "\n-------------------------------------------------------------------------------------\n";
     while (true) {
@@ -335,33 +322,48 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
 
 void Administrator::viewSubjects(const vector<Subject>& subjects) const {
     cout << "\n현재 등록된 과목 목록: \n";
+    // 과목 이름의 최대 길이를 계산하여 열 너비 결정
+    size_t maxNameLength = 30; // 기본 이름 열 너비를 30으로 설정
     for (const auto& subject : subjects) {
-        cout << "ID: " << subject.getID()
-            << ", 이름: " << subject.getName()
-            << ", 유형: " << subject.getType()
-            << ", 학점: " << subject.getCredit()
-            << ", 년도: " << subject.getYear()
-            << ", 학기: " << (subject.getTerm() == Term::FIRST_TERM ? "FIRST_TERM" : "SECOND_TERM")
-            << ", 교수 ID: " << subject.getProfessorID() << "\n\n";
+        maxNameLength = max(maxNameLength, subject.getName().length() + 2);
+    }
+
+    printTableHeader(maxNameLength);
+
+    bool hasSubjects = false;
+    for (const auto& subject : subjects) {
+        cout << setw(10) << subject.getID()
+            << setw(maxNameLength) << subject.getName()
+            << setw(10) << subject.getType()
+            << setw(8) << subject.getCredit()
+            << setw(10) << subject.getYear()
+            << setw(8) << subject.getTerm()
+            << '\n';
     }
 }
-
+   
 // Professor Management
-
-void Administrator::viewProfessors(const vector<unique_ptr<User>>& users) const {
+void Administrator::viewProfessors(const vector<unique_ptr<User>>& users) {
     cout << "\n교수 목록: \n";
+    size_t maxNameLength = 30; // 기본 이름 열 너비를 30으로 설정
+    for (const auto& user : users) {
+        maxNameLength = max(maxNameLength, user->getName().length() + 2);
+    }
+
+    printTableHeaderUser(maxNameLength);
+
+    
     for (const auto& user : users) {
         if (user->getUserType() == "Professor") {
-            cout << "ID: " << user->getID()
-                << ", 이름: " << user->getName()
-                << ", 전화번호: " << user->getPhoneNumber()
-                << ", 이메일: " << user->getEmail() << "\n\n";
+            cout << setw(10) << user->getID()
+                << setw(maxNameLength) << user->getName()
+                << setw(15) << user->getPhoneNumber()
+                << setw(20) << user->getEmail()
+                << '\n';
         }
     }
 }
-
 void Administrator::viewProfessorInfo(const vector<unique_ptr<User>>& users) const {
-    viewProfessors(users);
     string profID;
     cout << "교수 ID을 입력하세요: ";
     cin >> profID;
@@ -388,6 +390,7 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
     viewProfessors(users);
     string id, name, phone, email;
 
+    cout << "\n-------------------------------------------------------------------------------------\n";
     cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         cin >> id;
@@ -436,6 +439,7 @@ void Administrator::addProfessor(vector<unique_ptr<User>>& users) {
 void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
     string profID;
     viewProfessors(users);
+    cout << "\n-------------------------------------------------------------------------------------\n";
     cout << "삭제할 교수 ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         cin >> profID;
@@ -471,25 +475,29 @@ void Administrator::deleteProfessor(vector<unique_ptr<User>>& users) {
 
 // Student Management
 
-void Administrator::viewStudents(const vector<unique_ptr<User>>& users) const {
+void Administrator::viewStudents(const vector<unique_ptr<User>>& users) {
     cout << "\n학생 목록: \n";
+    size_t maxEmailLength = 30; // 기본 이름 열 너비를 30으로 설정
+    for (const auto& user : users) {
+        maxEmailLength = max(maxEmailLength, user->getName().length() + 2);
+    }
+
+    printTableHeaderUser(maxEmailLength);
+
+
     for (const auto& user : users) {
         if (user->getUserType() == "Student") {
-            const Student* student = dynamic_cast<const Student*>(user.get());
-            if (student) {
-                cout << "ID: " << student->getID()
-                    << ", 이름: " << student->getName()
-                    << ", 전화번호: " << student->getPhoneNumber()
-                    << ", 이메일: " << student->getEmail()
-                    << ", 학번: " << student->getStudentID() << "\n\n";
-            }
+            cout << setw(10) << user->getID()
+                << setw(20) << user->getName()
+                << setw(15) << user->getPhoneNumber()
+                << setw(maxEmailLength) << user->getEmail()
+                << '\n';
         }
     }
 }
 
 void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) const {
     string studentID;
-    viewStudents(users);
     cout << "학생 ID를 입력하세요: \n";
     cin >> studentID;
 
@@ -520,6 +528,7 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
     string name, id, phone, email;
     int studentID;
 
+    cout << "\n-------------------------------------------------------------------------------------\n";
     cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): \n";
     while (true) {
         cin >> id;
@@ -579,6 +588,8 @@ void Administrator::addStudent(vector<unique_ptr<User>>& users) {
 void Administrator::deleteStudent(vector<unique_ptr<User>>& users) {
     viewStudents(users);
     string studentID;
+
+    cout << "\n-------------------------------------------------------------------------------------\n";
     cout << "ID를 입력하세요 ('back'을 입력해 이전 메뉴로 돌아가기): ";
     while (true) {
         cin >> studentID;

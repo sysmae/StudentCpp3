@@ -119,6 +119,16 @@ void printTableHeader(size_t nameWidth) {
     cout << string(10 + nameWidth + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
 }
 
+void printTableHeaderUser(size_t Emailwidth) {
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(20) << "이름"
+        << setw(15) << "전화번호"
+        << setw(Emailwidth) << "이메일"
+        << '\n';
+    cout << string(10 + 20 + 15 + Emailwidth, '-') << '\n';  // 구분선 길이 조정
+}
+
 // 특정 연도와 학기에 해당하는 과목 출력 함수
 bool Student::viewSubjectsByTerm(int year, int term, bool showHeader = true) const {
     // 과목 이름의 최대 길이를 계산하여 열 너비 결정

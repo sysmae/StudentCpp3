@@ -40,3 +40,6 @@ void updateUsersCSV(const vector<User*>& users);
 
 vector<StudentRecord> filterRecordsBySubject(const vector<StudentRecord>& records, int subjectID);
 #endif // UTILS_H
+
+void printTableHeader(size_t nameWidth);
+void printTableHeaderUser(size_t nameWidth);

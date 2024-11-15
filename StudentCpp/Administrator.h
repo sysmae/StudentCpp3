@@ -27,13 +27,13 @@ public:
     void viewSubjects(const vector<Subject>& subjects) const;
 
     // Professor management functions
-    void viewProfessors(const vector<unique_ptr<User>>& users) const;
+    void viewProfessors(const vector<unique_ptr<User>>& users);
     void viewProfessorInfo(const vector<unique_ptr<User>>& users) const;
     void addProfessor(vector<unique_ptr<User>>& users);
     void deleteProfessor(vector<unique_ptr<User>>& users);
 
     // Student management functions
-    void viewStudents(const vector<unique_ptr<User>>& users) const;
+    void viewStudents(const vector<unique_ptr<User>>& users);
     void viewStudentInfo(const vector<unique_ptr<User>>& users) const;
     void addStudent(vector<unique_ptr<User>>& users);
     void deleteStudent(vector<unique_ptr<User>>& users);

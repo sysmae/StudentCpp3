@@ -76,8 +76,6 @@ public:
     void loadTaughtSubjects(const vector<StudentRecord>& studentRecords, const vector<Subject>& allSubjects);
 
     
-
-    
 };
 
 #endif // STUDENT_H

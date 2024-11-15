@@ -63,8 +63,7 @@ void printSubjectHeader(size_t nameWidth) {
         << setw(10) << "구분"
         << setw(8) << "학점"
         << setw(10) << "연도"
-        << setw(8) << "학기"
-        << '\n';
+        << setw(8) << "학기\n";
     cout << string(10 + nameWidth + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
 }
 
