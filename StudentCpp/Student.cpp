@@ -119,7 +119,7 @@ void printTableHeader(size_t nameWidth) {
     cout << string(10 + nameWidth + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
 }
 
-void printTableHeaderUser(size_t Emailwidth) {
+void printTableHeaderProfessor(size_t Emailwidth) {
     cout << left;
     cout << setw(10) << "ID"
         << setw(20) << "이름"
@@ -127,6 +127,17 @@ void printTableHeaderUser(size_t Emailwidth) {
         << setw(Emailwidth) << "이메일"
         << '\n';
     cout << string(10 + 20 + 15 + Emailwidth, '-') << '\n';  // 구분선 길이 조정
+}
+
+void printTableHeaderStudent(size_t Emailwidth) {
+    cout << left;
+    cout << setw(10) << "ID"
+        << setw(20) << "이름"
+        << setw(15) << "전화번호"
+        << setw(Emailwidth) << "이메일"
+        << setw(10) << "학번"
+        << '\n';
+    cout << string(10 + 20 + 15 + Emailwidth + 10, '-') << '\n';  // 구분선 길이 조정
 }
 
 // 특정 연도와 학기에 해당하는 과목 출력 함수

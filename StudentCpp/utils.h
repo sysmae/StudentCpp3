@@ -42,4 +42,5 @@ vector<StudentRecord> filterRecordsBySubject(const vector<StudentRecord>& record
 #endif // UTILS_H
 
 void printTableHeader(size_t nameWidth);
-void printTableHeaderUser(size_t nameWidth);
+void printTableHeaderProfessor(size_t nameWidth);
+void printTableHeaderStudent(size_t nameWidth);

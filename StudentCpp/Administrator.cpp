@@ -356,7 +356,7 @@ void Administrator::viewProfessors(const vector<unique_ptr<User>>& users) {
         maxNameLength = max(maxNameLength, user->getName().length() + 2);
     }
 
-    printTableHeaderUser(maxNameLength);
+    printTableHeaderProfessor(maxNameLength);
 
     
     for (const auto& user : users) {
@@ -369,19 +369,23 @@ void Administrator::viewProfessors(const vector<unique_ptr<User>>& users) {
         }
     }
 }
-void Administrator::viewProfessorInfo(const vector<unique_ptr<User>>& users) const {
+void Administrator::viewProfessorInfo(const vector<unique_ptr<User>>& users) {
     string profID;
+    viewProfessors(users);
+    cout << "\n-------------------------------------------------------------------------------------\n";
     cout << "교수 ID을 입력하세요: ";
     cin >> profID;
 
     bool found = false;
     for (const auto& user : users) {
         if (user->getUserType() == "Professor" && user->getID() == profID) {
+            cout << "-------------------------------------------------------------------------------------\n";
             cout << "=== 교수 정보 ===\n";
             cout << "ID: " << user->getID() << "\n";
             cout << "이름: " << user->getName() << "\n";
             cout << "전화번호: " << user->getPhoneNumber() << "\n";
-            cout << "이메일: " << user->getEmail() << "\n\n";
+            cout << "이메일: " << user->getEmail() << "\n";
+            cout << "-------------------------------------------------------------------------------------\n\n";
             found = true;
             break;
         }
@@ -492,8 +496,7 @@ void Administrator::viewStudents(const vector<unique_ptr<User>>& users) {
         maxEmailLength = max(maxEmailLength, user->getName().length() + 2);
     }
 
-    printTableHeaderUser(maxEmailLength);
-
+    printTableHeaderStudent(maxEmailLength);
 
     for (const auto& user : users) {
         if (user->getUserType() == "Student") {
@@ -501,14 +504,17 @@ void Administrator::viewStudents(const vector<unique_ptr<User>>& users) {
                 << setw(20) << user->getName()
                 << setw(15) << user->getPhoneNumber()
                 << setw(maxEmailLength) << user->getEmail()
+                << setw(10) << dynamic_cast<Student*>(user.get())->getStudentID()
                 << '\n';
         }
     }
 }
 
-void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) const {
+void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) {
     string studentID;
-    cout << "학생 ID를 입력하세요: \n";
+    viewStudents(users);
+    cout << "\n-------------------------------------------------------------------------------------\n";
+    cout << "학생 ID를 입력하세요: ";
     cin >> studentID;
 
     bool found = false;
@@ -516,12 +522,14 @@ void Administrator::viewStudentInfo(const vector<unique_ptr<User>>& users) const
         if (user->getUserType() == "Student" && user->getID() == studentID) {
             const Student* student = dynamic_cast<const Student*>(user.get());
             if (student) {
+                cout << "-------------------------------------------------------------------------------------\n";
                 cout << "=== 학생 정보 ===\n";
                 cout << "ID: " << student->getID() << "\n";
                 cout << "이름: " << student->getName() << "\n";
                 cout << "전화번호: " << student->getPhoneNumber() << "\n";
                 cout << "이메일: " << student->getEmail() << "\n";
-                cout << "학번: " << student->getStudentID() << "\n\n";
+                cout << "학번: " << student->getStudentID() << "\n";
+                cout << "-------------------------------------------------------------------------------------\n\n";
                 found = true;
                 break;
             }
