@@ -73,6 +73,14 @@ string getMaskedInput() {
     return password;
 }
 
+bool isValidName(const string& name) {
+    if (name.empty()) return false;
+
+    return all_of(name.begin(), name.end(), [](char c) {
+        return isalpha(c) || isspace(c);
+        });
+}
+
 // Function to load users from CSV
 vector<unique_ptr<User>> loadUsers(const string& filename) {
     vector<unique_ptr<User>> users;

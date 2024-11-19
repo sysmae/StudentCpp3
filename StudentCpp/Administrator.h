@@ -1,4 +1,3 @@
-// Administrator.h
 #ifndef ADMINISTRATOR_H
 #define ADMINISTRATOR_H
 
@@ -12,10 +11,13 @@ using namespace std;
 
 class Administrator : public User {
 public:
+    // Constructor
     Administrator(string n, string i, string p, string phone, string mail);
 
+    // Override function to get user type
     string getUserType() const override;
 
+    // User management functions
     void addUser(vector<unique_ptr<User>>& users, unique_ptr<User> newUser);
     void removeUser(vector<unique_ptr<User>>& users, const string& userID);
     void viewAllUsers(const vector<unique_ptr<User>>& users) const;

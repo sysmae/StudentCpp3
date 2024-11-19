@@ -44,3 +44,4 @@ vector<StudentRecord> filterRecordsBySubject(const vector<StudentRecord>& record
 void printTableHeader(size_t nameWidth);
 void printTableHeaderProfessor(size_t nameWidth);
 void printTableHeaderStudent(size_t nameWidth);
+bool isValidName(const string& name);
