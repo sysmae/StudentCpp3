@@ -290,18 +290,18 @@ void Student::viewGradeBySubjectID(int subjectID) const {
 }
 
 
-// 전체 성적 평균 계산
-double Student::calculateAverageScore() const {
-    double totalScore = 0.0;
-    int count = 0;
-    for (const auto& entry : scores) {
-        totalScore += entry.second;
-        count++;
-    }
-    if (count == 0) return 0.0; // 과목이 없으면 0 반환
-    return totalScore / count; // 평균 반환
-}
-
+// 전체 성적 평균 계산, 당장은 안써서 주석처리
+//double Student::calculateAverageScore() const {
+//    double totalScore = 0.0;
+//    int count = 0;
+//    for (const auto& entry : scores) {
+//        totalScore += entry.second;
+//        count++;
+//    }
+//    if (count == 0) return 0.0; // 과목이 없으면 0 반환
+//    return totalScore / count; // 평균 반환
+//}
+//
 
 
 // 졸업요건 조회
@@ -335,8 +335,8 @@ void Student::checkGraduationRequirements(const std::vector<Subject>& allSubject
                 continue;
             }
 
-            // F를 받은 학점은 더하지 않는다
-            if (record.getLetterGrade() == "F") {
+            // F를 받은 학점과 아직 성적 확정 안된 과목은 더하지 않는다
+            if (record.getLetterGrade() == "F" || record.getLetterGrade() == "N/A") {
                 continue;
             }
 

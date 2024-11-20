@@ -64,8 +64,8 @@ public:
 
     //졸업요건 조회
 
-    // 전체 성적 평균 계산
-    double calculateAverageScore() const;
+    // 전체 성적 평균 계산 일단 
+    //double calculateAverageScore() const;
 
     void checkGraduationRequirements(const std::vector<Subject>& allSubjects, const std::vector<StudentRecord>& allStudentRecords, int currentYear, int currentTerm);
 
