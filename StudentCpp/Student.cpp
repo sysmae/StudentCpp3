@@ -311,6 +311,11 @@ void Student::checkGraduationRequirements(const std::vector<Subject>& allSubject
     double earnedMajorBasicsCredits = 0.0;
     double earnedTotalCredits = 0.0;
 
+    // 본인이 들어야 하는 학점
+    const double requiredMajorCreditsRequired = 17.0; // 전공필수 최소 17학점
+    const double basicsCreditsRequired = 14.0; // 전공기초 최소 14학점
+    const double totalCreditsRequired = 66.0; // 전공필수 + 전공선택 최소 66학점
+
     // Loop through each course the student has taken in all previous terms
     for (const auto& record : allStudentRecords) {
         if (record.getStudentID() == this->getStudentID()) {
@@ -348,36 +353,40 @@ void Student::checkGraduationRequirements(const std::vector<Subject>& allSubject
         }
     }
 
-    // 인정되는 최대 학점 설정
-    double earnedMajorBasicsCreditsLimited = std::min(earnedMajorBasicsCredits, 14.0);
-    double earnedRequiredMajorCreditsLimited = std::min(earnedRequiredMajorCredits, 17.0);
-    double earnedSelectionMajorCreditsLimited = std::min(earnedSelectionMajorCredits, 49.0);
-
-    // 총 이수 학점과 졸업요건에 인정되는 학점 계산
-    double totalEarnedCredits =  earnedRequiredMajorCredits + earnedSelectionMajorCredits;
-    double totalCreditsForGraduation =  earnedRequiredMajorCreditsLimited + earnedSelectionMajorCreditsLimited;
+    // 총 이수 학점 계산
+    double totalEarnedCredits = earnedRequiredMajorCredits + earnedSelectionMajorCredits;
 
     // 졸업 요건 출력
     std::cout << "=====================================================================================\n";
     std::cout << "졸업요건 조회:\n";
     std::cout << "-------------------------------------------------------------------------------------\n";
 
-    // 학점 정보 출력
-    std::cout << std::left << std::setw(25) << "전공기초 (최대 14): " << earnedMajorBasicsCredits
-        << " (인정: " << earnedMajorBasicsCreditsLimited << ")\n";
-    std::cout << std::left << std::setw(25) << "전공필수 (최대 17): " << earnedRequiredMajorCredits
-        << " (인정: " << earnedRequiredMajorCreditsLimited << ")\n";
-    std::cout << std::left << std::setw(25) << "전공선택 (최대 49): " << earnedSelectionMajorCredits
-        << " (인정: " << earnedSelectionMajorCreditsLimited << ")\n";
-    std::cout << std::left << std::setw(25) << "전공필수 + 전공 선택: " << totalEarnedCredits
-        << " (인정: " << totalCreditsForGraduation << ")\n";
+    // 본인이 들어야 하는 학점과 실제 들은 학점 출력
+    std::cout << std::left << std::setw(25) << "전공기초 (필수 14학점): " << earnedMajorBasicsCredits << " (실제 들은 학점)\n";
+    std::cout << std::left << std::setw(25) << "전공필수 (필수 17학점): " << earnedRequiredMajorCredits << " (실제 들은 학점)\n";
+    std::cout << std::left << std::setw(25) << "전공선택 (필수 66학점 합산): " << earnedSelectionMajorCredits << " (실제 들은 학점)\n";
+    std::cout << std::left << std::setw(25) << "전공필수 + 전공 선택: " << totalEarnedCredits << " (실제 들은 학점)\n";
 
-    // 졸업요건 충족 여부 확인
-    if (totalCreditsForGraduation >= 66 && earnedMajorBasicsCreditsLimited >= 14.0) {
+    // 졸업 요건 충족 여부 확인
+    bool graduationMet = true;
+    if (earnedMajorBasicsCredits < basicsCreditsRequired) {
+        graduationMet = false;
+        std::cout << "전공기초 학점 부족: " << basicsCreditsRequired - earnedMajorBasicsCredits << "학점 부족\n";
+    }
+    if (earnedRequiredMajorCredits < requiredMajorCreditsRequired) {
+        graduationMet = false;
+        std::cout << "전공필수 학점 부족: " << requiredMajorCreditsRequired - earnedRequiredMajorCredits << "학점 부족\n";
+    }
+    if (totalEarnedCredits < totalCreditsRequired) {
+        graduationMet = false;
+        std::cout << "전공필수 + 전공선택 합산 학점 부족: " << totalCreditsRequired - totalEarnedCredits << "학점 부족\n";
+    }
+
+    // 졸업 요건 충족 여부 출력
+    if (graduationMet) {
         std::cout << "졸업 요건을 충족했습니다.\n";
     }
     else {
         std::cout << "졸업 요건을 충족하지 않았습니다.\n";
     }
 }
-
