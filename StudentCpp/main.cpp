@@ -164,10 +164,33 @@ int main() {
         while (!logout) {
             displayMenu(userType);
             int choice;
-            cout << "\n선택을 입력하세요: ";
-            cin >> choice;
+
+            // 선택 입력 루프
+            while (true) {
+                cout << "-------------------------------------\n";
+                cout << "선택을 입력하세요 (0: 로그아웃): ";
+                cin >> choice;
+
+                // cin 에러 상태 처리
+                if (cin.fail()) {
+                    cin.clear(); // 에러 플래그 초기화
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 잘못된 입력 제거
+                    cout << "잘못된 입력입니다. 숫자를 입력해주세요.\n";
+                    continue;
+                }
+
+                // 유효성 검사
+                if (choice >= 0 && choice <= 4) {
+                    break; // 유효한 선택이면 루프 종료
+                }
+                else {
+                    cout << "잘못된 입력입니다. 0~4 중 하나를 선택하세요.\n";
+                }
+            }
+
             cout << endl;
 
+            // 로그아웃 처리
             if (choice == 0) {
                 logout = true;
                 cout << "로그아웃 중...\n";
