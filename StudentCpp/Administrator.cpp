@@ -113,14 +113,14 @@ void Administrator::addSubject(vector<Subject>& subjects, const vector<unique_pt
         // 학점 입력
         while (true) {
             cout << "-------------------------------------------------------------------------------------\n";
-            cout << "학점을 입력하세요 (2 OR 3)('back'을 입력해 이전 메뉴로 돌아가기): ";
+            cout << "학점을 입력하세요 (1 OR 2 OR 3)('back'을 입력해 이전 메뉴로 돌아가기): ";
             string input;
             cin >> input;
             if (input == "back") return;
             try {
                 credit = stod(input);
-                if (credit == 2 || credit == 3) break;
-                cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요.\n";
+                if (credit == 1 || credit == 2 || credit == 3) break;
+                cout << "유효하지 않은 학점입니다. 1, 2 혹은 3 학점 중 하나를 입력하세요.\n";
             }
             catch (...) {
                 cout << "유효하지 않은 입력입니다. 숫자를 입력하세요.\n";
@@ -339,7 +339,7 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
                 double newCredit;
                 while (true) {
                     cout << "-------------------------------------------------------------------------------------\n";
-                    cout << "새 학점을 입력하세요 (현재: " << it->getCredit() << "학점, 2 or 3 중 하나를 입력): ";
+                    cout << "새 학점을 입력하세요 (현재: " << it->getCredit() << "학점,1 OR 2 OR 3 중 하나를 입력): ";
                     string creditInput;
                     cin >> creditInput;
 
@@ -362,8 +362,8 @@ void Administrator::modifySubject(vector<Subject>& subjects, const vector<unique
                     }
                     try {
                         newCredit = stod(creditInput);
-                        if (newCredit == 2 || newCredit == 3) break;
-                        cout << "유효하지 않은 학점입니다. 2학점 혹은 3학점 중 하나를 입력하세요.\n";
+                        if (newCredit == 1 || newCredit == 2 || newCredit == 3) break;
+                        cout << "유효하지 않은 학점입니다. 1, 2 혹은 3학점 중 하나를 입력하세요.\n";
                     }
                     catch (...) {
                         cout << "유효하지 않은 입력입니다. 숫자를 입력하세요.\n";
