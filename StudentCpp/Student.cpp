@@ -330,11 +330,6 @@ void Student::checkGraduationRequirements(const std::vector<Subject>& allSubject
                 continue;
             }
 
-            // If the student has already earned enough credits, skip adding further credits for graduation
-            if (earnedTotalCredits >= 66) {
-                break;
-            }
-
             // F를 받은 학점은 더하지 않는다
             if (record.getLetterGrade() == "F") {
                 continue;
