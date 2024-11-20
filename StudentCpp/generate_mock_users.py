@@ -4,14 +4,12 @@ import os
 
 # Provided initial data
 initial_data = [
-    ["prof1", "prof1234", "DR.Jin", "010-1010-2020", "qwer@mql.com", "Professor", ""],
-    ["prof2", "prof456", "Dr. Choi", "010-8888-9999", "choi@prof.com", "Professor", ""],
     ["admin1", "admin123", "Admin Lee", "010-9999-0000", "lee@admin.com", "Administrator", ""],
     ["admin2", "admin456", "Admin Kim", "010-0000-1111", "kim@admin.com", "Administrator", ""],
 ]
 
 # User mock data generation function
-def generate_mock_data(num_users):
+def generate_mock_data(num_users, user_type="Student"):
     first_names = [
         "Yoo", "Lee", "Park", "Choi", "Jung", "Han", "Oh",
         "Yoon", "Song", "Kang", "Lim", "Seo", "Kwon", "Shin",
@@ -30,25 +28,35 @@ def generate_mock_data(num_users):
 
     data = []
     for i in range(1, num_users + 1):
-        user_id = f"student{i}"
-        password = f"pass{i * 123}"
-        name = f"{random.choice(first_names)} {random.choice(last_names)}"
-        phone_number = f"010-{random.randint(1000, 9999)}-{random.randint(1000, 9999)}"
-        email = f"{user_id}@student.com"
-        user_type = "Student"
-        
-        # Randomly assign a year based on weights
-        year = random.choices(years, weights=weights, k=1)[0]
-        student_id = f"{year}{str(i).zfill(4)}"
-        
-        data.append([user_id, password, name, phone_number, email, user_type, student_id])
+        if user_type == "Professor":
+            user_id = f"prof{i}"
+            password = f"prof{i * 123}"
+            name = f"{random.choice(first_names)} {random.choice(last_names)}"
+            phone_number = f"010-{random.randint(1000, 9999)}-{random.randint(1000, 9999)}"
+            email = f"{user_id}@professor.com"
+            data.append([user_id, password, name, phone_number, email, user_type, ""])
+        else:
+            user_id = f"{user_type.lower()}{i}"
+            password = f"pass{i * 123}"
+            name = f"{random.choice(first_names)} {random.choice(last_names)}"
+            phone_number = f"010-{random.randint(1000, 9999)}-{random.randint(1000, 9999)}"
+            email = f"{user_id}@{user_type.lower()}.com"
+            
+            if user_type == "Student":
+                year = random.choices(years, weights=weights, k=1)[0]
+                student_id = f"{year}{str(i).zfill(4)}"
+                data.append([user_id, password, name, phone_number, email, user_type, student_id])
+            elif user_type == "Professor":
+                data.append([user_id, password, name, phone_number, email, user_type])
+
     return data
 
-# Generate student mock data
-student_mock_data = generate_mock_data(150)
+# Generate student and professor mock data
+student_mock_data = generate_mock_data(150, user_type="Student")
+professor_mock_data = generate_mock_data(12, user_type="Professor")
 
 # Combine initial and generated data
-all_data = initial_data + student_mock_data
+all_data = initial_data + student_mock_data + professor_mock_data
 
 # Ensure the "mock" folder exists
 mock_folder = "mock"

@@ -43,7 +43,7 @@ void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, co
 
     // 각 학생의 성적 출력
     for (const auto& student : enrolledStudents) {
-        cout << setw(10) << student->getStudentID()
+        cout << setw(10) << student->getID()
             << setw(30) << subject->getName()
             << setw(10) << student->getStudentID()
             << setw(15) << student->getName()
@@ -89,7 +89,7 @@ bool Professor::printSubjectsByTerm(int year, int term, bool showHeader = true) 
                 << setw(10) << subject.getType()
                 << setw(8) << subject.getCredit()
                 << setw(10) << subject.getYear()
-                << setw(8) << subject.getTerm()
+                << setw(8) << subject.getTerm() 
                 << '\n';
             hasSubjects = true;
         }

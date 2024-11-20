@@ -3,14 +3,18 @@ import numpy as np
 import csv
 import os
 
+# Function to read users (students and professors) from the CSV
 def read_users_from_csv(filename):
     students = []
+    professors = []
     with open(filename, mode='r', newline='') as file:
         reader = csv.DictReader(file)
         for row in reader:
             if row["UserType"] == "Student":
                 students.append(row["StudentID"])
-    return students
+            elif row["UserType"] == "Professor":
+                professors.append(row["ID"])  # Collecting professor IDs
+    return students, professors
 
 def read_subjects_from_csv(filename):
     subjects = []
@@ -24,7 +28,7 @@ def read_subjects_from_csv(filename):
                 "type": row["Type"],
                 "year": int(row["Year"]),
                 "term": row["Term"],
-                "professorID": row["ProfessorID"],
+                "professorID": row["ProfessorID"],  # Associate subject with professor ID
             }
             subjects.append(subject)
     return subjects
@@ -32,7 +36,7 @@ def read_subjects_from_csv(filename):
 def get_student_year(student_id):
     return int(student_id[:4])
 
-def generate_mock_data(num_rows, subjects, student_ids):
+def generate_mock_data(num_rows, subjects, student_ids, professor_ids):
     grade_to_letter = {
         4.5: 'A+',
         4.0: 'A',
@@ -41,15 +45,15 @@ def generate_mock_data(num_rows, subjects, student_ids):
         2.5: 'C+',
         2.0: 'C',
         1.5: 'D+',
-        1.0: 'D0',
+        1.0: 'D',
         0.0: 'F'
     }
     mock_data = []
     student_subject_grades = {student_id: {} for student_id in student_ids}
     student_term_credits = {student_id: {} for student_id in student_ids}  # 학기별 학점 제한 추적
 
-    # 최대 시도 횟수 설정
-    max_attempts = num_rows * 2
+    # 최대 시도 횟수 설정을 더 높게
+    max_attempts = num_rows * 10  # 시도 횟수 상한을 더 크게 설정
     attempts = 0
 
     while len(mock_data) < num_rows and attempts < max_attempts:
@@ -116,6 +120,7 @@ def generate_mock_data(num_rows, subjects, student_ids):
 
     return mock_data
 
+
 def write_to_csv(filename, data):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -124,11 +129,11 @@ def write_to_csv(filename, data):
 
 if __name__ == "__main__":
     # Read the data
-    student_ids = read_users_from_csv('users.csv')
+    student_ids, professor_ids = read_users_from_csv('users.csv')
     subjects = read_subjects_from_csv('subjects.csv')
 
     # Generate mock data
-    mock_data = generate_mock_data(4200, subjects, student_ids)
+    mock_data = generate_mock_data(4500, subjects, student_ids, professor_ids)
 
     # Ensure the "mock" folder exists
     mock_folder = "mock"
