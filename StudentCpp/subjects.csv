@@ -1,265 +1,199 @@
 ID,Name,Credit,Type,Year,Term,ProfessorID
-1001,General Physics (1),3,Basic,2017,FIRST_TERM,prof1
-1002,General Physics Lab (1),1,Basic,2017,FIRST_TERM,prof2
-1003,Calculus (1),3,Basic,2017,FIRST_TERM,prof1
-1004,General Physics (2),3,Basic,2017,SECOND_TERM,prof2
-1005,General Physics Lab (2),1,Basic,2017,SECOND_TERM,prof1
-1006,Calculus (2),3,Basic,2017,SECOND_TERM,prof2
-1007,Linear Algebra,2,Basic,2017,SECOND_TERM,prof1
-1008,Mathematical Physics (1),3,Required,2017,FIRST_TERM,prof2
-1009,Classical Mechanics (2),3,Required,2017,SECOND_TERM,prof1
-1010,Electromagnetism (2),3,Required,2017,SECOND_TERM,prof2
-1011,Thermodynamics,3,Required,2017,FIRST_TERM,prof1
-1012,Physics Research,2,Required,2017,SECOND_TERM,prof2
-1013,Quantum Mechanics (2),3,Required,2017,SECOND_TERM,prof1
-1014,Physics Lab (1),2,Elective,2017,FIRST_TERM,prof2
-1015,History and Philosophy of Physics,3,Elective,2017,FIRST_TERM,prof1
-1016,Classical Mechanics (1),3,Elective,2017,FIRST_TERM,prof2
-1017,Electromagnetism (1),3,Elective,2017,FIRST_TERM,prof1
-1018,Physics Lab (2),2,Elective,2017,SECOND_TERM,prof2
-1019,Mathematical Physics (2),3,Elective,2017,SECOND_TERM,prof1
-1020,Modern Physics,3,Elective,2017,SECOND_TERM,prof2
-1021,Optics,3,Elective,2017,FIRST_TERM,prof1
-1022,Physics Lab (3),2,Elective,2017,FIRST_TERM,prof2
-1023,Quantum Mechanics (1),3,Elective,2017,FIRST_TERM,prof1
-1024,Computational Physics,3,Elective,2017,FIRST_TERM,prof2
-1025,Semiconductor Physics,3,Elective,2017,SECOND_TERM,prof1
-1026,Biophysics,3,Elective,2017,SECOND_TERM,prof2
-1027,Statistical Mechanics,3,Elective,2017,SECOND_TERM,prof1
-1028,Solid State Physics,3,Elective,2017,FIRST_TERM,prof2
-1029,Special Relativity and Cosmology,3,Elective,2017,FIRST_TERM,prof1
-1030,Nuclear Physics,3,Elective,2017,FIRST_TERM,prof2
-1031,Advanced Solid State Physics,3,Elective,2017,SECOND_TERM,prof1
-1032,Particle Physics,3,Elective,2017,SECOND_TERM,prof2
-1033,Plasma Physics,3,Elective,2017,SECOND_TERM,prof1
-1034,General Physics (1),3,Basic,2018,FIRST_TERM,prof1
-1035,General Physics Lab (1),1,Basic,2018,FIRST_TERM,prof2
-1036,Calculus (1),3,Basic,2018,FIRST_TERM,prof1
-1037,General Physics (2),3,Basic,2018,SECOND_TERM,prof2
-1038,General Physics Lab (2),1,Basic,2018,SECOND_TERM,prof1
-1039,Calculus (2),3,Basic,2018,SECOND_TERM,prof2
-1040,Linear Algebra,2,Basic,2018,SECOND_TERM,prof1
-1041,Mathematical Physics (1),3,Required,2018,FIRST_TERM,prof2
-1042,Classical Mechanics (2),3,Required,2018,SECOND_TERM,prof1
-1043,Electromagnetism (2),3,Required,2018,SECOND_TERM,prof2
-1044,Thermodynamics,3,Required,2018,FIRST_TERM,prof1
-1045,Physics Research,2,Required,2018,SECOND_TERM,prof2
-1046,Quantum Mechanics (2),3,Required,2018,SECOND_TERM,prof1
-1047,Physics Lab (1),2,Elective,2018,FIRST_TERM,prof2
-1048,History and Philosophy of Physics,3,Elective,2018,FIRST_TERM,prof1
-1049,Classical Mechanics (1),3,Elective,2018,FIRST_TERM,prof2
-1050,Electromagnetism (1),3,Elective,2018,FIRST_TERM,prof1
-1051,Physics Lab (2),2,Elective,2018,SECOND_TERM,prof2
-1052,Mathematical Physics (2),3,Elective,2018,SECOND_TERM,prof1
-1053,Modern Physics,3,Elective,2018,SECOND_TERM,prof2
-1054,Optics,3,Elective,2018,FIRST_TERM,prof1
-1055,Physics Lab (3),2,Elective,2018,FIRST_TERM,prof2
-1056,Quantum Mechanics (1),3,Elective,2018,FIRST_TERM,prof1
-1057,Computational Physics,3,Elective,2018,FIRST_TERM,prof2
-1058,Semiconductor Physics,3,Elective,2018,SECOND_TERM,prof1
-1059,Biophysics,3,Elective,2018,SECOND_TERM,prof2
-1060,Statistical Mechanics,3,Elective,2018,SECOND_TERM,prof1
-1061,Solid State Physics,3,Elective,2018,FIRST_TERM,prof2
-1062,Special Relativity and Cosmology,3,Elective,2018,FIRST_TERM,prof1
-1063,Nuclear Physics,3,Elective,2018,FIRST_TERM,prof2
-1064,Advanced Solid State Physics,3,Elective,2018,SECOND_TERM,prof1
-1065,Particle Physics,3,Elective,2018,SECOND_TERM,prof2
-1066,Plasma Physics,3,Elective,2018,SECOND_TERM,prof1
-1067,General Physics (1),3,Basic,2019,FIRST_TERM,prof1
-1068,General Physics Lab (1),1,Basic,2019,FIRST_TERM,prof2
-1069,Calculus (1),3,Basic,2019,FIRST_TERM,prof1
-1070,General Physics (2),3,Basic,2019,SECOND_TERM,prof2
-1071,General Physics Lab (2),1,Basic,2019,SECOND_TERM,prof1
-1072,Calculus (2),3,Basic,2019,SECOND_TERM,prof2
-1073,Linear Algebra,2,Basic,2019,SECOND_TERM,prof1
-1074,Mathematical Physics (1),3,Required,2019,FIRST_TERM,prof2
-1075,Classical Mechanics (2),3,Required,2019,SECOND_TERM,prof1
-1076,Electromagnetism (2),3,Required,2019,SECOND_TERM,prof2
-1077,Thermodynamics,3,Required,2019,FIRST_TERM,prof1
-1078,Physics Research,2,Required,2019,SECOND_TERM,prof2
-1079,Quantum Mechanics (2),3,Required,2019,SECOND_TERM,prof1
-1080,Physics Lab (1),2,Elective,2019,FIRST_TERM,prof2
-1081,History and Philosophy of Physics,3,Elective,2019,FIRST_TERM,prof1
-1082,Classical Mechanics (1),3,Elective,2019,FIRST_TERM,prof2
-1083,Electromagnetism (1),3,Elective,2019,FIRST_TERM,prof1
-1084,Physics Lab (2),2,Elective,2019,SECOND_TERM,prof2
-1085,Mathematical Physics (2),3,Elective,2019,SECOND_TERM,prof1
-1086,Modern Physics,3,Elective,2019,SECOND_TERM,prof2
-1087,Optics,3,Elective,2019,FIRST_TERM,prof1
-1088,Physics Lab (3),2,Elective,2019,FIRST_TERM,prof2
-1089,Quantum Mechanics (1),3,Elective,2019,FIRST_TERM,prof1
-1090,Computational Physics,3,Elective,2019,FIRST_TERM,prof2
-1091,Semiconductor Physics,3,Elective,2019,SECOND_TERM,prof1
-1092,Biophysics,3,Elective,2019,SECOND_TERM,prof2
-1093,Statistical Mechanics,3,Elective,2019,SECOND_TERM,prof1
-1094,Solid State Physics,3,Elective,2019,FIRST_TERM,prof2
-1095,Special Relativity and Cosmology,3,Elective,2019,FIRST_TERM,prof1
-1096,Nuclear Physics,3,Elective,2019,FIRST_TERM,prof2
-1097,Advanced Solid State Physics,3,Elective,2019,SECOND_TERM,prof1
-1098,Particle Physics,3,Elective,2019,SECOND_TERM,prof2
-1099,Plasma Physics,3,Elective,2019,SECOND_TERM,prof1
-1100,General Physics (1),3,Basic,2020,FIRST_TERM,prof1
-1101,General Physics Lab (1),1,Basic,2020,FIRST_TERM,prof2
-1102,Calculus (1),3,Basic,2020,FIRST_TERM,prof1
-1103,General Physics (2),3,Basic,2020,SECOND_TERM,prof2
-1104,General Physics Lab (2),1,Basic,2020,SECOND_TERM,prof1
-1105,Calculus (2),3,Basic,2020,SECOND_TERM,prof2
-1106,Linear Algebra,2,Basic,2020,SECOND_TERM,prof1
-1107,Mathematical Physics (1),3,Required,2020,FIRST_TERM,prof2
-1108,Classical Mechanics (2),3,Required,2020,SECOND_TERM,prof1
-1109,Electromagnetism (2),3,Required,2020,SECOND_TERM,prof2
-1110,Thermodynamics,3,Required,2020,FIRST_TERM,prof1
-1111,Physics Research,2,Required,2020,SECOND_TERM,prof2
-1112,Quantum Mechanics (2),3,Required,2020,SECOND_TERM,prof1
-1113,Physics Lab (1),2,Elective,2020,FIRST_TERM,prof2
-1114,History and Philosophy of Physics,3,Elective,2020,FIRST_TERM,prof1
-1115,Classical Mechanics (1),3,Elective,2020,FIRST_TERM,prof2
-1116,Electromagnetism (1),3,Elective,2020,FIRST_TERM,prof1
-1117,Physics Lab (2),2,Elective,2020,SECOND_TERM,prof2
-1118,Mathematical Physics (2),3,Elective,2020,SECOND_TERM,prof1
-1119,Modern Physics,3,Elective,2020,SECOND_TERM,prof2
-1120,Optics,3,Elective,2020,FIRST_TERM,prof1
-1121,Physics Lab (3),2,Elective,2020,FIRST_TERM,prof2
-1122,Quantum Mechanics (1),3,Elective,2020,FIRST_TERM,prof1
-1123,Computational Physics,3,Elective,2020,FIRST_TERM,prof2
-1124,Semiconductor Physics,3,Elective,2020,SECOND_TERM,prof1
-1125,Biophysics,3,Elective,2020,SECOND_TERM,prof2
-1126,Statistical Mechanics,3,Elective,2020,SECOND_TERM,prof1
-1127,Solid State Physics,3,Elective,2020,FIRST_TERM,prof2
-1128,Special Relativity and Cosmology,3,Elective,2020,FIRST_TERM,prof1
-1129,Nuclear Physics,3,Elective,2020,FIRST_TERM,prof2
-1130,Advanced Solid State Physics,3,Elective,2020,SECOND_TERM,prof1
-1131,Particle Physics,3,Elective,2020,SECOND_TERM,prof2
-1132,Plasma Physics,3,Elective,2020,SECOND_TERM,prof1
-1133,General Physics (1),3,Basic,2021,FIRST_TERM,prof1
-1134,General Physics Lab (1),1,Basic,2021,FIRST_TERM,prof2
-1135,Calculus (1),3,Basic,2021,FIRST_TERM,prof1
-1136,General Physics (2),3,Basic,2021,SECOND_TERM,prof2
-1137,General Physics Lab (2),1,Basic,2021,SECOND_TERM,prof1
-1138,Calculus (2),3,Basic,2021,SECOND_TERM,prof2
-1139,Linear Algebra,2,Basic,2021,SECOND_TERM,prof1
-1140,Mathematical Physics (1),3,Required,2021,FIRST_TERM,prof2
-1141,Classical Mechanics (2),3,Required,2021,SECOND_TERM,prof1
-1142,Electromagnetism (2),3,Required,2021,SECOND_TERM,prof2
-1143,Thermodynamics,3,Required,2021,FIRST_TERM,prof1
-1144,Physics Research,2,Required,2021,SECOND_TERM,prof2
-1145,Quantum Mechanics (2),3,Required,2021,SECOND_TERM,prof1
-1146,Physics Lab (1),2,Elective,2021,FIRST_TERM,prof2
-1147,History and Philosophy of Physics,3,Elective,2021,FIRST_TERM,prof1
-1148,Classical Mechanics (1),3,Elective,2021,FIRST_TERM,prof2
-1149,Electromagnetism (1),3,Elective,2021,FIRST_TERM,prof1
-1150,Physics Lab (2),2,Elective,2021,SECOND_TERM,prof2
-1151,Mathematical Physics (2),3,Elective,2021,SECOND_TERM,prof1
-1152,Modern Physics,3,Elective,2021,SECOND_TERM,prof2
-1153,Optics,3,Elective,2021,FIRST_TERM,prof1
-1154,Physics Lab (3),2,Elective,2021,FIRST_TERM,prof2
-1155,Quantum Mechanics (1),3,Elective,2021,FIRST_TERM,prof1
-1156,Computational Physics,3,Elective,2021,FIRST_TERM,prof2
-1157,Semiconductor Physics,3,Elective,2021,SECOND_TERM,prof1
-1158,Biophysics,3,Elective,2021,SECOND_TERM,prof2
-1159,Statistical Mechanics,3,Elective,2021,SECOND_TERM,prof1
-1160,Solid State Physics,3,Elective,2021,FIRST_TERM,prof2
-1161,Special Relativity and Cosmology,3,Elective,2021,FIRST_TERM,prof1
-1162,Nuclear Physics,3,Elective,2021,FIRST_TERM,prof2
-1163,Advanced Solid State Physics,3,Elective,2021,SECOND_TERM,prof1
-1164,Particle Physics,3,Elective,2021,SECOND_TERM,prof2
-1165,Plasma Physics,3,Elective,2021,SECOND_TERM,prof1
-1166,General Physics (1),3,Basic,2022,FIRST_TERM,prof1
-1167,General Physics Lab (1),1,Basic,2022,FIRST_TERM,prof2
-1168,Calculus (1),3,Basic,2022,FIRST_TERM,prof1
-1169,General Physics (2),3,Basic,2022,SECOND_TERM,prof2
-1170,General Physics Lab (2),1,Basic,2022,SECOND_TERM,prof1
-1171,Calculus (2),3,Basic,2022,SECOND_TERM,prof2
-1172,Linear Algebra,2,Basic,2022,SECOND_TERM,prof1
-1173,Mathematical Physics (1),3,Required,2022,FIRST_TERM,prof2
-1174,Classical Mechanics (2),3,Required,2022,SECOND_TERM,prof1
-1175,Electromagnetism (2),3,Required,2022,SECOND_TERM,prof2
-1176,Thermodynamics,3,Required,2022,FIRST_TERM,prof1
-1177,Physics Research,2,Required,2022,SECOND_TERM,prof2
-1178,Quantum Mechanics (2),3,Required,2022,SECOND_TERM,prof1
-1179,Physics Lab (1),2,Elective,2022,FIRST_TERM,prof2
-1180,History and Philosophy of Physics,3,Elective,2022,FIRST_TERM,prof1
-1181,Classical Mechanics (1),3,Elective,2022,FIRST_TERM,prof2
-1182,Electromagnetism (1),3,Elective,2022,FIRST_TERM,prof1
-1183,Physics Lab (2),2,Elective,2022,SECOND_TERM,prof2
-1184,Mathematical Physics (2),3,Elective,2022,SECOND_TERM,prof1
-1185,Modern Physics,3,Elective,2022,SECOND_TERM,prof2
-1186,Optics,3,Elective,2022,FIRST_TERM,prof1
-1187,Physics Lab (3),2,Elective,2022,FIRST_TERM,prof2
-1188,Quantum Mechanics (1),3,Elective,2022,FIRST_TERM,prof1
-1189,Computational Physics,3,Elective,2022,FIRST_TERM,prof2
-1190,Semiconductor Physics,3,Elective,2022,SECOND_TERM,prof1
-1191,Biophysics,3,Elective,2022,SECOND_TERM,prof2
-1192,Statistical Mechanics,3,Elective,2022,SECOND_TERM,prof1
-1193,Solid State Physics,3,Elective,2022,FIRST_TERM,prof2
-1194,Special Relativity and Cosmology,3,Elective,2022,FIRST_TERM,prof1
-1195,Nuclear Physics,3,Elective,2022,FIRST_TERM,prof2
-1196,Advanced Solid State Physics,3,Elective,2022,SECOND_TERM,prof1
-1197,Particle Physics,3,Elective,2022,SECOND_TERM,prof2
-1198,Plasma Physics,3,Elective,2022,SECOND_TERM,prof1
-1199,General Physics (1),3,Basic,2023,FIRST_TERM,prof1
-1200,General Physics Lab (1),1,Basic,2023,FIRST_TERM,prof2
-1201,Calculus (1),3,Basic,2023,FIRST_TERM,prof1
-1202,General Physics (2),3,Basic,2023,SECOND_TERM,prof2
-1203,General Physics Lab (2),1,Basic,2023,SECOND_TERM,prof1
-1204,Calculus (2),3,Basic,2023,SECOND_TERM,prof2
-1205,Linear Algebra,2,Basic,2023,SECOND_TERM,prof1
-1206,Mathematical Physics (1),3,Required,2023,FIRST_TERM,prof2
-1207,Classical Mechanics (2),3,Required,2023,SECOND_TERM,prof1
-1208,Electromagnetism (2),3,Required,2023,SECOND_TERM,prof2
-1209,Thermodynamics,3,Required,2023,FIRST_TERM,prof1
-1210,Physics Research,2,Required,2023,SECOND_TERM,prof2
-1211,Quantum Mechanics (2),3,Required,2023,SECOND_TERM,prof1
-1212,Physics Lab (1),2,Elective,2023,FIRST_TERM,prof2
-1213,History and Philosophy of Physics,3,Elective,2023,FIRST_TERM,prof1
-1214,Classical Mechanics (1),3,Elective,2023,FIRST_TERM,prof2
-1215,Electromagnetism (1),3,Elective,2023,FIRST_TERM,prof1
-1216,Physics Lab (2),2,Elective,2023,SECOND_TERM,prof2
-1217,Mathematical Physics (2),3,Elective,2023,SECOND_TERM,prof1
-1218,Modern Physics,3,Elective,2023,SECOND_TERM,prof2
-1219,Optics,3,Elective,2023,FIRST_TERM,prof1
-1220,Physics Lab (3),2,Elective,2023,FIRST_TERM,prof2
-1221,Quantum Mechanics (1),3,Elective,2023,FIRST_TERM,prof1
-1222,Computational Physics,3,Elective,2023,FIRST_TERM,prof2
-1223,Semiconductor Physics,3,Elective,2023,SECOND_TERM,prof1
-1224,Biophysics,3,Elective,2023,SECOND_TERM,prof2
-1225,Statistical Mechanics,3,Elective,2023,SECOND_TERM,prof1
-1226,Solid State Physics,3,Elective,2023,FIRST_TERM,prof2
-1227,Special Relativity and Cosmology,3,Elective,2023,FIRST_TERM,prof1
-1228,Nuclear Physics,3,Elective,2023,FIRST_TERM,prof2
-1229,Advanced Solid State Physics,3,Elective,2023,SECOND_TERM,prof1
-1230,Particle Physics,3,Elective,2023,SECOND_TERM,prof2
-1231,Plasma Physics,3,Elective,2023,SECOND_TERM,prof1
-1232,General Physics (1),3,Basic,2024,FIRST_TERM,prof1
-1233,General Physics Lab (1),1,Basic,2024,FIRST_TERM,prof2
-1234,Calculus (1),3,Basic,2024,FIRST_TERM,prof1
-1235,General Physics (2),3,Basic,2024,SECOND_TERM,prof2
-1236,General Physics Lab (2),1,Basic,2024,SECOND_TERM,prof1
-1237,Calculus (2),3,Basic,2024,SECOND_TERM,prof2
-1238,Linear Algebra,2,Basic,2024,SECOND_TERM,prof1
-1239,Mathematical Physics (1),3,Required,2024,FIRST_TERM,prof2
-1240,Classical Mechanics (2),3,Required,2024,SECOND_TERM,prof1
-1241,Electromagnetism (2),3,Required,2024,SECOND_TERM,prof2
-1242,Thermodynamics,3,Required,2024,FIRST_TERM,prof1
-1243,Physics Research,2,Required,2024,SECOND_TERM,prof2
-1244,Quantum Mechanics (2),3,Required,2024,SECOND_TERM,prof1
-1245,Physics Lab (1),2,Elective,2024,FIRST_TERM,prof2
-1246,History and Philosophy of Physics,3,Elective,2024,FIRST_TERM,prof1
-1247,Classical Mechanics (1),3,Elective,2024,FIRST_TERM,prof2
-1248,Electromagnetism (1),3,Elective,2024,FIRST_TERM,prof1
-1249,Physics Lab (2),2,Elective,2024,SECOND_TERM,prof2
-1250,Mathematical Physics (2),3,Elective,2024,SECOND_TERM,prof1
-1251,Modern Physics,3,Elective,2024,SECOND_TERM,prof2
-1252,Optics,3,Elective,2024,FIRST_TERM,prof1
-1253,Physics Lab (3),2,Elective,2024,FIRST_TERM,prof2
-1254,Quantum Mechanics (1),3,Elective,2024,FIRST_TERM,prof1
-1255,Computational Physics,3,Elective,2024,FIRST_TERM,prof2
-1256,Semiconductor Physics,3,Elective,2024,SECOND_TERM,prof1
-1257,Biophysics,3,Elective,2024,SECOND_TERM,prof2
-1258,Statistical Mechanics,3,Elective,2024,SECOND_TERM,prof1
-1259,Solid State Physics,3,Elective,2024,FIRST_TERM,prof2
-1260,Special Relativity and Cosmology,3,Elective,2024,FIRST_TERM,prof1
-1261,Nuclear Physics,3,Elective,2024,FIRST_TERM,prof2
-1262,Advanced Solid State Physics,3,Elective,2024,SECOND_TERM,prof1
-1263,Particle Physics,3,Elective,2024,SECOND_TERM,prof2
-1264,Plasma Physics,3,Elective,2024,SECOND_TERM,prof1
+1001,General Physics (1),3,Basic,2019,FIRST_TERM,prof1
+1002,General Physics Lab (1),1,Basic,2019,FIRST_TERM,prof2
+1003,Calculus (1),3,Basic,2019,FIRST_TERM,prof1
+1004,General Physics (2),3,Basic,2019,SECOND_TERM,prof2
+1005,General Physics Lab (2),1,Basic,2019,SECOND_TERM,prof1
+1006,Calculus (2),3,Basic,2019,SECOND_TERM,prof2
+1007,Linear Algebra,2,Basic,2019,SECOND_TERM,prof1
+1008,Mathematical Physics (1),3,Required,2019,FIRST_TERM,prof2
+1009,General Dynamics (2),3,Required,2019,SECOND_TERM,prof2
+1010,Electromagnetism (2),3,Required,2019,SECOND_TERM,prof1
+1011,Thermodynamics,3,Required,2019,FIRST_TERM,prof1
+1012,Physical Research,2,Required,2019,SECOND_TERM,prof2
+1013,Quantum Mechanics (2),3,Required,2019,SECOND_TERM,prof1
+1014,Physics Lab (1),2,Elective,2019,FIRST_TERM,prof2
+1015,History and Philosophy of Physics,3,Elective,2019,FIRST_TERM,prof1
+1016,General Dynamics (1),3,Elective,2019,FIRST_TERM,prof2
+1017,Electromagnetism (1),3,Elective,2019,FIRST_TERM,prof1
+1018,Physics Lab (2),2,Elective,2019,SECOND_TERM,prof1
+1019,Mathematical Physics (2),3,Elective,2019,SECOND_TERM,prof2
+1020,Modern Physics,3,Elective,2019,SECOND_TERM,prof2
+1021,Optics,3,Elective,2019,FIRST_TERM,prof1
+1022,Physics Lab (3),2,Elective,2019,FIRST_TERM,prof2
+1023,Quantum Mechanics (1),3,Elective,2019,FIRST_TERM,prof1
+1024,Computational Physics,3,Elective,2019,FIRST_TERM,prof2
+1025,Semiconductor Physics,3,Elective,2019,SECOND_TERM,prof1
+1026,Biophysics,3,Elective,2019,SECOND_TERM,prof2
+1027,Statistical Mechanics,3,Elective,2019,SECOND_TERM,prof1
+1028,Solid State Physics,3,Elective,2019,FIRST_TERM,prof2
+1029,Relativity and Cosmology,3,Elective,2019,FIRST_TERM,prof1
+1030,Nuclear Physics,3,Elective,2019,FIRST_TERM,prof2
+1031,Advanced Solid State Physics,3,Elective,2019,SECOND_TERM,prof1
+1032,Particle Physics,3,Elective,2019,SECOND_TERM,prof2
+1033,Plasma Physics,3,Elective,2019,SECOND_TERM,prof1
+1034,General Physics (1),3,Basic,2020,FIRST_TERM,prof1
+1035,General Physics Lab (1),1,Basic,2020,FIRST_TERM,prof2
+1036,Calculus (1),3,Basic,2020,FIRST_TERM,prof1
+1037,General Physics (2),3,Basic,2020,SECOND_TERM,prof2
+1038,General Physics Lab (2),1,Basic,2020,SECOND_TERM,prof1
+1039,Calculus (2),3,Basic,2020,SECOND_TERM,prof2
+1040,Linear Algebra,2,Basic,2020,SECOND_TERM,prof1
+1041,Mathematical Physics (1),3,Required,2020,FIRST_TERM,prof2
+1042,General Dynamics (2),3,Required,2020,SECOND_TERM,prof2
+1043,Electromagnetism (2),3,Required,2020,SECOND_TERM,prof1
+1044,Thermodynamics,3,Required,2020,FIRST_TERM,prof1
+1045,Physical Research,2,Required,2020,SECOND_TERM,prof2
+1046,Quantum Mechanics (2),3,Required,2020,SECOND_TERM,prof1
+1047,Physics Lab (1),2,Elective,2020,FIRST_TERM,prof2
+1048,History and Philosophy of Physics,3,Elective,2020,FIRST_TERM,prof1
+1049,General Dynamics (1),3,Elective,2020,FIRST_TERM,prof2
+1050,Electromagnetism (1),3,Elective,2020,FIRST_TERM,prof1
+1051,Physics Lab (2),2,Elective,2020,SECOND_TERM,prof1
+1052,Mathematical Physics (2),3,Elective,2020,SECOND_TERM,prof2
+1053,Modern Physics,3,Elective,2020,SECOND_TERM,prof2
+1054,Optics,3,Elective,2020,FIRST_TERM,prof1
+1055,Physics Lab (3),2,Elective,2020,FIRST_TERM,prof2
+1056,Quantum Mechanics (1),3,Elective,2020,FIRST_TERM,prof1
+1057,Computational Physics,3,Elective,2020,FIRST_TERM,prof2
+1058,Semiconductor Physics,3,Elective,2020,SECOND_TERM,prof1
+1059,Biophysics,3,Elective,2020,SECOND_TERM,prof2
+1060,Statistical Mechanics,3,Elective,2020,SECOND_TERM,prof1
+1061,Solid State Physics,3,Elective,2020,FIRST_TERM,prof2
+1062,Relativity and Cosmology,3,Elective,2020,FIRST_TERM,prof1
+1063,Nuclear Physics,3,Elective,2020,FIRST_TERM,prof2
+1064,Advanced Solid State Physics,3,Elective,2020,SECOND_TERM,prof1
+1065,Particle Physics,3,Elective,2020,SECOND_TERM,prof2
+1066,Plasma Physics,3,Elective,2020,SECOND_TERM,prof1
+1067,General Physics (1),3,Basic,2021,FIRST_TERM,prof1
+1068,General Physics Lab (1),1,Basic,2021,FIRST_TERM,prof2
+1069,Calculus (1),3,Basic,2021,FIRST_TERM,prof1
+1070,General Physics (2),3,Basic,2021,SECOND_TERM,prof2
+1071,General Physics Lab (2),1,Basic,2021,SECOND_TERM,prof1
+1072,Calculus (2),3,Basic,2021,SECOND_TERM,prof2
+1073,Linear Algebra,2,Basic,2021,SECOND_TERM,prof1
+1074,Mathematical Physics (1),3,Required,2021,FIRST_TERM,prof2
+1075,General Dynamics (2),3,Required,2021,SECOND_TERM,prof2
+1076,Electromagnetism (2),3,Required,2021,SECOND_TERM,prof1
+1077,Thermodynamics,3,Required,2021,FIRST_TERM,prof1
+1078,Physical Research,2,Required,2021,SECOND_TERM,prof2
+1079,Quantum Mechanics (2),3,Required,2021,SECOND_TERM,prof1
+1080,Physics Lab (1),2,Elective,2021,FIRST_TERM,prof2
+1081,History and Philosophy of Physics,3,Elective,2021,FIRST_TERM,prof1
+1082,General Dynamics (1),3,Elective,2021,FIRST_TERM,prof2
+1083,Electromagnetism (1),3,Elective,2021,FIRST_TERM,prof1
+1084,Physics Lab (2),2,Elective,2021,SECOND_TERM,prof1
+1085,Mathematical Physics (2),3,Elective,2021,SECOND_TERM,prof2
+1086,Modern Physics,3,Elective,2021,SECOND_TERM,prof2
+1087,Optics,3,Elective,2021,FIRST_TERM,prof1
+1088,Physics Lab (3),2,Elective,2021,FIRST_TERM,prof2
+1089,Quantum Mechanics (1),3,Elective,2021,FIRST_TERM,prof1
+1090,Computational Physics,3,Elective,2021,FIRST_TERM,prof2
+1091,Semiconductor Physics,3,Elective,2021,SECOND_TERM,prof1
+1092,Biophysics,3,Elective,2021,SECOND_TERM,prof2
+1093,Statistical Mechanics,3,Elective,2021,SECOND_TERM,prof1
+1094,Solid State Physics,3,Elective,2021,FIRST_TERM,prof2
+1095,Relativity and Cosmology,3,Elective,2021,FIRST_TERM,prof1
+1096,Nuclear Physics,3,Elective,2021,FIRST_TERM,prof2
+1097,Advanced Solid State Physics,3,Elective,2021,SECOND_TERM,prof1
+1098,Particle Physics,3,Elective,2021,SECOND_TERM,prof2
+1099,Plasma Physics,3,Elective,2021,SECOND_TERM,prof1
+1100,General Physics (1),3,Basic,2022,FIRST_TERM,prof1
+1101,General Physics Lab (1),1,Basic,2022,FIRST_TERM,prof2
+1102,Calculus (1),3,Basic,2022,FIRST_TERM,prof1
+1103,General Physics (2),3,Basic,2022,SECOND_TERM,prof2
+1104,General Physics Lab (2),1,Basic,2022,SECOND_TERM,prof1
+1105,Calculus (2),3,Basic,2022,SECOND_TERM,prof2
+1106,Linear Algebra,2,Basic,2022,SECOND_TERM,prof1
+1107,Mathematical Physics (1),3,Required,2022,FIRST_TERM,prof2
+1108,General Dynamics (2),3,Required,2022,SECOND_TERM,prof2
+1109,Electromagnetism (2),3,Required,2022,SECOND_TERM,prof1
+1110,Thermodynamics,3,Required,2022,FIRST_TERM,prof1
+1111,Physical Research,2,Required,2022,SECOND_TERM,prof2
+1112,Quantum Mechanics (2),3,Required,2022,SECOND_TERM,prof1
+1113,Physics Lab (1),2,Elective,2022,FIRST_TERM,prof2
+1114,History and Philosophy of Physics,3,Elective,2022,FIRST_TERM,prof1
+1115,General Dynamics (1),3,Elective,2022,FIRST_TERM,prof2
+1116,Electromagnetism (1),3,Elective,2022,FIRST_TERM,prof1
+1117,Physics Lab (2),2,Elective,2022,SECOND_TERM,prof1
+1118,Mathematical Physics (2),3,Elective,2022,SECOND_TERM,prof2
+1119,Modern Physics,3,Elective,2022,SECOND_TERM,prof2
+1120,Optics,3,Elective,2022,FIRST_TERM,prof1
+1121,Physics Lab (3),2,Elective,2022,FIRST_TERM,prof2
+1122,Quantum Mechanics (1),3,Elective,2022,FIRST_TERM,prof1
+1123,Computational Physics,3,Elective,2022,FIRST_TERM,prof2
+1124,Semiconductor Physics,3,Elective,2022,SECOND_TERM,prof1
+1125,Biophysics,3,Elective,2022,SECOND_TERM,prof2
+1126,Statistical Mechanics,3,Elective,2022,SECOND_TERM,prof1
+1127,Solid State Physics,3,Elective,2022,FIRST_TERM,prof2
+1128,Relativity and Cosmology,3,Elective,2022,FIRST_TERM,prof1
+1129,Nuclear Physics,3,Elective,2022,FIRST_TERM,prof2
+1130,Advanced Solid State Physics,3,Elective,2022,SECOND_TERM,prof1
+1131,Particle Physics,3,Elective,2022,SECOND_TERM,prof2
+1132,Plasma Physics,3,Elective,2022,SECOND_TERM,prof1
+1133,General Physics (1),3,Basic,2023,FIRST_TERM,prof1
+1134,General Physics Lab (1),1,Basic,2023,FIRST_TERM,prof2
+1135,Calculus (1),3,Basic,2023,FIRST_TERM,prof1
+1136,General Physics (2),3,Basic,2023,SECOND_TERM,prof2
+1137,General Physics Lab (2),1,Basic,2023,SECOND_TERM,prof1
+1138,Calculus (2),3,Basic,2023,SECOND_TERM,prof2
+1139,Linear Algebra,2,Basic,2023,SECOND_TERM,prof1
+1140,Mathematical Physics (1),3,Required,2023,FIRST_TERM,prof2
+1141,General Dynamics (2),3,Required,2023,SECOND_TERM,prof2
+1142,Electromagnetism (2),3,Required,2023,SECOND_TERM,prof1
+1143,Thermodynamics,3,Required,2023,FIRST_TERM,prof1
+1144,Physical Research,2,Required,2023,SECOND_TERM,prof2
+1145,Quantum Mechanics (2),3,Required,2023,SECOND_TERM,prof1
+1146,Physics Lab (1),2,Elective,2023,FIRST_TERM,prof2
+1147,History and Philosophy of Physics,3,Elective,2023,FIRST_TERM,prof1
+1148,General Dynamics (1),3,Elective,2023,FIRST_TERM,prof2
+1149,Electromagnetism (1),3,Elective,2023,FIRST_TERM,prof1
+1150,Physics Lab (2),2,Elective,2023,SECOND_TERM,prof1
+1151,Mathematical Physics (2),3,Elective,2023,SECOND_TERM,prof2
+1152,Modern Physics,3,Elective,2023,SECOND_TERM,prof2
+1153,Optics,3,Elective,2023,FIRST_TERM,prof1
+1154,Physics Lab (3),2,Elective,2023,FIRST_TERM,prof2
+1155,Quantum Mechanics (1),3,Elective,2023,FIRST_TERM,prof1
+1156,Computational Physics,3,Elective,2023,FIRST_TERM,prof2
+1157,Semiconductor Physics,3,Elective,2023,SECOND_TERM,prof1
+1158,Biophysics,3,Elective,2023,SECOND_TERM,prof2
+1159,Statistical Mechanics,3,Elective,2023,SECOND_TERM,prof1
+1160,Solid State Physics,3,Elective,2023,FIRST_TERM,prof2
+1161,Relativity and Cosmology,3,Elective,2023,FIRST_TERM,prof1
+1162,Nuclear Physics,3,Elective,2023,FIRST_TERM,prof2
+1163,Advanced Solid State Physics,3,Elective,2023,SECOND_TERM,prof1
+1164,Particle Physics,3,Elective,2023,SECOND_TERM,prof2
+1165,Plasma Physics,3,Elective,2023,SECOND_TERM,prof1
+1166,General Physics (1),3,Basic,2024,FIRST_TERM,prof1
+1167,General Physics Lab (1),1,Basic,2024,FIRST_TERM,prof2
+1168,Calculus (1),3,Basic,2024,FIRST_TERM,prof1
+1169,General Physics (2),3,Basic,2024,SECOND_TERM,prof2
+1170,General Physics Lab (2),1,Basic,2024,SECOND_TERM,prof1
+1171,Calculus (2),3,Basic,2024,SECOND_TERM,prof2
+1172,Linear Algebra,2,Basic,2024,SECOND_TERM,prof1
+1173,Mathematical Physics (1),3,Required,2024,FIRST_TERM,prof2
+1174,General Dynamics (2),3,Required,2024,SECOND_TERM,prof2
+1175,Electromagnetism (2),3,Required,2024,SECOND_TERM,prof1
+1176,Thermodynamics,3,Required,2024,FIRST_TERM,prof1
+1177,Physical Research,2,Required,2024,SECOND_TERM,prof2
+1178,Quantum Mechanics (2),3,Required,2024,SECOND_TERM,prof1
+1179,Physics Lab (1),2,Elective,2024,FIRST_TERM,prof2
+1180,History and Philosophy of Physics,3,Elective,2024,FIRST_TERM,prof1
+1181,General Dynamics (1),3,Elective,2024,FIRST_TERM,prof2
+1182,Electromagnetism (1),3,Elective,2024,FIRST_TERM,prof1
+1183,Physics Lab (2),2,Elective,2024,SECOND_TERM,prof1
+1184,Mathematical Physics (2),3,Elective,2024,SECOND_TERM,prof2
+1185,Modern Physics,3,Elective,2024,SECOND_TERM,prof2
+1186,Optics,3,Elective,2024,FIRST_TERM,prof1
+1187,Physics Lab (3),2,Elective,2024,FIRST_TERM,prof2
+1188,Quantum Mechanics (1),3,Elective,2024,FIRST_TERM,prof1
+1189,Computational Physics,3,Elective,2024,FIRST_TERM,prof2
+1190,Semiconductor Physics,3,Elective,2024,SECOND_TERM,prof1
+1191,Biophysics,3,Elective,2024,SECOND_TERM,prof2
+1192,Statistical Mechanics,3,Elective,2024,SECOND_TERM,prof1
+1193,Solid State Physics,3,Elective,2024,FIRST_TERM,prof2
+1194,Relativity and Cosmology,3,Elective,2024,FIRST_TERM,prof1
+1195,Nuclear Physics,3,Elective,2024,FIRST_TERM,prof2
+1196,Advanced Solid State Physics,3,Elective,2024,SECOND_TERM,prof1
+1197,Particle Physics,3,Elective,2024,SECOND_TERM,prof2
+1198,Plasma Physics,3,Elective,2024,SECOND_TERM,prof1

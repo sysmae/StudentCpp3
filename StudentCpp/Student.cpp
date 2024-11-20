@@ -364,7 +364,7 @@ void Student::checkGraduationRequirements(const std::vector<Subject>& allSubject
     // 본인이 들어야 하는 학점과 실제 들은 학점 출력
     std::cout << std::left << std::setw(25) << "전공기초 (필수 14학점): " << earnedMajorBasicsCredits << " (실제 들은 학점)\n";
     std::cout << std::left << std::setw(25) << "전공필수 (필수 17학점): " << earnedRequiredMajorCredits << " (실제 들은 학점)\n";
-    std::cout << std::left << std::setw(25) << "전공선택 (필수 66학점 합산): " << earnedSelectionMajorCredits << " (실제 들은 학점)\n";
+    std::cout << std::left << std::setw(25) << "전공선택 (선택 49학점): " << earnedSelectionMajorCredits << " (실제 들은 학점)\n";
     std::cout << std::left << std::setw(25) << "전공필수 + 전공 선택: " << totalEarnedCredits << " (실제 들은 학점)\n";
 
     // 졸업 요건 충족 여부 확인
