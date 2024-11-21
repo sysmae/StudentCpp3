@@ -93,11 +93,9 @@ bool Professor::printSubjectsByTerm(int year, int term, bool showHeader = true) 
                 << '\n';
             hasSubjects = true;
         }
-    }
-
-    // 출력할 과목이 없는 경우 메시지 출력
-    if (!hasSubjects && showHeader) {
-        cout << year << "년 " << term << "학기에 해당하는 과목이 없습니다.\n";
+        if (!hasSubjects && showHeader) {
+			break;
+		}
     }
 
     return hasSubjects;
@@ -109,12 +107,11 @@ void Professor::viewSubjects(int year, int term) const {
     printSubjectsByTerm(year, term);
 }
 
-// 모든 이전 학기 과목 출력 함수
 void Professor::viewAllPreviousSubjects(int year, int term) const {
-    cout << "\n이전 학기 수업했던 모든 과목들:\n";
+    cout << "이전 학기 수업했던 모든 과목들:\n";
 
     // 과목 이름의 최대 길이를 계산하여 열 너비 결정
-    size_t maxNameLength = 30; // 기본 이름 열 너비를 20으로 설정
+    size_t maxNameLength = 30;
     for (const auto& subject : subjects) {
         maxNameLength = max(maxNameLength, subject.getName().length() + 2);
     }
@@ -122,21 +119,48 @@ void Professor::viewAllPreviousSubjects(int year, int term) const {
     // 표 헤더 출력
     printSubjectHeader(maxNameLength);
 
-    // 모든 이전 학기 과목 출력 (연도 및 학기 역순으로 반복)
     bool hasSubjects = false;
+    int prevYear = -1;   // 이전 연도 저장 변수
+    int prevTerm = -1;   // 이전 학기 저장 변수
+
+    // 모든 이전 학기 과목 출력 (연도 및 학기 역순으로 반복)
     for (int y = year; y >= 0; --y) {
+        // 현재 연도에 출력할 학기가 있는지 추적
+        bool yearHasSubjects = false;
+
         for (int t = (y == year ? term - 1 : 2); t > 0; --t) {
             if (printSubjectsByTerm(y, t, false)) {
                 hasSubjects = true;
+                yearHasSubjects = true;
+
+
+                if (y != prevYear) {
+                    if (prevYear != -1) {
+                        cout << "-------------------------------------------------------------------------------------\n";
+                    }
+                    prevYear = y;
+                    prevTerm = t;
+                }
+                else if (t != prevTerm) {
+                    cout << "=====================================================================================\n";
+                    cout << "=====================================================================================\n";
+
+                    prevTerm = t;
+                }
             }
         }
     }
 
-    // 출력할 과목이 없는 경우 메시지 출력
+    // 전체적으로 출력할 과목이 없을 경우 메시지 출력
     if (!hasSubjects) {
         cout << "이전 학기에 해당하는 과목이 없습니다.\n";
     }
 }
+
+
+
+
+
 
 
 void Professor::loadTeachingSubjects(const vector<Subject>& allSubjects) {
