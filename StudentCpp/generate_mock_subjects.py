@@ -113,13 +113,11 @@ else:
         # 교수 배정
         assigned_professors = course_professor_mapping.get(name, professors)
 
-        # 연도와 학기를 반복하여 과목에 교수와 학기 추가
+            # 연도만 반복하여 과목에 교수와 학기 추가 (고정된 학기 사용)
         for year in years:
-            for semester in semesters:
-                # 교수 순차적으로 배정
-                for professor_id in assigned_professors:
-                    new_courses.append((course_id_counter, name, credit, course_type, year, semester, professor_id))
-                    course_id_counter += 1  # 코스 아이디 증가
+            # 교수 순차적으로 배정
+            new_courses.append((course_id_counter, name, credit, course_type, year, semester, assigned_professors[0]))  # Use fixed semester
+            course_id_counter += 1  # 코스 아이디 증가
 
     # 'mock' 폴더가 없으면 생성
     os.makedirs('mock', exist_ok=True)
