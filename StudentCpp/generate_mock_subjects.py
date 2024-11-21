@@ -1,7 +1,9 @@
 import csv
 import os
+import random
 
-# 기본 과목 리스트 (course 이름, 학점, 과목 유형 등) - 코스 ID는 자동으로 생성됨
+
+# 기본 과목 리스트 (course 이름, 학점, 과목 유형, 학기)
 courses = [
     ("General Physics (1)", 3, "Basic", "FIRST_TERM"),
     ("General Physics Lab (1)", 1, "Basic", "FIRST_TERM"),
@@ -62,62 +64,36 @@ except Exception as e:
 if not professors:
     print("Error: No professors found in users.csv.")
 else:
-    # 각 과목에 대한 교수 배정을 정의 (과목 이름을 키로 교수 ID를 값으로 가지는 딕셔너리)
-    course_professor_mapping = {
-        "General Physics (1)": professors[:3],
-        "General Physics Lab (1)": professors[3:4],
-        "Calculus (1)": professors[:2],
-        "General Physics (2)": professors[1:3],
-        "General Physics Lab (2)": professors[2:3],
-        "Calculus (2)": professors[:2],
-        "Linear Algebra": professors[2:4],
-        "Mathematical Physics (1)": professors[0:2],
-        "General Dynamics (2)": professors[3:5],
-        "Electromagnetism (2)": professors[1:4],
-        "Thermodynamics": professors[2:3],
-        "Physical Research": professors[4:5],
-        "Quantum Mechanics (2)": professors[0:3],
-        "Physics Lab (1)": professors[1:2],
-        "History and Philosophy of Physics": professors[:2],
-        "General Dynamics (1)": professors[1:3],
-        "Electromagnetism (1)": professors[0:2],
-        "Physics Lab (2)": professors[2:3],
-        "Mathematical Physics (2)": professors[1:3],
-        "Modern Physics": professors[0:2],
-        "Optics": professors[1:3],
-        "Physics Lab (3)": professors[2:3],
-        "Quantum Mechanics (1)": professors[0:3],
-        "Computational Physics": professors[2:4],
-        "Semiconductor Physics": professors[1:3],
-        "Biophysics": professors[3:5],
-        "Statistical Mechanics": professors[1:3],
-        "Solid State Physics": professors[0:3],
-        "Relativity and Cosmology": professors[0:2],
-        "Nuclear Physics": professors[0:2],
-        "Advanced Solid State Physics": professors[2:4],
-        "Particle Physics": professors[3:5],
-        "Plasma Physics": professors[1:3]
-    }
+    # 각 과목에 대한 교수 배정을 정의
+    course_professor_mapping = {course[0]: [] for course in courses}
+
+    # 각 과목에 대해 교수 배정
+    professors_count = len(professors)
+    for i, course in enumerate(course_professor_mapping.keys()):
+        course_professor_mapping[course].append(professors[i % professors_count])
 
     # 강의 데이터를 각 학기 및 교수 정보와 결합하여 새로운 리스트 생성
     years = range(2017, 2025)
-    semesters = ["FIRST_TERM", "SECOND_TERM"]
     new_courses = []
 
     course_id_counter = 1001  # 코스 아이디 시작 값
 
     # 각 과목에 대해 교수와 학기 정보를 결합하여 ID를 자동으로 생성
-    for course in courses:
-        name, credit, course_type, semester = course
-
-        # 교수 배정
-        assigned_professors = course_professor_mapping.get(name, professors)
-
-            # 연도만 반복하여 과목에 교수와 학기 추가 (고정된 학기 사용)
+    for course_name, credit, course_type, semester in courses:
+        # 연도만 반복하여 과목에 교수와 학기 추가 (고정된 학기 사용)
         for year in years:
-            # 교수 순차적으로 배정
-            new_courses.append((course_id_counter, name, credit, course_type, year, semester, assigned_professors[0]))  # Use fixed semester
-            course_id_counter += 1  # 코스 아이디 증가
+            assigned_professors = course_professor_mapping[course_name]
+            for professor_id in assigned_professors:
+                new_courses.append((
+                    course_id_counter, 
+                    course_name, 
+                    credit, 
+                    course_type, 
+                    year, 
+                    semester, 
+                    professor_id
+                ))
+                course_id_counter += 1  # 코스 아이디 증가
 
     # 'mock' 폴더가 없으면 생성
     os.makedirs('mock', exist_ok=True)
