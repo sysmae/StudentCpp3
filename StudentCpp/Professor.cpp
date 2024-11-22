@@ -70,7 +70,7 @@ void printSubjectHeader(size_t nameWidth) {
 // 특정 연도와 학기에 해당하는 과목 출력 함수
 bool Professor::printSubjectsByTerm(int year, int term, bool showHeader = true) const {
     // 과목 이름의 최대 길이를 계산하여 열 너비 결정
-    size_t maxNameLength = 30; // 기본 이름 열 너비를 20으로 설정
+    size_t maxNameLength = 30;
     for (const auto& subject : subjects) {
         maxNameLength = max(maxNameLength, subject.getName().length() + 2);
     }
@@ -93,9 +93,11 @@ bool Professor::printSubjectsByTerm(int year, int term, bool showHeader = true) 
                 << '\n';
             hasSubjects = true;
         }
-        if (!hasSubjects && showHeader) {
-			break;
-		}
+
+    }
+
+    if (!hasSubjects && showHeader) {
+        cout << "해당 연도와 학기에 대한 과목이 없습니다.\n";
     }
 
     return hasSubjects;
