@@ -467,7 +467,7 @@ int main() {
                     cout << "\n";
 
                     int subjectId;
-                    cout << "과목 ID를 입력하세요: ";
+                    cout << "과목     ID를 입력하세요: ";
                     cin >> subjectId;
                     cin.ignore();  // Clear the input buffer to prevent issue
 

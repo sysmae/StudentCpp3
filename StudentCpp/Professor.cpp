@@ -31,19 +31,19 @@ GradingMethod Professor::getGradingMethod() const {
 void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, const Subject* subject, int subjectId) {
     // 출력할 표 헤더 설정
     cout << left;
-    cout << setw(10) << "ID"
+    cout << setw(15) << "ID"
         << setw(30) << "과목이름"  // 과목 이름의 최대 길이에 맞춤
         << setw(10) << "학번"
         << setw(15) << "학생이름"
         << setw(12) << "점수"
         << setw(12) << "문자성적"
-        << setw(10) << "평점"
+        << setw(15) << "평점"
         << endl;
-    cout << string(10 + 20 + 10 + 15 + 12 + 10, '-') << endl;  // 구분선 길이 조정
+    cout << string(20 + 20 + 10 + 15 + 12 + 23, '-') << endl;  // 구분선 길이 조정
 
     // 각 학생의 성적 출력
     for (const auto& student : enrolledStudents) {
-        cout << setw(10) << student->getID()
+        cout << setw(15) << student->getID()
             << setw(30) << subject->getName()
             << setw(10) << student->getStudentID()
             << setw(15) << student->getName()
@@ -58,19 +58,20 @@ void  Professor::printStudentGrades(const vector<Student*>& enrolledStudents, co
 // 표 헤더 출력 함수
 void printSubjectHeader(size_t nameWidth) {
     cout << left;
-    cout << setw(10) << "ID"
+    cout << setw(15) << "ID"
         << setw(nameWidth) << "이름"
         << setw(10) << "구분"
         << setw(8) << "학점"
         << setw(10) << "연도"
-        << setw(8) << "학기\n";
-    cout << string(10 + nameWidth + 10 + 8 + 10 + 8, '-') << '\n';  // 구분선 길이 조정
+        << setw(5) << "학기" << endl;
+    
+    cout << string(15 + nameWidth + 10 + 8 + 10 + 5, '-') << '\n';  // 구분선 길이 조정
 }
 
 // 특정 연도와 학기에 해당하는 과목 출력 함수
 bool Professor::printSubjectsByTerm(int year, int term, bool showHeader = true) const {
     // 과목 이름의 최대 길이를 계산하여 열 너비 결정
-    size_t maxNameLength = 30;
+    size_t maxNameLength = 40;
     for (const auto& subject : subjects) {
         maxNameLength = max(maxNameLength, subject.getName().length() + 2);
     }
