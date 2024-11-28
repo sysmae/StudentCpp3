@@ -1,4 +1,3 @@
-// StudentRecord.h
 #ifndef STUDENTRECORD_H
 #define STUDENTRECORD_H
 
@@ -8,42 +7,38 @@ using namespace std;
 
 class StudentRecord {
 private:
-    int studentID;       // 학생 ID
-    int subjectID;       // 과목 ID
-    double score;        // 성적 (100점 만점)
-    string letterGrade;  // 문자 성적 (A+...F)
-    double grade;        // 평점 (4.5 만점)
+    int studentID;         // 학생 ID
+    int subjectID;         // 과목 ID
+    double score;          // 성적 (100점 만점)
+    double grade;          // 평점 (4.5 만점)
+    string letterGrade;    // 문자 성적 (A+...F)
+    string professorID;    // 교수 ID
 
 public:
     // 기본 생성자
     StudentRecord();
 
     // 전체 생성자
-    StudentRecord(int sid, int subid, double sc, string lg, double grade);
+    StudentRecord(int sid, int subid, double sc, double gr, string lg, string pid);
 
-    // 학생 ID 가져오기
+    // Getter 및 Setter 선언 (순서대로)
     int getStudentID() const;
+    void setStudentID(int sid);
 
-    // 성적 가져오기 (점수)
+    int getSubjectID() const;
+    void setSubjectID(int subid);
+
     double getScore() const;
-
-    // 성적 설정하기 (0.0에서 100.0 사이로 제한)
     void setScore(double sc);
 
-    // 문자 성적 가져오기
-    string getLetterGrade() const;
+    double getGrade() const;
+    void setGrade(double gr);
 
-    // 문자 성적 설정하기
+    string getLetterGrade() const;
     void setLetterGrade(const string& lg);
 
-    // 평점 가져오기
-    double getGrade() const;
-
-    // 평점 설정하기
-    void setGrade(double g);
-
-    // 과목 ID 가져오기
-    int getSubjectID() const;
+    string getProfessorID() const;
+    void setProfessorID(const string& pid);
 };
 
 #endif // STUDENTRECORD_H

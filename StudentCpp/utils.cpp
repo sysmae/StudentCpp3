@@ -4,7 +4,9 @@
 #include "Student.h"
 #include "Professor.h"
 #include "Administrator.h"
-#include "StudentRecord.h" 
+#include "Subject.h"
+#include "StudentRecord.h"
+#include "User.h"
 
 #include <fstream>
 #include <sstream>
@@ -35,97 +37,73 @@ string getMaskedInput() {
     while ((ch = _getch()) != '\r') { // 엔터키를 누를 때까지 반복
         if (ch == '\b') { // 백스페이스 처리
             if (!password.empty()) {
-                cout << "\b \b";
                 password.pop_back();
+                cout << "\b \b";
             }
         }
         else {
-            password += ch;
+            password.push_back(ch);
             cout << '*';
         }
     }
 #else
-    // 에코 끄기
-    struct termios tty_old, tty_new;
-    tcgetattr(STDIN_FILENO, &tty_old);
-    tty_new = tty_old;
-    tty_new.c_lflag &= ~(ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &tty_new);
-
     while (cin.get(ch) && ch != '\n') {
-        if (ch == '\b' || ch == 127) { // 백스페이스 처리
+        if (ch == '\b' || ch == 127) {
             if (!password.empty()) {
-                cout << "\b \b";
                 password.pop_back();
+                cout << "\b \b";
             }
         }
         else {
-            password += ch;
+            password.push_back(ch);
             cout << '*';
         }
     }
-
-    // 에코 복원
-    tcsetattr(STDIN_FILENO, TCSANOW, &tty_old);
 #endif
-
     cout << endl;
     return password;
 }
 
 bool isValidName(const string& name) {
     if (name.empty()) return false;
-
-    return all_of(name.begin(), name.end(), [](char c) {
-        return isalpha(c) || isspace(c);
-        });
+    for (char c : name) {
+        if (!isalpha(c) && c != ' ') return false;
+    }
+    return true;
 }
 
 // Function to load users from CSV
 vector<unique_ptr<User>> loadUsers(const string& filename) {
     vector<unique_ptr<User>> users;
     ifstream file(filename);
-
     if (!file.is_open()) {
-        cerr << "파일을 열 수 없습니다: " << filename << endl;
+        cerr << "Error opening file: " << filename << endl;
         return users;
     }
 
     string line;
-    getline(file, line); // 헤더 라인 건너뛰기
-
     while (getline(file, line)) {
         stringstream ss(line);
         string id, password, name, phoneNumber, email, userType, studentID;
-
         getline(ss, id, ',');
         getline(ss, password, ',');
         getline(ss, name, ',');
         getline(ss, phoneNumber, ',');
         getline(ss, email, ',');
         getline(ss, userType, ',');
+        getline(ss, studentID, ',');
 
-        try {
-            if (userType == "Student") {
-                getline(ss, studentID, ',');
-                users.push_back(make_unique<Student>(
-                    name, id, password, phoneNumber, email, stoi(studentID)));
-            }
-            else if (userType == "Professor") {
-                users.push_back(make_unique<Professor>(
-                    name, id, password, phoneNumber, email));
-            }
-            else if (userType == "Administrator") {
-                users.push_back(make_unique<Administrator>(
-                    name, id, password, phoneNumber, email));
-            }
+        if (userType == "Student") {
+            users.push_back(make_unique<Student>(name, id, password, phoneNumber, email, stoi(studentID)));
         }
-        catch (const exception& e) {
-            cerr << "사용자 데이터를 처리하는 중 오류가 발생했습니다: " << e.what() << endl;
+        else if (userType == "Professor") {
+            users.push_back(make_unique<Professor>(name, id, password, phoneNumber, email));
+        }
+        else if (userType == "Administrator") {
+            users.push_back(make_unique<Administrator>(name, id, password, phoneNumber, email));
         }
     }
 
-    file.close();
     return users;
 }
 
@@ -133,30 +111,30 @@ vector<unique_ptr<User>> loadUsers(const string& filename) {
 vector<Subject> loadSubjects(const string& filename) {
     vector<Subject> subjects;
     ifstream file(filename);
-
     if (!file.is_open()) {
-        cerr << "파일을 열 수 없습니다: " << filename << endl;
+        cerr << "Error opening file: " << filename << endl;
         return subjects;
     }
 
     string line;
-    getline(file, line); // 헤더 라인 건너뛰기
-
     while (getline(file, line)) {
         stringstream ss(line);
-        string id, name, credit, type, year, termStr, professorID;
-
-        getline(ss, id, ',');
-        getline(ss, name, ',');
-        getline(ss, credit, ',');
-        getline(ss, type, ',');
-        getline(ss, year, ',');
-        getline(ss, termStr, ',');  // 학기 정보 읽기
-        getline(ss, professorID);     // 교수 ID 읽기
-
+        int id, year;
+        double credit;
+        string name, type, termStr, professorID;
         Term term;
 
-        // 학기 정보 변환
+        ss >> id;
+        ss.ignore();
+        getline(ss, name, ',');
+        ss >> credit;
+        ss.ignore();
+        getline(ss, type, ',');
+        ss >> year;
+        ss.ignore();
+        getline(ss, termStr, ',');
+        getline(ss, professorID, ',');
+
         if (termStr == "FIRST_TERM") {
             term = Term::FIRST_TERM;
         }
@@ -164,28 +142,111 @@ vector<Subject> loadSubjects(const string& filename) {
             term = Term::SECOND_TERM;
         }
         else {
-            cerr << "알 수 없는 학기: " << termStr << endl;
-            continue; // 알 수 없는 학기면 해당 과목 건너뛰기
+            continue;
         }
 
-        try {
-            subjects.emplace_back(Subject(
-                stoi(id),
-                name,
-                stod(credit),
-                type,
-                stoi(year),
-                term,
-                professorID
-            ));
-        }
-        catch (const exception& e) {
-            cerr << "과목 데이터를 처리하는 중 오류가 발생했습니다: " << e.what() << endl;
+        subjects.emplace_back(id, name, credit, type, year, term, professorID);
+    }
+
+    return subjects;
+}
+
+// // Function to load student records from CSV
+// vector<StudentRecord> loadStudentRecords(const string& filename) {
+//     vector<StudentRecord> records;
+//     ifstream file(filename);
+//     if (!file.is_open()) {
+//         cerr << "Error opening file: " << filename << endl;
+//         return records;
+//     }
+
+//     string line;
+//     while (getline(file, line)) {
+//         stringstream ss(line);
+//         int studentID, subjectID;
+//         double score, grade;
+//         string letterGrade, professorID;
+
+//         ss >> studentID;
+//         ss.ignore();
+//         ss >> subjectID;
+//         ss.ignore();
+//         ss >> score;
+//         ss.ignore();
+//         ss >> grade;
+//         ss.ignore();
+//         getline(ss, letterGrade, ',');
+//         getline(ss, professorID, ',');
+
+//         records.emplace_back(studentID, subjectID, score, grade, letterGrade, professorID);
+//     }
+
+//     return records;
+// }
+
+
+
+void updateStudentRecordsCSV(const vector<StudentRecord>& updatedRecords) {
+    const string filename = "student_records.csv";
+    ifstream inputFile(filename);
+    if (!inputFile.is_open()) {
+        cerr << "파일을 열 수 없습니다: " << filename << endl;
+        return;
+    }
+
+    vector<string> fileLines;    // 기존 파일의 모든 라인을 저장
+    string line;
+    getline(inputFile, line);    // 헤더 라인 읽기
+    fileLines.push_back(line);   // 헤더 유지
+
+    // 모든 파일 라인을 읽어서 벡터에 저장
+    while (getline(inputFile, line)) {
+        fileLines.push_back(line);
+    }
+    inputFile.close();
+
+    // studentID와 subjectID 기준으로 수정된 레코드 반영
+    for (auto& recordLine : fileLines) {
+        stringstream ss(recordLine);
+        string studentID, subjectID, score, grade, letterGrade, professorID;
+
+        getline(ss, studentID, ',');
+        getline(ss, subjectID, ',');
+        getline(ss, score, ',');
+        getline(ss, grade, ',');
+        getline(ss, letterGrade, ',');
+        getline(ss, professorID);
+
+        // 수정할 레코드를 찾기 위해 studentID와 subjectID 비교
+        for (const auto& updatedRecord : updatedRecords) {
+            if (studentID == to_string(updatedRecord.getStudentID()) && subjectID == to_string(updatedRecord.getSubjectID())) {
+                stringstream updatedLine;
+                updatedLine << updatedRecord.getStudentID() << ","
+                            << updatedRecord.getSubjectID() << ","
+                            << fixed << setprecision(2) << updatedRecord.getScore() << ","
+                            << updatedRecord.getGrade() << ","
+                            << updatedRecord.getLetterGrade() << ","
+                            << updatedRecord.getProfessorID();
+                recordLine = updatedLine.str();  // 기존 라인 덮어쓰기
+                break;
+            }
         }
     }
 
-    file.close();
-    return subjects;
+    // 파일 덮어쓰기
+    ofstream outputFile(filename);
+    if (!outputFile.is_open()) {
+        cerr << "파일을 열 수 없습니다: " << filename << endl;
+        return;
+    }
+
+    // 업데이트된 데이터를 파일에 저장
+    for (const auto& fileLine : fileLines) {
+        outputFile << fileLine << "\n";
+    }
+
+    outputFile.close();
+    cout << filename << " 파일이 성공적으로 업데이트되었습니다." << endl;
 }
 string mapGradeToLetter(double grade) {
     if (grade >= 4.5) {
@@ -216,50 +277,6 @@ string mapGradeToLetter(double grade) {
         return "F";
     }
 }
-void updateStudentRecordsCSV(const vector<Student*>& students) {
-    ofstream file("student_records.csv");
-
-    if (!file.is_open()) {
-        cerr << "student_records.csv 파일을 열 수 없습니다." << endl;
-        return;
-    }
-
-    // 헤더 작성
-    file << "studentID,subjectID,score,grade,letterGrade\n";
-
-    // 레코드 작성
-    for (const auto& student : students) {
-        int studentID = student->getStudentID();
-        const auto& grades = student->getGrades();
-        const auto& scores = student->getScores();
-
-        for (const auto& entry : grades) {
-            int subjectID = entry.first;
-            double grade = entry.second;
-            double score = 0.0;
-
-            // 점수 가져오기
-            auto scoreIt = scores.find(subjectID);
-            if (scoreIt != scores.end()) {
-                score = scoreIt->second;
-            }
-            else {
-                cerr << "오류: subjectID " << subjectID << "의 점수를 찾을 수 없습니다." << endl;
-            }
-
-            // 등급 매핑 함수 호출
-            string letterGrade = mapGradeToLetter(grade);
-
-            // 파일에 기록
-            file << studentID << "," << subjectID << ","
-                << fixed << setprecision(2) << score << "," << grade << ","
-                << letterGrade << "\n";
-        }
-    }
-
-    file.close();
-    cout << "student_records.csv 파일이 성공적으로 업데이트되었습니다." << endl;
-}
 
 vector<StudentRecord> loadStudentRecords(const string& filename) {
     vector<StudentRecord> studentRecords;
@@ -275,32 +292,30 @@ vector<StudentRecord> loadStudentRecords(const string& filename) {
 
     while (getline(file, line)) {
         stringstream ss(line);
-        string studentID, subjectID, score, grade, letterGrade;
+        string studentID, subjectID, score, grade, letterGrade, professorID;
 
         getline(ss, studentID, ',');
         getline(ss, subjectID, ',');
         getline(ss, score, ',');
         getline(ss, grade, ',');
         getline(ss, letterGrade, ',');
+        getline(ss, professorID);
 
         try {
             int sid = stoi(studentID);     // 학생 ID
             int subid = stoi(subjectID);   // 과목 ID
-            double scr = stod(score);      // 점수 (CSV에서 가져옴)
-            double grd = stod(grade);      // 등급
-            string letter = letterGrade.empty() ? "F" : letterGrade; // 문자 등급
+            double scr = stod(score);      // 점수
+            double grd = stod(grade);      // 평점
+            string letter = letterGrade.empty() ? "F" : letterGrade; // 문자 성적
+            string profID = professorID;   // 교수 ID
 
-            // 학생 기록 객체 생성 및 추가
-            StudentRecord record(sid, subid, scr,letter,grd);  // 점수를 CSV에서 가져온 값으로 설정
-			record.setScore(scr);				   // 점수 설정
-            record.setGrade(grd);                   // 등급 설정
-            record.setLetterGrade(letter);          // 문자 등급 설정
-            studentRecords.push_back(record);       // 학생 기록 추가
-        }
-        catch (const invalid_argument& e) {
+            // StudentRecord 객체 생성 및 벡터에 추가
+            StudentRecord record(sid, subid, scr, grd, letter, profID);
+            studentRecords.push_back(record);
+
+        } catch (const invalid_argument& e) {
             cerr << "유효하지 않은 데이터 형식 (행: " << line << "): " << e.what() << endl;
-        }
-        catch (const out_of_range& e) {
+        } catch (const out_of_range& e) {
             cerr << "값이 범위를 초과했습니다 (행: " << line << "): " << e.what() << endl;
         }
     }

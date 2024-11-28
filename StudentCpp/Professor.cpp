@@ -177,22 +177,19 @@ void Professor::loadTeachingSubjects(const vector<Subject>& allSubjects) {
     }
 }
 
-// 성적 부여 함수
+// 학생 점수 입력 함수
 void Professor::inputStudentScores(vector<Student*>& students, Subject& subject) {
-
     while (true) {
-        cout << "\n성적을 부여할 학생의 ID를 입력하세요 (종료하려면 0 입력):";
+        cout << "\n점수를 입력할 학생의 ID를 입력하세요 (종료하려면 0 입력): ";
         int studentIDInput;
         cin >> studentIDInput;
-
         if (studentIDInput == 0) {
             break;
         }
 
-        // Find the student by ID
+        // 학생 ID로 학생 찾기
         auto it = find_if(students.begin(), students.end(),
             [studentIDInput](Student* s) { return s->getStudentID() == studentIDInput; });
-
         if (it != students.end()) {
             Student* student = *it;
             double score;
@@ -200,24 +197,24 @@ void Professor::inputStudentScores(vector<Student*>& students, Subject& subject)
             while (true) {
                 cin >> score;
                 if (cin.fail() || score < 0.0 || score > 100.0) {
-                    cin.clear(); // Clear input error flag
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+                    cin.clear(); // 입력 오류 플래그 초기화
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 잘못된 입력 무시
                     cout << "잘못된 입력입니다. 0에서 100 사이의 점수를 입력하세요: ";
-                }
-                else {
+                } else {
                     break;
                 }
             }
+
+            // 점수 설정
             student->setScores(subject.getID(), score);
-            cout << "점수가 " << student->getName() << "에게 할당되었습니다.\n";
-            updateStudentRecordsCSV(students); // You can pass the entire list of students here
+            cout << "점수가 " << student->getName() << "에게 성공적으로 입력되었습니다.\n";
 
-
+            // StudentRecord 업데이트
+            StudentRecord record(student->getStudentID(), subject.getID(), score, 0.0, "N/A", subject.getProfessorID());
+            updateStudentRecordsCSV({ record });
+        } else {
+            cout << "학생 ID를 찾을 수 없습니다. 다시 입력하세요.\n";
         }
-        else {
-            cout << "학생 ID를 찾을 수 없습니다. 다시 입력해주세요.\n";
-        }
-        cout << "-------------------------------------------------------------------------------------\n";
     }
 }
 
@@ -407,19 +404,6 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
         return;
     }
 
-    // 점수가 부여된 학생들만 추출
-    for (auto& student : students) {
-        auto gradeIt = student->getScores().find(subject.getID());
-        if (gradeIt != student->getScores().end() && gradeIt->second > 0.0) {
-            studentScores.emplace_back(make_pair(student, gradeIt->second));
-        }
-    }
-
-    if (studentScores.empty()) {
-        cout << "성적이 부여된 학생이 없습니다.\n";
-        return;
-    }
-
     // 점수 내림차순 정렬
     sort(studentScores.begin(), studentScores.end(),
         [](const pair<Student*, double>& a, const pair<Student*, double>& b) {
@@ -485,11 +469,11 @@ void Professor::assignGrades(vector<Student*>& students, Subject& subject) {
 
         student->setLetterGrade(subject.getID(), letterGrade);
         student->setGrades(subject.getID(), grade);
+
+        // StudentRecord 업데이트
+        StudentRecord record(student->getStudentID(), subject.getID(), score, grade, letterGrade, subject.getProfessorID());
+        updateStudentRecordsCSV({ record });
     }
 
-    // CSV 파일 업데이트를 위한 학생 목록 생성 (중복 선언 제거)
-    updateStudentRecordsCSV(students);
-
-    }
-
-  
+    cout << "성적이 성공적으로 부여되었습니다.\n";
+}

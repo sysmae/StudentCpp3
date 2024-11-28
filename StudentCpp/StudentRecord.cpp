@@ -1,49 +1,49 @@
-// StudentRecord.cpp
 #include "StudentRecord.h"
 #include <stdexcept>
 #include <string>
 
+
 // 기본 생성자
 StudentRecord::StudentRecord()
-    : studentID(0), subjectID(0), score(0.0), letterGrade(""), grade(0.0) {}
+    : studentID(0), subjectID(0), score(0.0), grade(0.0), letterGrade("F"), professorID("") {}
 
 // 전체 생성자
-StudentRecord::StudentRecord(int sid, int subid, double sc, string lg, double grade)
-    : studentID(sid), subjectID(subid), letterGrade(lg){
-    setScore(sc);
-    setGrade(grade);
+StudentRecord::StudentRecord(int sid, int subid, double sc, double gr, string lg, string pid) 
+    : studentID(sid), subjectID(subid), score(0.0), grade(0.0), letterGrade(lg), professorID(pid) {
+    setScore(sc);  // 범위 검사 포함
+    setGrade(gr);  // 범위 검사 포함
 }
 
-// 학생 ID 가져오기
+// 학생 ID getter/setter
 int StudentRecord::getStudentID() const { return studentID; }
+void StudentRecord::setStudentID(int sid) { studentID = sid; }
 
-// 성적 가져오기 (점수)
+// 과목 ID getter/setter
+int StudentRecord::getSubjectID() const { return subjectID; }
+void StudentRecord::setSubjectID(int subid) { subjectID = subid; }
+
+// 성적 (점수) getter/setter
 double StudentRecord::getScore() const { return score; }
-
-// 성적 설정하기 (0.0에서 100.0 사이로 제한)
 void StudentRecord::setScore(double sc) {
     if (sc < 0.0 || sc > 100.0) {
-        throw std::invalid_argument("Score must be between 0.0 and 100.0");
+        throw invalid_argument("Score must be between 0.0 and 100.0");
     }
     score = sc;
 }
 
-// 문자 성적 가져오기
-string StudentRecord::getLetterGrade() const { return letterGrade; }
-
-// 문자 성적 설정하기
-void StudentRecord::setLetterGrade(const string& lg) { letterGrade = lg; }
-
-// 평점 가져오기
+// 평점 getter/setter
 double StudentRecord::getGrade() const { return grade; }
-
-// 평점 설정하기
-void StudentRecord::setGrade(double g) {
-    if (g < 0.0 || g > 4.5) {
-        throw std::invalid_argument("Grade must be between 0.0 and 4.5");
+void StudentRecord::setGrade(double gr) {
+    if (gr < 0.0 || gr > 4.5) {
+        throw invalid_argument("Grade must be between 0.0 and 4.5");
     }
-    grade = g;
+    grade = gr;
 }
 
-// 과목 ID 가져오기
-int StudentRecord::getSubjectID() const { return subjectID; }
+// 문자 성적 getter/setter
+string StudentRecord::getLetterGrade() const { return letterGrade; }
+void StudentRecord::setLetterGrade(const string& lg) { letterGrade = lg; }
+
+// 교수 ID getter/setter
+string StudentRecord::getProfessorID() const { return professorID; }
+void StudentRecord::setProfessorID(const string& pid) { professorID = pid; }
