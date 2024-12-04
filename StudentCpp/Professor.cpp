@@ -119,47 +119,62 @@ void Professor::viewAllPreviousSubjects(int year, int term) const {
         maxNameLength = max(maxNameLength, subject.getName().length() + 2);
     }
 
-    // 표 헤더 출력
-    printSubjectHeader(maxNameLength);
+    // 과목들을 연도와 학기별로 그룹화하기 위한 자료구조
+    map<int, map<int, vector<Subject>>> yearTermSubjects;
 
-    bool hasSubjects = false;
-    int prevYear = -1;   // 이전 연도 저장 변수
-    int prevTerm = -1;   // 이전 학기 저장 변수
-
-    // 모든 이전 학기 과목 출력 (연도 및 학기 역순으로 반복)
-    for (int y = year; y >= 0; --y) {
-        // 현재 연도에 출력할 학기가 있는지 추적
-        bool yearHasSubjects = false;
-
-        for (int t = (y == year ? term - 1 : 2); t > 0; --t) {
-            if (printSubjectsByTerm(y, t, false)) {
-                hasSubjects = true;
-                yearHasSubjects = true;
-
-
-                if (y != prevYear) {
-                    if (prevYear != -1) {
-                        cout << "-------------------------------------------------------------------------------------\n";
-                    }
-                    prevYear = y;
-                    prevTerm = t;
-                }
-                else if (t != prevTerm) {
-                    cout << "=====================================================================================\n";
-                    cout << "=====================================================================================\n";
-
-                    prevTerm = t;
-                }
-            }
+    // 과목들을 연도와 학기별로 그룹화
+    for (const auto& subject : subjects) {
+        // 지난 학기 과목만 포함
+        if (subject.getYear() < year || (subject.getYear() == year && subject.getTerm() < term)) {
+            yearTermSubjects[subject.getYear()][subject.getTerm()].push_back(subject);
         }
     }
 
-    // 전체적으로 출력할 과목이 없을 경우 메시지 출력
-    if (!hasSubjects) {
+    // 과목이 있는지 확인
+    if (yearTermSubjects.empty()) {
         cout << "이전 학기에 해당하는 과목이 없습니다.\n";
+        return;
     }
-}
 
+    // 표 헤더 출력 (한번만)
+    printSubjectHeader(maxNameLength);
+
+    int prevYear = -1;
+    int prevTerm = -1;
+
+    // 가장 최근 연도부터 출력하기 위해 역순으로 순회
+    for (auto y_it = yearTermSubjects.rbegin(); y_it != yearTermSubjects.rend(); ++y_it) {
+        int y = y_it->first;
+        auto& termSubjects = y_it->second;
+
+        // 각 연도 내에서 학기를 역순으로 순회 (최근 학기부터)
+        for (auto t_it = termSubjects.rbegin(); t_it != termSubjects.rend(); ++t_it) {
+            int t = t_it->first;
+            auto& subjectsInTerm = t_it->second;
+
+            // 연도가 바뀌면 줄바꿈 출력
+            if (prevYear != -1 && y != prevYear) {
+                cout << "\n";
+            }
+
+
+            // 이전 연도와 학기 업데이트
+            prevYear = y;
+            prevTerm = t;
+
+            // 과목 출력
+            for (const auto& subject : subjectsInTerm) {
+                cout << setw(15) << subject.getID()
+                    << setw(maxNameLength) << subject.getName()
+                    << setw(13) << subject.getType()
+                    << setw(6) << subject.getCredit()
+                    << setw(10) << subject.getYear()
+                    << setw(10) << subject.getTerm()
+                    << "\n";
+            }
+        }
+    }cout << "\n";
+}
 
 
 
